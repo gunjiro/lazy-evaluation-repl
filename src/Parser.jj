@@ -1,0 +1,203 @@
+options {
+    STATIC = false;
+}
+
+PARSER_BEGIN(Parser)
+import java.util.*;
+
+public class Parser {
+}
+PARSER_END(Parser)
+
+SKIP : {
+    <" " | "\t" | "\r\n" | "\r" | "\n" | "\f">
+}
+
+TOKEN : {
+    <WHERE : "where"> |
+    <IF : "if"> |
+    <THEN : "then"> |
+    <ELSE : "else"> |
+    <LET : "let"> |
+    <IN : "in"> |
+    <BACKSLASH : "\\"> |
+    <RARROW : "->"> |
+    <SEMICOLON : ";"> |
+    <LPAR : "("> |
+    <RPAR : ")"> |
+    <LBRACE : "{"> |
+    <RBRACE : "}"> |
+    <LBRACKET : "["> |
+    <RBRACKET : "]"> |
+    <AND : "&&"> |
+    <OR : "||"> |
+    <DOUBLE_EQUAL : "=="> |
+    <SLASH_EQUAL : "/="> |
+    <LANGLE_EQUAL : "<="> |
+    <RANGLE_EQUAL : ">="> |
+    <LANGLE : "<"> |
+    <RANGLE : ">"> |
+    <EQUAL : "="> |
+    <PLUS : "+"> |
+    <MINUS : "-"> |
+    <ASTERISK : "*"> |
+    <SLASH : "/"> |
+    <COLON : ":"> |
+    <INT : (["0"-"9"])+> |
+    <ID : ["a"-"z"](["0"-"9","a"-"z","A"-"Z"])*> |
+    <ERR : ~[]>
+}
+
+DeclsNode loadfile() : {DeclsNode ds;} {
+    ds = program() <EOF>
+    {return ds;}
+}
+
+ExpNode input() : {ExpNode e = null;} {
+    (e = input_decl())? <EOF>
+    {return e;}
+}
+
+ExpNode input_decl() : {ExpNode e; DeclsNode ds;} {
+    e = exp()
+    (<WHERE> ds = decls() {e = new LetNode(ds, e);})?
+    {return e;}
+}
+
+DeclsNode program() : {DeclsNode ds = new DeclsNode(); DefineNode d;}
+{
+    d = decl() {ds.add(d);} (<SEMICOLON> d = decl() {ds.add(d);})*
+    {return ds;}
+}
+
+DeclsNode decls() : {DeclsNode ds = new DeclsNode(); DefineNode d;}
+{
+    <LBRACE>
+    d = decl() {ds.add(d);} (<SEMICOLON> d = decl() {ds.add(d);})*
+    <RBRACE>
+    {return ds;}
+}
+
+DefineNode decl() : {DefineNode d = null; String name; String argName; List<String> args = new LinkedList<String>(); ExpNode e; DeclsNode ds; Token t;}
+{
+    (   t = <ID> {name = t.image;}
+        (argName = apat() {args.add(argName);})*
+        <EQUAL>
+        e = exp()
+        (<WHERE> ds = decls() {e = new LetNode(ds, e);})?
+        {d = new DefineNode(name, args, e);}
+    )?
+    {return d;}
+}
+
+ExpNode exp() : {ExpNode e;}
+{
+    e = exp2()
+    {return e;}
+}
+
+ExpNode exp2() : {ExpNode e, right; Token token;}
+{
+    e = exp3()
+    (LOOKAHEAD(2)
+        token = <OR>
+        right = exp2() {e = new BinOpNode(token.image, e, right);}
+    )?
+    {return e;}
+}
+
+ExpNode exp3() : {ExpNode e, right; Token token;}
+{
+    e = exp4()
+    (LOOKAHEAD(2)
+        token = <AND>
+        right = exp3() {e = new BinOpNode(token.image, e, right);}
+    )?
+    {return e;}
+}
+
+ExpNode exp4() : {ExpNode e, right; Token t;}
+{
+    e = exp5()
+    (LOOKAHEAD(2)
+        (t = <DOUBLE_EQUAL> | t = <SLASH_EQUAL> | t = <LANGLE_EQUAL> | t = <RANGLE_EQUAL> | t = <LANGLE> | t = <RANGLE>)
+        right = exp5() {e = new BinOpNode(t.image, e, right);}
+    )?
+    {return e;}
+}
+
+ExpNode exp5() : {ExpNode e, right; Token t;}
+{
+    e = exp6()
+    (LOOKAHEAD(2) 
+        t = <COLON> right = exp5() {e = new BinOpNode(t.image, e, right);}
+    )?
+    {return e;}
+}
+
+ExpNode exp6() : {ExpNode e, right; Token t;}
+{
+    (   e = exp7()
+        (LOOKAHEAD(2)
+            (t = <PLUS> | t = <MINUS>)
+            right = exp7() {e = new BinOpNode(t.image, e, right);}
+        )*
+    |   t = <MINUS> e = exp7() {e = new UnaryOpNode(t.image, e);}
+    )
+    {return e;}
+}
+
+ExpNode exp7() : {ExpNode e, right; Token t;}
+{
+    e = exp10()
+    (LOOKAHEAD(2)
+        (t = <ASTERISK> | t = <SLASH>)
+        right = exp10() {e = new BinOpNode(t.image, e, right);}
+    )*
+    {return e;}
+}
+
+ExpNode exp10() : {ExpNode e1; ExpNode e2; ExpNode e3; DeclsNode ds; String argName; List<String> args = new LinkedList<String>();}
+{
+    (   <IF> e1 = exp() <THEN> e2 = exp() <ELSE> e3 = exp()
+        {e1 = new IfNode(e1, e2, e3);}
+    |   <LET> ds = decls() <IN> e1 = exp()
+        {e1 = new LetNode(ds, e1);}
+    |   <BACKSLASH> (argName = apat() {args.add(argName);})+ <RARROW> e1 = exp()
+        {ds = new DeclsNode();
+         ds.add(new DefineNode("\\", args, e1));
+         e1 = new LetNode(ds, new VarNode("\\"));}
+    |   e1 = fexp()
+    )
+    {return e1;}
+}
+
+ExpNode fexp() : {ExpNode e, arg;}
+{
+    e = aexp()
+    (arg = aexp() {e = new ApplyNode(e, arg);})*
+    {return e;}
+}
+
+String apat() : {Token token;}
+{
+    token = <ID>
+    {return token.image;}
+}
+
+ExpNode aexp() : {ExpNode e; Token t;}
+{
+    ( e = gcon()
+    | t = <INT>
+        {e = new IntNode(Integer.parseInt(t.image));}
+    | t = <ID>
+        {e = new VarNode(t.image);}
+    | <LPAR> e = exp() <RPAR>
+    )
+    {return e;}
+}
+
+ExpNode gcon() : {ExpNode e;} {
+    <LBRACKET> <RBRACKET> {e = new EmptyListNode();}
+    {return e;}
+}
