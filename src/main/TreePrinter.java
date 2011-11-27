@@ -30,10 +30,10 @@ class TreePrinter {
         list.removeLast();
     }
     private static class BranchChar {
-        private static final char T = 'Ñ•';
-        private static final char L = 'Ñ§';
-        private static final char BAR = 'Åb';
-        private static final char SPACE = 'Å@';
+        private static final char T = '‚îú';
+        private static final char L = '‚îî';
+        private static final char BAR = 'ÔΩú';
+        private static final char SPACE = '„ÄÄ';
         private char character;
         private BranchChar(char c) {
             character = c;

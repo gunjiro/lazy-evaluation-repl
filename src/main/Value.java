@@ -10,11 +10,11 @@ abstract class ListValue implements Value {
     public static final ListValue EMPTY = new EmptyListValue();
     @Override
     public Value apply(Thunk arg) throws ApplyException {
-        throw new ApplyException("ƒŠƒXƒg‚Éˆø”‚ğ—^‚¦‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
+        throw new ApplyException("ãƒªã‚¹ãƒˆã«å¼•æ•°ã‚’ä¸ãˆã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚");
     }
     @Override
     public IntValue toIntValue() throws IntOperationException {
-        throw new IntOperationException("ƒŠƒXƒg‚Í®”‚É•ÏŠ·o—ˆ‚Ü‚¹‚ñB");
+        throw new IntOperationException("ãƒªã‚¹ãƒˆã¯æ•´æ•°ã«å¤‰æ›å‡ºæ¥ã¾ã›ã‚“ã€‚");
     }
     @Override
     public ListValue toListValue() {
@@ -28,11 +28,11 @@ abstract class ListValue implements Value {
         }
         @Override
         public Value getHead() throws ListOperationException {
-            throw new ListOperationException("head: ‹óƒŠƒXƒg‚Å‚·B");
+            throw new ListOperationException("head: ç©ºãƒªã‚¹ãƒˆã§ã™ã€‚");
         }
         @Override
         public ListValue getTail() throws ListOperationException {
-            throw new ListOperationException("tail: ‹óƒŠƒXƒg‚Å‚·B");
+            throw new ListOperationException("tail: ç©ºãƒªã‚¹ãƒˆã§ã™ã€‚");
         }
     }
 }
@@ -67,18 +67,18 @@ class IntValue implements Value {
     }
     @Override
     public Value apply(Thunk arg) throws ApplyException {
-        throw new ApplyException("®”‚Éˆø”‚ğ—^‚¦‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
+        throw new ApplyException("æ•´æ•°ã«å¼•æ•°ã‚’ä¸ãˆã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚");
     }
     public boolean isTrue() {
         return (value != 0) ? true : false;
     }
     @Override
     public Value getHead() throws ListOperationException {
-        throw new ListOperationException("®”‚©‚çhead‚ğæ‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
+        throw new ListOperationException("æ•´æ•°ã‹ã‚‰headã‚’å–ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚");
     }
     @Override
     public ListValue getTail() throws ListOperationException {
-        throw new ListOperationException("®”‚©‚çtail‚ğæ‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
+        throw new ListOperationException("æ•´æ•°ã‹ã‚‰tailã‚’å–ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚");
     }
     @Override
     public IntValue toIntValue() {
@@ -86,7 +86,7 @@ class IntValue implements Value {
     }
     @Override
     public ListValue toListValue() throws ListOperationException {
-        throw new ListOperationException("®”‚ÍƒŠƒXƒg‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñB");
+        throw new ListOperationException("æ•´æ•°ã¯ãƒªã‚¹ãƒˆã«å¤‰æ›ã§ãã¾ã›ã‚“ã€‚");
     }
     public int getValue() {
         return value;
@@ -112,19 +112,19 @@ abstract class CurryFunction implements Value {
     }
     @Override
     public Value getHead() throws ListOperationException {
-        throw new ListOperationException("ŠÖ”‚©‚çhead‚ğæ‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
+        throw new ListOperationException("é–¢æ•°ã‹ã‚‰headã‚’å–ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚");
     }
     @Override
     public ListValue getTail() throws ListOperationException {
-        throw new ListOperationException("ŠÖ”‚©‚çtail‚ğæ‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
+        throw new ListOperationException("é–¢æ•°ã‹ã‚‰tailã‚’å–ã‚‹ã“ã¨ã¯ã§ãã¾ã›ã‚“ã€‚");
     }
     @Override
     public IntValue toIntValue() throws IntOperationException {
-        throw new IntOperationException("ˆø”‚ğæ‚éŠÖ”‚Í®”‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñB");
+        throw new IntOperationException("å¼•æ•°ã‚’å–ã‚‹é–¢æ•°ã¯æ•´æ•°ã«å¤‰æ›ã§ãã¾ã›ã‚“ã€‚");
     }
     @Override
     public ListValue toListValue() throws ListOperationException {
-        throw new ListOperationException("ˆø”‚ğæ‚éŠÖ”‚ÍƒŠƒXƒg‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñB");
+        throw new ListOperationException("å¼•æ•°ã‚’å–ã‚‹é–¢æ•°ã¯ãƒªã‚¹ãƒˆã«å¤‰æ›ã§ãã¾ã›ã‚“ã€‚");
     }
     protected int getArgNum() {
         return argNum;

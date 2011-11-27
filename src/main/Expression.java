@@ -263,7 +263,7 @@ abstract class CompareOperator extends BinaryOperator {
             return order(left.toListValue(), right.toListValue());
         }
         else {
-            throw new EvaluationException("ˆø”‚ğæ‚éŠÖ”‚Í”äŠr‚Å‚«‚Ü‚¹‚ñB");
+            throw new EvaluationException("å¼•æ•°ã‚’å–ã‚‹é–¢æ•°ã¯æ¯”è¼ƒã§ãã¾ã›ã‚“ã€‚");
         }
     }
     private Order order(IntValue left, IntValue right) {
@@ -489,7 +489,7 @@ class VarExp implements Expression {
         level = l;
         index = i;
     }
-    // ƒŠƒ“ƒN‚ğ’H‚é‰ñ”
+    // ãƒªãƒ³ã‚¯ã‚’è¾¿ã‚‹å›æ•°
     int getLevel() {
         return level;
     }

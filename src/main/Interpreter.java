@@ -7,7 +7,7 @@ class Interpreter {
     Interpreter() {
         console = System.console();
         if (console == null) {
-            throw new InternalError("ƒRƒ“ƒ\[ƒ‹‚ªæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B");
+            throw new InternalError("ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ãŒå–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚");
         }
         factory = new RequestFactory(new DefaultEnvironment());
     }

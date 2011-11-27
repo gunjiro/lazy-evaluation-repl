@@ -148,7 +148,7 @@ class Environment {
             String name = node.getName();
             VarSymbolTable.Property p = table.get(name);
             if (p == null) {
-                throw new IllegalExpressionException("éŒ¾‚³‚ê‚Ä‚¢‚È‚¢¯•Êq: \"" + name +"\"");
+                throw new IllegalExpressionException("å®£è¨€ã•ã‚Œã¦ã„ãªã„è­˜åˆ¥å­: \"" + name +"\"");
             }
             return new VarExp(p.getLevel(table.getDepth()), p.getIndex());
         }
@@ -164,7 +164,7 @@ class Environment {
                 return new TailExp(node.getBodyNode().accept(this));
             }
             else {
-                throw new IllegalExpressionException("”F¯‚Å‚«‚È‚¢‰‰Zq: \"" + op + "\"");
+                throw new IllegalExpressionException("èªè­˜ã§ããªã„æ¼”ç®—å­: \"" + op + "\"");
             }
         }
         @Override public Expression visit(BinOpNode node) throws IllegalExpressionException {
@@ -212,7 +212,7 @@ class Environment {
                 return new OrExp(node.getLeft().accept(this), node.getRight().accept(this));
             }
             else {
-                throw new IllegalExpressionException("”F¯‚Å‚«‚È‚¢‰‰Zq: \"" + op + "\"");
+                throw new IllegalExpressionException("èªè­˜ã§ããªã„æ¼”ç®—å­: \"" + op + "\"");
             }
         }
         @Override public Expression visit(IntNode node) throws IllegalExpressionException {
@@ -242,7 +242,7 @@ class VarSymbolTable extends SymbolTable<VarSymbolTable.Property> {
             depth = d;
             index = i;
         }
-        // ƒŠƒ“ƒN‚ğ’H‚é‰ñ”
+        // ãƒªãƒ³ã‚¯ã‚’è¾¿ã‚‹å›æ•°
         int getLevel(int currentDepth) {
             return currentDepth - depth;
         }
