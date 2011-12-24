@@ -1,8 +1,8 @@
 require "rake/clean"
 
 JAR_FILE = "inter.jar"
-CLASS_DIR = "class/main"
-SRC_DIR = "src/main"
+CLASS_DIR = "class"
+SRC_DIR = "src"
 PARSER = "parser/Parser.jj"
 PARSER_JAVA = "#{SRC_DIR}/Parser.java"
 SRCS = FileList["#{SRC_DIR}/**/*.java"]
