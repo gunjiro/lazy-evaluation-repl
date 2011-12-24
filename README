@@ -1,1 +1,56 @@
-リファクタリングしたい
+<WHERE> := "where"
+<IF> := "if"
+<THEN> := "then"
+<ELSE> := "else"
+<LET> := "let"
+<IN> := "in"
+<BACKSLASH> := "\"
+<RARROW> := "->"
+<SEMICOLON> := ";"
+<LPAR> := "("
+<RPAR> := ")"
+<LBRACE> := "{"
+<RBRACE> := "}"
+<LBRACKET> := "["
+<RBRACKET> := "]"
+<AND> := "&&"
+<OR> := "||"
+<DOUBLE_EQUAL> := "=="
+<SLASH_EQUAL> := "/="
+<LANGLE_EQUAL> := "<="
+<RANGLE_EQUAL> := ">="
+<LANGLE> := "<"
+<RANGLE> := ">"
+<EQUAL> := "="
+<PLUS> := "+"
+<MINUS> := "-"
+<ASTERISK> := "*"
+<SLASH> := "/"
+<COLON> := ":"
+<INT> := [0-9]+
+<ID> := [a-z][0-9a-zA-Z]+
+
+program := decl {<SEMICOLON> decl}
+input := exp [<WHERE> decls]
+decls := <LBRACE> decl {<SEMICOLON> decl} <RBRACE>
+decl := <ID> {apat} <EQUAL> exp [<WHERE> decls]         // define
+      |                                                 // empty
+exp := exp2
+exp2 := exp3 [<OR> exp2]
+exp3 := exp4 [<AND> exp3]
+exp4 := exp5 [(<DOUBLE_EQUAL> | <SLASH_EQUAL> | <LANGLE_EQUAL> | <RANGLE_EQUAL> | <LANGLE> | <RANGLE>) exp5]
+exp5 := exp6 [<COLON> exp5]
+exp6 := [exp6 (<PLUS> | <MINUS>)] exp7
+      | <MINUS> exp7
+exp7 := [exp7 (<ASTERISK> | <SLASH>)] exp10
+exp10 := <IF> exp <THEN> exp <ELSE> exp
+       | <LET> decls <IN> exp
+       | <BACKSLASH> apat {apat} <RARROW> exp
+       | fexp
+fexp := aexp {aexp}
+apat := <ID>
+aexp := gcon
+      | <INT>
+      | <ID>
+      | <LPAR> exp <RPAR>
+gcon := <LBRACKET> <RBRACKET>
