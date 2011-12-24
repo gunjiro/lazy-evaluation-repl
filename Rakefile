@@ -16,6 +16,10 @@ CLOBBER.include JAR_FILE
 
 task :default => JAR_FILE
 
+task :run => JAR_FILE do |t|
+    sh "java -jar #{t.prerequisites[0]}"
+end
+
 file JAR_FILE => [CLASS_DIR, PARSER_JAVA, ENTRY_CLASS] do |t|
     sh "jar -cfe #{t.name} #{ENTRY_POINT} -C #{CLASS_DIR} ."
 end
