@@ -7,6 +7,7 @@
 
 plugins {
     id 'java'
+    id 'java-library'
     id 'application'
     id 'com.intershop.gradle.javacc' version '3.0.3'
 }
@@ -17,6 +18,12 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }
 
 mainClassName = 'Main'
