@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 }
 
 java {
