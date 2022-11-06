@@ -2,15 +2,14 @@ import java.io.*;
 import java.util.*;
 
 class Interpreter {
-    private final Console console;
     private final RequestFactory factory;
-    Interpreter() {
-        console = System.console();
-        if (console == null) {
-            throw new InternalError("コンソールが取得できませんでした。");
-        }
-        factory = new RequestFactory(new DefaultEnvironment());
+    private final InputReceiver receiver;
+
+    Interpreter(InputReceiver receiver) {
+        this.factory = new RequestFactory(new DefaultEnvironment());
+        this.receiver = receiver;
     }
+
     void execute() {
         try {
             loopInteraction();
@@ -19,14 +18,34 @@ class Interpreter {
             System.out.println("Bye.");
         }
     }
+
     private void loopInteraction() throws ExitException {
         while (true) {
-            String input = console.readLine("> ");
-            if (input == null) {
-                input = "";
-            }
+            String input = receiver.receive();
             Request request = factory.createRequest(input);
             request.send();
+        }
+    }
+
+    public static Interpreter create() {
+        return new Interpreter(SystemInInputReceiver.create());
+    }
+
+    private static class SystemInInputReceiver implements InputReceiver {
+        private final LineReader reader;
+
+        private SystemInInputReceiver(LineReader reader) {
+            this.reader = reader;
+        }
+
+        @Override
+        public String receive() {
+            System.out.print("> ");
+            return reader.read(new BufferedReader(new InputStreamReader(System.in)));
+        }
+
+        private static InputReceiver create() {
+            return new SystemInInputReceiver(new LineReader());
         }
     }
 }
