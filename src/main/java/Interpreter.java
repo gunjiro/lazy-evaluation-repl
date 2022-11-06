@@ -2,22 +2,10 @@ import java.io.*;
 import java.util.*;
 
 class Interpreter {
-    private final Console console;
     private final RequestFactory factory;
-
     private final InputReceiver receiver;
 
-    Interpreter() {
-        console = System.console();
-        if (console == null) {
-            throw new InternalError("コンソールが取得できませんでした。");
-        }
-        factory = new RequestFactory(new DefaultEnvironment());
-        receiver = null;
-    }
-
     Interpreter(InputReceiver receiver) {
-        this.console = null;
         this.factory = new RequestFactory(new DefaultEnvironment());
         this.receiver = receiver;
     }
@@ -33,7 +21,7 @@ class Interpreter {
 
     private void loopInteraction() throws ExitException {
         while (true) {
-            String input = (receiver != null) ? receiver.receive() : console.readLine("> ");
+            String input = receiver.receive();
             if (input == null) {
                 input = "";
             }
