@@ -1,5 +1,5 @@
 class Main {
     public static void main(String[] args) {
-        new Interpreter().execute();
+        Interpreter.create().execute();
     }
 }
