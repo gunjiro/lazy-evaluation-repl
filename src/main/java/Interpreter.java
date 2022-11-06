@@ -22,9 +22,6 @@ class Interpreter {
     private void loopInteraction() throws ExitException {
         while (true) {
             String input = receiver.receive();
-            if (input == null) {
-                input = "";
-            }
             Request request = factory.createRequest(input);
             request.send();
         }
