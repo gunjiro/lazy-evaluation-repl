@@ -30,6 +30,7 @@ class Interpreter {
             System.out.println("Bye.");
         }
     }
+
     private void loopInteraction() throws ExitException {
         while (true) {
             String input = (receiver != null) ? receiver.receive() : console.readLine("> ");
@@ -38,6 +39,28 @@ class Interpreter {
             }
             Request request = factory.createRequest(input);
             request.send();
+        }
+    }
+
+    public static Interpreter create() {
+        return new Interpreter(SystemInInputReceiver.create());
+    }
+
+    private static class SystemInInputReceiver implements InputReceiver {
+        private final LineReader reader;
+
+        private SystemInInputReceiver(LineReader reader) {
+            this.reader = reader;
+        }
+
+        @Override
+        public String receive() {
+            System.out.print("> ");
+            return reader.read(new BufferedReader(new InputStreamReader(System.in)));
+        }
+
+        private static InputReceiver create() {
+            return new SystemInInputReceiver(new LineReader());
         }
     }
 }
