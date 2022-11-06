@@ -59,8 +59,8 @@ class HeadTailListValue extends ListValue {
 }
 
 class IntValue implements Value {
-    public static final IntValue TRUE = new IntValue(new Integer(1));
-    public static final IntValue FALSE = new IntValue(new Integer(0));
+    public static final IntValue TRUE = new IntValue(1);
+    public static final IntValue FALSE = new IntValue(0);
     private final int value;
     IntValue(int val) {
         value = val;
