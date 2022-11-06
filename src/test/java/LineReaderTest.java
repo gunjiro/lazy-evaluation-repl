@@ -19,4 +19,18 @@ public class LineReaderTest {
 
         reader.read(br);
     }
+
+    // readLineでnullが返されたら、IOErrorを投げる
+    @Test(expected = IOError.class)
+    public void readShouldThrowIOErrorWhenReadLineReturnsNull() {
+        final BufferedReader br = new BufferedReader(new StringReader("")) {
+            @Override
+            public String readLine() throws IOException {
+                return null;
+            }
+        };
+        final LineReader reader = new LineReader();
+
+        reader.read(br);
+    }
 }
