@@ -10,7 +10,11 @@ public class InterpreterTest {
                 return ":q";
             }
         };
-        final Interpreter interpreter = new Interpreter(receiver);
+        final Interpreter interpreter = new Interpreter(receiver, new MessagePrinter() {
+            @Override
+            public void printMessage(String message) {
+            }
+        });
 
         interpreter.execute();
     }

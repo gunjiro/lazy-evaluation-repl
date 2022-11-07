@@ -4,10 +4,16 @@ import java.util.*;
 class Interpreter {
     private final RequestFactory factory;
     private final InputReceiver receiver;
+    private final MessagePrinter printer;
 
-    Interpreter(InputReceiver receiver) {
+    Interpreter(InputReceiver receiver, MessagePrinter printer) {
         this.factory = new RequestFactory(new DefaultEnvironment());
         this.receiver = receiver;
+        this.printer = printer;
+    }
+
+    public static Interpreter create() {
+        return new Interpreter(SystemInInputReceiver.create(), new MessagePrinter());
     }
 
     void execute() {
@@ -15,7 +21,7 @@ class Interpreter {
             loopInteraction();
         }
         catch (ExitException e) {
-            System.out.println("Bye.");
+            printer.printMessage("Bye.");
         }
     }
 
@@ -27,10 +33,6 @@ class Interpreter {
         }
     }
 
-    public static Interpreter create() {
-        return new Interpreter(SystemInInputReceiver.create());
-    }
-
     private static class SystemInInputReceiver implements InputReceiver {
         private final LineReader reader;
 
@@ -38,14 +40,18 @@ class Interpreter {
             this.reader = reader;
         }
 
+        private static InputReceiver create() {
+            return new SystemInInputReceiver(new LineReader());
+        }
+
         @Override
         public String receive() {
             System.out.print("> ");
-            return reader.read(new BufferedReader(new InputStreamReader(System.in)));
+            return reader.read(createBufferedReader());
         }
 
-        private static InputReceiver create() {
-            return new SystemInInputReceiver(new LineReader());
+        private BufferedReader createBufferedReader() {
+            return new BufferedReader(new InputStreamReader(System.in));
         }
     }
 }
