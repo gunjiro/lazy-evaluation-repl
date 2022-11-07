@@ -2,34 +2,21 @@ import java.io.*;
 import java.util.*;
 
 class Interpreter {
-    private final InputReceiver receiver;
+    private final IOLoop ioLoop;
     private final MessagePrinter printer;
-    private final Executer executer;
 
-    Interpreter(InputReceiver receiver, MessagePrinter printer, Executer executer) {
-        this.receiver = receiver;
+    Interpreter(IOLoop ioLoop, MessagePrinter printer) {
+        this.ioLoop = ioLoop;
         this.printer = printer;
-        this.executer = executer;
     }
 
     public static Interpreter create() {
-        return new Interpreter(SystemInInputReceiver.create(), new MessagePrinter(), AppExecuter.create());
+        return new Interpreter(new IOLoop(SystemInInputReceiver.create(), AppExecuter.create()), new MessagePrinter());
     }
 
     void execute() {
-        try {
-            loopInteraction();
-        }
-        catch (ExitException e) {
-            printer.printMessage("Bye.");
-        }
-    }
-
-    private void loopInteraction() throws ExitException {
-        while (true) {
-            String input = receiver.receive();
-            executer.execute(input);
-        }
+        ioLoop.loop();
+        printer.printMessage("Bye.");
     }
 }
 

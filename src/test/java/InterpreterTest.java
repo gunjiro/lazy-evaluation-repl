@@ -10,11 +10,11 @@ public class InterpreterTest {
                 return ":q";
             }
         };
-        final Interpreter interpreter = new Interpreter(receiver, new MessagePrinter() {
+        final Interpreter interpreter = new Interpreter(new IOLoop(receiver, AppExecuter.create()), new MessagePrinter() {
             @Override
             public void printMessage(String message) {
             }
-        }, AppExecuter.create());
+        });
 
         interpreter.execute();
     }
