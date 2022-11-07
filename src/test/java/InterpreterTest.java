@@ -14,7 +14,7 @@ public class InterpreterTest {
             @Override
             public void printMessage(String message) {
             }
-        });
+        }, AppExecuter.create());
 
         interpreter.execute();
     }
