@@ -10,6 +10,10 @@ class Interpreter {
         this.receiver = receiver;
     }
 
+    public static Interpreter create() {
+        return new Interpreter(SystemInInputReceiver.create());
+    }
+
     void execute() {
         try {
             loopInteraction();
@@ -27,10 +31,6 @@ class Interpreter {
         }
     }
 
-    public static Interpreter create() {
-        return new Interpreter(SystemInInputReceiver.create());
-    }
-
     private static class SystemInInputReceiver implements InputReceiver {
         private final LineReader reader;
 
@@ -38,14 +38,18 @@ class Interpreter {
             this.reader = reader;
         }
 
+        private static InputReceiver create() {
+            return new SystemInInputReceiver(new LineReader());
+        }
+
         @Override
         public String receive() {
             System.out.print("> ");
-            return reader.read(new BufferedReader(new InputStreamReader(System.in)));
+            return reader.read(createBufferedReader());
         }
 
-        private static InputReceiver create() {
-            return new SystemInInputReceiver(new LineReader());
+        private BufferedReader createBufferedReader() {
+            return new BufferedReader(new InputStreamReader(System.in));
         }
     }
 }
