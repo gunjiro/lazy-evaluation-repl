@@ -1,3 +1,3 @@
 public interface Executer {
-    public void execute(String input);
+    public void execute(String input) throws ExitException;
 }
