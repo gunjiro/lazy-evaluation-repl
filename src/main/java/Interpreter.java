@@ -32,28 +32,6 @@ class Interpreter {
             request.send();
         }
     }
-
-    private static class SystemInInputReceiver implements InputReceiver {
-        private final LineReader reader;
-
-        private SystemInInputReceiver(LineReader reader) {
-            this.reader = reader;
-        }
-
-        private static InputReceiver create() {
-            return new SystemInInputReceiver(new LineReader());
-        }
-
-        @Override
-        public String receive() {
-            System.out.print("> ");
-            return reader.read(createBufferedReader());
-        }
-
-        private BufferedReader createBufferedReader() {
-            return new BufferedReader(new InputStreamReader(System.in));
-        }
-    }
 }
 
 abstract class Request {
