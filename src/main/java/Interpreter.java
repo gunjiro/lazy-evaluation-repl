@@ -10,10 +10,6 @@ class Interpreter {
         this.printer = printer;
     }
 
-    public static Interpreter create() {
-        return new Interpreter(new IOLoop(SystemInInputReceiver.create(), AppExecuter.create()), new MessagePrinter());
-    }
-
     void execute() {
         ioLoop.loop();
         printer.printMessage("Bye.");
