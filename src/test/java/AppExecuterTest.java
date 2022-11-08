@@ -5,7 +5,7 @@ public class AppExecuterTest {
     @Test(expected = ExitException.class)
     public void executeShouldExitByQuitCommand() throws ExitException {
         final Request request = new CommandRequest(new DefaultEnvironment(), ":q");
-        final Executer executer = AppExecuter.create();
+        final Executer executer = new AppExecuter();
         executer.execute(request);
     }
 }
