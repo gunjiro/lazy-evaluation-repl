@@ -116,6 +116,11 @@ abstract class Command {
     abstract void execute(List<String> args) throws ExitException;
 }
 
+class EmptyCommand extends Command {
+    @Override void execute(List<String> args) throws ExitException {
+    }
+}
+
 class QuitCommand extends Command {
     QuitCommand() {
     }
