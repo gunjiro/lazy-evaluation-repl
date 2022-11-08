@@ -1,9 +1,9 @@
 class Main {
     public static void main(String[] args) {
-        createInterpreter().execute();
+        createApp().execute();
     }
 
-    private static Interpreter createInterpreter() {
-        return new Interpreter(new IOLoop(SystemInInputReceiver.create(), AppExecuter.create()), new MessagePrinter());
+    private static App createApp() {
+        return new App(new IOLoop(SystemInInputReceiver.create(), AppExecuter.create()), new MessagePrinter());
     }
 }
