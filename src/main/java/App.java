@@ -10,7 +10,7 @@ class App {
         this.printer = printer;
     }
 
-    void execute() {
+    void run() {
         ioLoop.loop();
         printer.printMessage("Bye.");
     }
