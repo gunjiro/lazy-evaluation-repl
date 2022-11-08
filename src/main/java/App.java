@@ -1,16 +1,16 @@
 import java.io.*;
 import java.util.*;
 
-class Interpreter {
+class App {
     private final IOLoop ioLoop;
     private final MessagePrinter printer;
 
-    Interpreter(IOLoop ioLoop, MessagePrinter printer) {
+    App(IOLoop ioLoop, MessagePrinter printer) {
         this.ioLoop = ioLoop;
         this.printer = printer;
     }
 
-    void execute() {
+    void run() {
         ioLoop.loop();
         printer.printMessage("Bye.");
     }

@@ -1,9 +1,13 @@
 class Main {
     public static void main(String[] args) {
-        createInterpreter().execute();
+        createApp().run();
     }
 
-    private static Interpreter createInterpreter() {
-        return new Interpreter(new IOLoop(SystemInInputReceiver.create(), AppExecuter.create()), new MessagePrinter());
+    private static App createApp() {
+        return factory().create();
+    }
+
+    private static AppFactory factory() {
+        return new AppFactory();
     }
 }
