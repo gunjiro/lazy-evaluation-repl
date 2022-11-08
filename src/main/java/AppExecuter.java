@@ -10,8 +10,7 @@ public class AppExecuter implements Executer {
     }
 
     @Override
-    public void execute(Environment environment, String input) throws ExitException {
-        Request request = factory.createRequest(environment, input);
+    public void execute(Request request) throws ExitException {
         request.send();
     }
 }
