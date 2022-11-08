@@ -1,9 +1,11 @@
 public class IOLoop {
     private final InputReceiver receiver;
+    private final RequestFactory factory;
     private final Executer executer;
 
-    public IOLoop(InputReceiver receiver, Executer executer) {
+    public IOLoop(InputReceiver receiver, RequestFactory factory, Executer executer) {
         this.receiver = receiver;
+        this.factory = factory;
         this.executer = executer;
     }
 
