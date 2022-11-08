@@ -4,6 +4,6 @@ public class AppFactory {
     }
 
     private IOLoop createIOLoop() {
-        return new IOLoop(SystemInInputReceiver.create(), new RequestFactory(), AppExecuter.create());
+        return new IOLoop(SystemInInputReceiver.create(), new RequestFactory(), new AppExecuter());
     }
 }
