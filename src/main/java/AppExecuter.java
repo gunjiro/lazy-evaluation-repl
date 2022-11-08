@@ -6,12 +6,12 @@ public class AppExecuter implements Executer {
     }
 
     public static Executer create() {
-        return new AppExecuter(new RequestFactory(new DefaultEnvironment()));
+        return new AppExecuter(new RequestFactory());
     }
 
     @Override
-    public void execute(String input) throws ExitException {
-        Request request = factory.createRequest(input);
+    public void execute(Environment environment, String input) throws ExitException {
+        Request request = factory.createRequest(environment, input);
         request.send();
     }
 }

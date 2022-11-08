@@ -9,9 +9,10 @@ public class IOLoop {
 
     public void loop() {
         try {
+            final Environment environment = new DefaultEnvironment();
             while (true) {
                 String input = receiver.receive();
-                executer.execute(input);
+                executer.execute(environment, input);
             }
         } catch (ExitException e) {
         }

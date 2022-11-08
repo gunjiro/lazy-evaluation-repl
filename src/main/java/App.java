@@ -21,37 +21,38 @@ abstract class Request {
 }
 
 class RequestFactory {
-    private final Environment environment;
-    RequestFactory(Environment env) {
-        environment = env;
-    }
-    Request createRequest(String input) {
+    public Request createRequest(Environment environment, String input) {
         final Request request;
         input = input.trim();
         if ("".equals(input)) {
             request = createEmptyRequest();
         }
         else if (input.charAt(0) == ':') {
-            request = createCommandRequest(input);
+            request = createCommandRequest(environment, input);
         }
         else {
-            request = createEvaluationRequest(input);
+            request = createEvaluationRequest(environment, input);
         }
         return request;
     }
+
     private Request createEmptyRequest() {
-        return new Request() {
-            @Override void send() {
-            }
-        };
+        return new EmptyRequest();
     }
-    private Request createCommandRequest(String input) {
+    private Request createCommandRequest(Environment environment, String input) {
         return new CommandRequest(environment, input);
     }
-    private Request createEvaluationRequest(String input) {
+    private Request createEvaluationRequest(Environment environment, String input) {
         return new EvaluationRequest(environment, input);
     }
 }
+
+class EmptyRequest extends Request {
+    @Override
+    void send() {
+    }
+}
+
 class CommandRequest extends Request{
     private final Environment environment;
     private final String input;
