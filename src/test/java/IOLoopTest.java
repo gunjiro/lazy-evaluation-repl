@@ -15,7 +15,7 @@ public class IOLoopTest {
             public String receive() {
                 return inputs.pop();
             }
-        }, AppExecuter.create());
+        }, new RequestFactory(), AppExecuter.create());
 
         ioLoop.loop();
 

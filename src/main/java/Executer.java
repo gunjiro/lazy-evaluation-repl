@@ -1,3 +1,3 @@
 public interface Executer {
-    public void execute(Environment environment, String input) throws ExitException;
+    public void execute(Request request) throws ExitException;
 }
