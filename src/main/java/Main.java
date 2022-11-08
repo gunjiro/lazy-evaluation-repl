@@ -4,6 +4,10 @@ class Main {
     }
 
     private static App createApp() {
-        return new App(new IOLoop(SystemInInputReceiver.create(), AppExecuter.create()), new MessagePrinter());
+        return factory().create();
+    }
+
+    private static AppFactory factory() {
+        return new AppFactory();
     }
 }
