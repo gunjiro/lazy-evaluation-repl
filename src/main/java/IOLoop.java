@@ -1,12 +1,12 @@
 public class IOLoop {
     private final InputReceiver receiver;
     private final RequestFactory factory;
-    private final Executer executer;
+    private final Executor executor;
 
-    public IOLoop(InputReceiver receiver, RequestFactory factory, Executer executer) {
+    public IOLoop(InputReceiver receiver, RequestFactory factory, Executor executor) {
         this.receiver = receiver;
         this.factory = factory;
-        this.executer = executer;
+        this.executor = executor;
     }
 
     public void loop() {
@@ -15,7 +15,7 @@ public class IOLoop {
             while (true) {
                 String input = receiver.receive();
                 Request request = factory.createRequest(environment, input);
-                executer.execute(request);
+                executor.execute(request);
             }
         } catch (ExitException e) {
         }

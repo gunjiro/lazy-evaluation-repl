@@ -129,9 +129,13 @@ class QuitCommand extends Command {
     }
 }
 class LoadCommand extends Command {
-    private final Loader loader;
+    private final LoadContractor loader;
+    private final Environment environment;
+
     LoadCommand(Environment env) {
-        loader = new Loader(env);
+        final LoadContractorFactory factory = new LoadContractorFactory();
+        loader = factory.create(env);
+        environment = env;
     }
     @Override void execute(List<String> args) {
         for (String filename : args) {
@@ -139,32 +143,28 @@ class LoadCommand extends Command {
         }
     }
     private void loadFile(String filename) {
-        try {
-            loader.load(filename);
-        }
-        catch (ApplicationException e) {
-            System.err.println(e.getMessage());
-        }
+        loader.load(environment, filename);
     }
 }
-class Loader {
-    private final Environment environment;
-    Loader(Environment env) {
-        environment = env;
+class LoadContractor {
+    private final ResourceProvider provider;
+    private final MessagePrinter printer;
+
+    LoadContractor(ResourceProvider provider, MessagePrinter printer) {
+        this.provider = provider;
+        this.printer = printer;
     }
-    void load(String filename) throws ApplicationException {
-        try {
-            Reader reader = new FileReader(filename);
-            try {
-                environment.addFunctions(reader);
-                System.out.println("loaded: " + filename);
-            }
-            finally {
-                reader.close();
-            }
-        }
-        catch (IOException e) {
-            throw new ApplicationException(e);
+
+    void load(Environment environment, String name) {
+        try (Reader reader = provider.open(name)) {
+            environment.addFunctions(reader);
+            printer.printMessage("loaded: " + name);
+        } catch (ResourceProvider.FailedException e) {
+            printer.printMessage(e.getMessage());
+        } catch (ApplicationException e) {
+            printer.printMessage(e.getMessage());
+        } catch (IOException e) {
+            throw new IOError(e);
         }
     }
 }
