@@ -139,32 +139,33 @@ class LoadCommand extends Command {
         }
     }
     private void loadFile(String filename) {
-        try {
-            loader.load(filename);
-        }
-        catch (ApplicationException e) {
-            System.err.println(e.getMessage());
-        }
+        loader.load(filename);
     }
 }
 class LoadContractor {
+    private final ResourceProvider provider;
     private final Environment environment;
+
     LoadContractor(Environment env) {
         environment = env;
+        provider = new FileResourceProvider();
     }
-    void load(String filename) throws ApplicationException {
-        try {
-            Reader reader = new FileReader(filename);
-            try {
-                environment.addFunctions(reader);
-                System.out.println("loaded: " + filename);
-            }
-            finally {
-                reader.close();
-            }
-        }
-        catch (IOException e) {
-            throw new ApplicationException(e);
+
+    LoadContractor(ResourceProvider provider, Environment environment) {
+        this.environment = environment;
+        this.provider = provider;
+    }
+
+    void load(String name) {
+        try (Reader reader = provider.open(name)) {
+            environment.addFunctions(reader);
+            System.out.println("loaded: " + name);
+        } catch (ResourceProvider.FailedException e) {
+            System.out.println(e.getMessage());
+        } catch (ApplicationException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            throw new IOError(e);
         }
     }
 }
