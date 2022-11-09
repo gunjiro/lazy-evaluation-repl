@@ -1,6 +1,6 @@
 public class AppFactory {
     public App create() {
-        return new App(createIOLoop(), new MessagePrinter());
+        return new App(createIOLoop(), new SystemOutMessagePrinter());
     }
 
     private IOLoop createIOLoop() {
