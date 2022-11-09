@@ -134,7 +134,7 @@ class LoadCommand extends Command {
 
     LoadCommand(Environment env) {
         final LoadContractorFactory factory = new LoadContractorFactory();
-        loader = factory.create(env);
+        loader = factory.create();
         environment = env;
     }
     @Override void execute(List<String> args) {
