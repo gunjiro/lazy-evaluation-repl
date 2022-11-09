@@ -129,9 +129,9 @@ class QuitCommand extends Command {
     }
 }
 class LoadCommand extends Command {
-    private final Loader loader;
+    private final LoadContractor loader;
     LoadCommand(Environment env) {
-        loader = new Loader(env);
+        loader = new LoadContractor(env);
     }
     @Override void execute(List<String> args) {
         for (String filename : args) {
@@ -147,9 +147,9 @@ class LoadCommand extends Command {
         }
     }
 }
-class Loader {
+class LoadContractor {
     private final Environment environment;
-    Loader(Environment env) {
+    LoadContractor(Environment env) {
         environment = env;
     }
     void load(String filename) throws ApplicationException {
