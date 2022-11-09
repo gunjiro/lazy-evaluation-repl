@@ -129,21 +129,25 @@ class QuitCommand extends Command {
     }
 }
 class LoadCommand extends Command {
-    private final LoadContractor loader;
     private final Environment environment;
 
     LoadCommand(Environment env) {
-        final LoadContractorFactory factory = new LoadContractorFactory();
-        loader = factory.create();
         environment = env;
     }
-    @Override void execute(List<String> args) {
+
+    @Override
+    void execute(List<String> args) {
         for (String filename : args) {
             loadFile(filename);
         }
     }
+
     private void loadFile(String filename) {
-        loader.load(environment, filename);
+        factory().create().load(environment, filename);
+    }
+
+    private LoadContractorFactory factory() {
+        return new LoadContractorFactory();
     }
 }
 class LoadContractor {
