@@ -22,9 +22,9 @@ public class LoadContractorTest {
             public void printMessage(String message) {
             }
             
-        }, environment);
+        });
 
-        contractor.load("sample");
+        contractor.load(environment, "sample");
 
         final IntValue value = (IntValue)environment.createThunk(new StringReader("one")).eval();
 

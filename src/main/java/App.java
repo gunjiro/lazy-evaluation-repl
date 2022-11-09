@@ -130,9 +130,12 @@ class QuitCommand extends Command {
 }
 class LoadCommand extends Command {
     private final LoadContractor loader;
+    private final Environment environment;
+
     LoadCommand(Environment env) {
         final LoadContractorFactory factory = new LoadContractorFactory();
         loader = factory.create(env);
+        environment = env;
     }
     @Override void execute(List<String> args) {
         for (String filename : args) {
@@ -140,21 +143,19 @@ class LoadCommand extends Command {
         }
     }
     private void loadFile(String filename) {
-        loader.load(filename);
+        loader.load(environment, filename);
     }
 }
 class LoadContractor {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
-    private final Environment environment;
 
-    LoadContractor(ResourceProvider provider, MessagePrinter printer, Environment environment) {
+    LoadContractor(ResourceProvider provider, MessagePrinter printer) {
         this.provider = provider;
         this.printer = printer;
-        this.environment = environment;
     }
 
-    void load(String name) {
+    void load(Environment environment, String name) {
         try (Reader reader = provider.open(name)) {
             environment.addFunctions(reader);
             printer.printMessage("loaded: " + name);
