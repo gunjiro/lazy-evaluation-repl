@@ -131,7 +131,8 @@ class QuitCommand extends Command {
 class LoadCommand extends Command {
     private final LoadContractor loader;
     LoadCommand(Environment env) {
-        loader = new LoadContractor(env);
+        final LoadContractorFactory factory = new LoadContractorFactory();
+        loader = factory.create(env);
     }
     @Override void execute(List<String> args) {
         for (String filename : args) {
@@ -146,12 +147,6 @@ class LoadContractor {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
     private final Environment environment;
-
-    LoadContractor(Environment env) {
-        environment = env;
-        printer = new SystemOutMessagePrinter();
-        provider = new FileResourceProvider();
-    }
 
     LoadContractor(ResourceProvider provider, MessagePrinter printer, Environment environment) {
         this.provider = provider;
