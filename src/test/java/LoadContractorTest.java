@@ -17,7 +17,12 @@ public class LoadContractorTest {
             }
         };
         final Environment environment = new DefaultEnvironment();
-        final LoadContractor contractor = new LoadContractor(provider, environment);
+        final LoadContractor contractor = new LoadContractor(provider, new MessagePrinter() {
+            @Override
+            public void printMessage(String message) {
+            }
+            
+        }, environment);
 
         contractor.load("sample");
 

@@ -144,26 +144,29 @@ class LoadCommand extends Command {
 }
 class LoadContractor {
     private final ResourceProvider provider;
+    private final MessagePrinter printer;
     private final Environment environment;
 
     LoadContractor(Environment env) {
         environment = env;
+        printer = new SystemOutMessagePrinter();
         provider = new FileResourceProvider();
     }
 
-    LoadContractor(ResourceProvider provider, Environment environment) {
-        this.environment = environment;
+    LoadContractor(ResourceProvider provider, MessagePrinter printer, Environment environment) {
         this.provider = provider;
+        this.printer = printer;
+        this.environment = environment;
     }
 
     void load(String name) {
         try (Reader reader = provider.open(name)) {
             environment.addFunctions(reader);
-            System.out.println("loaded: " + name);
+            printer.printMessage("loaded: " + name);
         } catch (ResourceProvider.FailedException e) {
-            System.out.println(e.getMessage());
+            printer.printMessage(e.getMessage());
         } catch (ApplicationException e) {
-            System.out.println(e.getMessage());
+            printer.printMessage(e.getMessage());
         } catch (IOException e) {
             throw new IOError(e);
         }
