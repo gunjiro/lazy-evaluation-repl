@@ -129,10 +129,21 @@ class QuitCommand extends Command {
     }
 }
 class LoadCommand extends Command {
+    private final List<String> resourceNames;
     private final Environment environment;
 
     LoadCommand(Environment env) {
+        resourceNames = List.of();
         environment = env;
+    }
+
+    LoadCommand(List<String> resources, Environment env) {
+        this.resourceNames = resources;
+        environment = env;
+    }
+
+    public List<String> getResourceNames() {
+        return resourceNames;
     }
 
     @Override
