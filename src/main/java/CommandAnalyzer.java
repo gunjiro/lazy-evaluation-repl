@@ -11,14 +11,30 @@ public class CommandAnalyzer {
             return new EmptyCommand();
         }
 
-        final List<String> inputPieces = Arrays.asList(input.split("\\s+"));
-
-        assert inputPieces.size() >= 1;
-
-        return createCommandTable(environment).getCommand(inputPieces.get(0));
+        return analyze(environment, split(input));
     }
 
-    private CommandTable createCommandTable(Environment environment) {
-        return new CommandTable(environment);
+    private List<String> split(String input) {
+        return Arrays.asList(input.split("\\s+"));
+    }
+    
+    private Command analyze(Environment environment, List<String> inputPieces) {
+        assert inputPieces.size() >= 1;
+
+        if (quitCommandName().matches(inputPieces.get(0))) {
+            return new QuitCommand();
+        } else if (loadCommandName().matches(inputPieces.get(0))) {
+            return new LoadCommand(environment);
+        } else {
+            return new UnknownCommand(inputPieces.get(0));
+        }
+    }
+
+    private CommandName quitCommandName() {
+        return new CommandName(":quit");
+    }
+
+    private CommandName loadCommandName() {
+        return new CommandName(":load");
     }
 }
