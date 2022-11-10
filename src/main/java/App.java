@@ -56,24 +56,22 @@ class EmptyRequest extends Request {
 class CommandRequest extends Request{
     private final Environment environment;
     private final String input;
-    private final CommandTable commandTable;
+
     CommandRequest(Environment env, String in) {
         environment = env;
         input = in;
-        commandTable = createCommandTable();
     }
-    @Override void send() throws ExitException {
-        List<String> arguments = Arrays.asList(input.split("\\s+"));
-        int size = arguments.size();
-        if (size > 0) {
-            Command command = commandTable.getCommand(arguments.get(0));
-            command.execute(arguments.subList(1, size));
-        }
+
+    @Override
+    void send() throws ExitException {
+        analyzer().analyze(environment, input).execute();
     }
-    private CommandTable createCommandTable() {
-        return new CommandTable(environment);
+
+    private CommandAnalyzer analyzer() {
+        return new CommandAnalyzer();
     }
 }
+
 class EvaluationRequest extends Request {
     private final Environment environment;
     private final String input;
@@ -113,18 +111,18 @@ class EvaluationRequest extends Request {
 }
 
 abstract class Command {
-    abstract void execute(List<String> args) throws ExitException;
+    abstract void execute() throws ExitException;
 }
 
 class EmptyCommand extends Command {
-    @Override void execute(List<String> args) throws ExitException {
+    @Override
+    void execute() throws ExitException {
     }
 }
 
 class QuitCommand extends Command {
-    QuitCommand() {
-    }
-    @Override void execute(List<String> args) throws ExitException {
+    @Override
+    void execute() throws ExitException {
         throw new ExitException();
     }
 }
@@ -146,7 +144,6 @@ class LoadCommand extends Command {
         return resourceNames;
     }
 
-    @Override
     void execute(List<String> args) {
         for (String filename : args) {
             loadFile(filename);
@@ -160,7 +157,13 @@ class LoadCommand extends Command {
     private LoadContractorFactory factory() {
         return new LoadContractorFactory();
     }
+
+    @Override
+    void execute() throws ExitException {
+        execute(resourceNames);
+    }
 }
+
 class LoadContractor {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
@@ -183,46 +186,17 @@ class LoadContractor {
         }
     }
 }
+
 class UnknownCommand extends Command {
     private final String commandName;
+
     UnknownCommand(String name) {
         commandName = name;
     }
-    @Override void execute(List<String> args) {
+
+    @Override
+    void execute() throws ExitException {
         System.out.println(String.format("unknown command '%s'", commandName));
-    }
-}
-class CommandTable {
-    private final HashMap<String, Command> map;
-    CommandTable(Environment environment) {
-        map = new HashMap<String, Command>();
-        putQuitCommand(new QuitCommand());
-        putLoadCommand(new LoadCommand(environment));
-    }
-    private void putCommand(String str, Command com) {
-        map.put(str, com);
-    }
-    private void putQuitCommand(Command quit) {
-        putCommand(":q", quit);
-        putCommand(":qu", quit);
-        putCommand(":qui", quit);
-        putCommand(":quit", quit);
-    }
-    private void putLoadCommand(Command load) {
-        putCommand(":l", load);
-        putCommand(":lo", load);
-        putCommand(":loa", load);
-        putCommand(":load", load);
-    }
-    Command getCommand(String key) {
-        Command command = map.get(key);
-        if (command == null) {
-            command = createUnknownCommand(key);
-        }
-        return command;
-    }
-    private Command createUnknownCommand(String name) {
-        return new UnknownCommand(name);
     }
 }
 
@@ -268,4 +242,3 @@ class DefaultEnvironment extends Environment {
         return new DefaultDeclsNode();
     }
 }
-
