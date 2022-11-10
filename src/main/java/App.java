@@ -119,7 +119,6 @@ class EvaluationRequest extends Request {
 }
 
 interface Command {
-    public void execute() throws ExitException;
     public <R> R accept(Visitor<R> visitor) throws ExitException;
 
     public static interface Visitor<R> {
@@ -132,21 +131,12 @@ interface Command {
 
 class EmptyCommand implements Command {
     @Override
-    public void execute() throws ExitException {
-    }
-
-    @Override
     public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
     }
 }
 
 class QuitCommand implements Command {
-    @Override
-    public void execute() throws ExitException {
-        throw new ExitException();
-    }
-
     @Override
     public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
@@ -183,11 +173,6 @@ class LoadCommand implements Command {
 
     private LoadContractorFactory factory() {
         return new LoadContractorFactory();
-    }
-
-    @Override
-    public void execute() throws ExitException {
-        execute(resourceNames);
     }
 
     @Override
@@ -228,11 +213,6 @@ class UnknownCommand implements Command {
 
     public String getCommandName() {
         return commandName;
-    }
-
-    @Override
-    public void execute() throws ExitException {
-        System.out.println(String.format("unknown command '%s'", commandName));
     }
 
     @Override
