@@ -114,17 +114,27 @@ class EvaluationRequest extends Request {
 
 abstract class Command {
     abstract void execute(List<String> args) throws ExitException;
+    abstract void execute() throws ExitException;
 }
 
 class EmptyCommand extends Command {
-    @Override void execute(List<String> args) throws ExitException {
+    @Override
+    void execute(List<String> args) throws ExitException {
+    }
+
+    @Override
+    void execute() throws ExitException {
     }
 }
 
 class QuitCommand extends Command {
-    QuitCommand() {
+    @Override
+    void execute(List<String> args) throws ExitException {
+        throw new ExitException();
     }
-    @Override void execute(List<String> args) throws ExitException {
+
+    @Override
+    void execute() throws ExitException {
         throw new ExitException();
     }
 }
@@ -160,6 +170,11 @@ class LoadCommand extends Command {
     private LoadContractorFactory factory() {
         return new LoadContractorFactory();
     }
+
+    @Override
+    void execute() throws ExitException {
+        execute(resourceNames);
+    }
 }
 class LoadContractor {
     private final ResourceProvider provider;
@@ -185,10 +200,18 @@ class LoadContractor {
 }
 class UnknownCommand extends Command {
     private final String commandName;
+
     UnknownCommand(String name) {
         commandName = name;
     }
-    @Override void execute(List<String> args) {
+
+    @Override
+    void execute(List<String> args) {
+        System.out.println(String.format("unknown command '%s'", commandName));
+    }
+
+    @Override
+    void execute() throws ExitException {
         System.out.println(String.format("unknown command '%s'", commandName));
     }
 }
