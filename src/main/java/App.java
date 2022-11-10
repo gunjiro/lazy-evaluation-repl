@@ -110,23 +110,24 @@ class EvaluationRequest extends Request {
     }
 }
 
-abstract class Command {
-    abstract void execute() throws ExitException;
+interface Command {
+    public void execute() throws ExitException;
 }
 
-class EmptyCommand extends Command {
+class EmptyCommand implements Command {
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
     }
 }
 
-class QuitCommand extends Command {
+class QuitCommand implements Command {
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
         throw new ExitException();
     }
 }
-class LoadCommand extends Command {
+
+class LoadCommand implements Command {
     private final List<String> resourceNames;
     private final Environment environment;
 
@@ -159,7 +160,7 @@ class LoadCommand extends Command {
     }
 
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
         execute(resourceNames);
     }
 }
@@ -187,7 +188,7 @@ class LoadContractor {
     }
 }
 
-class UnknownCommand extends Command {
+class UnknownCommand implements Command {
     private final String commandName;
 
     UnknownCommand(String name) {
@@ -195,7 +196,7 @@ class UnknownCommand extends Command {
     }
 
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
         System.out.println(String.format("unknown command '%s'", commandName));
     }
 }
