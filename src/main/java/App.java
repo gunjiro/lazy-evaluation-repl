@@ -200,40 +200,6 @@ class UnknownCommand extends Command {
     }
 }
 
-class CommandTable {
-    private final HashMap<String, Command> map;
-    CommandTable(Environment environment) {
-        map = new HashMap<String, Command>();
-        putQuitCommand(new QuitCommand());
-        putLoadCommand(new LoadCommand(environment));
-    }
-    private void putCommand(String str, Command com) {
-        map.put(str, com);
-    }
-    private void putQuitCommand(Command quit) {
-        putCommand(":q", quit);
-        putCommand(":qu", quit);
-        putCommand(":qui", quit);
-        putCommand(":quit", quit);
-    }
-    private void putLoadCommand(Command load) {
-        putCommand(":l", load);
-        putCommand(":lo", load);
-        putCommand(":loa", load);
-        putCommand(":load", load);
-    }
-    Command getCommand(String key) {
-        Command command = map.get(key);
-        if (command == null) {
-            command = createUnknownCommand(key);
-        }
-        return command;
-    }
-    private Command createUnknownCommand(String name) {
-        return new UnknownCommand(name);
-    }
-}
-
 class DefaultDeclsNode extends DeclsNode {
     DefaultDeclsNode() {
         super();
@@ -276,4 +242,3 @@ class DefaultEnvironment extends Environment {
         return new DefaultDeclsNode();
     }
 }
-
