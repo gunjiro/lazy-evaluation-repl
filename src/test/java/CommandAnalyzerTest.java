@@ -11,50 +11,45 @@ public class CommandAnalyzerTest {
     @Test(expected = IllegalArgumentException.class)
     public void analyzeShouldThrowIllegalArgumentExceptionWhenInvalidStringIsReceived() {
         final String input = "not start :";
-        final Environment environment = new DefaultEnvironment();
         final CommandAnalyzer analyzer = new CommandAnalyzer();
 
-        analyzer.analyze(environment, input);
+        analyzer.analyze(input);
     }
 
     // 空文字ならIllegalArgumentException
     @Test(expected = IllegalArgumentException.class)
     public void analyzeShouldThrowIllegalArgumentExceptionWhenEmptyStringIsReceived() {
         final String input = "";
-        final Environment environment = new DefaultEnvironment();
         final CommandAnalyzer analyzer = new CommandAnalyzer();
 
-        analyzer.analyze(environment, input);
+        analyzer.analyze(input);
     }
 
     // :ならEmptyCommand
     @Test()
     public void analyzeShouldReturnEmptyCommandWhenEmptyCommandIsReceived() {
         final String input = ":";
-        final Environment environment = new DefaultEnvironment();
         final CommandAnalyzer analyzer = new CommandAnalyzer();
 
-        assertThat(analyzer.analyze(environment, input), is(instanceOf(EmptyCommand.class)));
+        assertThat(analyzer.analyze(input), is(instanceOf(EmptyCommand.class)));
     }
 
     // :quitならQuitCommand
     @Test()
     public void analyzeShouldReturnQuitCommandWhenEmptyCommandIsReceived() {
         final String input = ":quit";
-        final Environment environment = new DefaultEnvironment();
         final CommandAnalyzer analyzer = new CommandAnalyzer();
 
-        assertThat(analyzer.analyze(environment, input), is(instanceOf(QuitCommand.class)));
+        assertThat(analyzer.analyze(input), is(instanceOf(QuitCommand.class)));
     }
 
     // :loadならLoadCommand
     @Test()
     public void analyzeShouldReturnLoadCommandWhenLoadCommandIsReceived() {
         final String input = ":load sample1 sample2";
-        final Environment environment = new DefaultEnvironment();
         final CommandAnalyzer analyzer = new CommandAnalyzer();
 
-        final LoadCommand command = (LoadCommand)analyzer.analyze(environment, input);
+        final LoadCommand command = (LoadCommand)analyzer.analyze(input);
 
         assertThat(command.getResourceNames(), is(List.of("sample1", "sample2")));
     }
@@ -63,9 +58,8 @@ public class CommandAnalyzerTest {
     @Test()
     public void analyzeShouldReturnUnknownCommandWhenUnknownCommandIsReceived() {
         final String input = ":unknown";
-        final Environment environment = new DefaultEnvironment();
         final CommandAnalyzer analyzer = new CommandAnalyzer();
 
-        assertThat(analyzer.analyze(environment, input), is(instanceOf(UnknownCommand.class)));
+        assertThat(analyzer.analyze(input), is(instanceOf(UnknownCommand.class)));
     }
 }

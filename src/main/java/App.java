@@ -64,7 +64,7 @@ class CommandRequest extends Request{
 
     @Override
     void send() throws ExitException {
-        operator().operate(environment, analyzer().analyze(environment, input));
+        operator().operate(environment, analyzer().analyze(input));
     }
 
     private CommandAnalyzer analyzer() {
