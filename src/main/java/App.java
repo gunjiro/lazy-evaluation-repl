@@ -218,6 +218,10 @@ class UnknownCommand implements Command {
         commandName = name;
     }
 
+    public String getCommandName() {
+        return commandName;
+    }
+
     @Override
     public void execute() throws ExitException {
         System.out.println(String.format("unknown command '%s'", commandName));
