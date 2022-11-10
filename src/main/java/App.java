@@ -64,11 +64,19 @@ class CommandRequest extends Request{
 
     @Override
     void send() throws ExitException {
-        analyzer().analyze(environment, input).execute();
+        operator().operate(environment, analyzer().analyze(environment, input));
     }
 
     private CommandAnalyzer analyzer() {
         return new CommandAnalyzer();
+    }
+
+    private CommandOperator operator() {
+        return new CommandOperator(factory().create(), new SystemOutMessagePrinter());
+    }
+
+    private LoadContractorFactory factory() {
+        return new LoadContractorFactory();
     }
 }
 
