@@ -110,23 +110,42 @@ class EvaluationRequest extends Request {
     }
 }
 
-abstract class Command {
-    abstract void execute() throws ExitException;
-}
+interface Command {
+    public void execute() throws ExitException;
+    public <R> R accept(Visitor<R> visitor) throws ExitException;
 
-class EmptyCommand extends Command {
-    @Override
-    void execute() throws ExitException {
+    public static interface Visitor<R> {
+        public R visit(EmptyCommand command);
+        public R visit(QuitCommand command) throws ExitException;
+        public R visit(LoadCommand command);
+        public R visit(UnknownCommand command);
     }
 }
 
-class QuitCommand extends Command {
+class EmptyCommand implements Command {
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
+    }
+
+    @Override
+    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
+    }
+}
+
+class QuitCommand implements Command {
+    @Override
+    public void execute() throws ExitException {
         throw new ExitException();
     }
+
+    @Override
+    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
+    }
 }
-class LoadCommand extends Command {
+
+class LoadCommand implements Command {
     private final List<String> resourceNames;
     private final Environment environment;
 
@@ -159,8 +178,13 @@ class LoadCommand extends Command {
     }
 
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
         execute(resourceNames);
+    }
+
+    @Override
+    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
     }
 }
 
@@ -187,7 +211,7 @@ class LoadContractor {
     }
 }
 
-class UnknownCommand extends Command {
+class UnknownCommand implements Command {
     private final String commandName;
 
     UnknownCommand(String name) {
@@ -195,8 +219,13 @@ class UnknownCommand extends Command {
     }
 
     @Override
-    void execute() throws ExitException {
+    public void execute() throws ExitException {
         System.out.println(String.format("unknown command '%s'", commandName));
+    }
+
+    @Override
+    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
     }
 }
 
