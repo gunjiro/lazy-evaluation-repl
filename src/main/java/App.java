@@ -111,26 +111,16 @@ class EvaluationRequest extends Request {
 }
 
 abstract class Command {
-    abstract void execute(List<String> args) throws ExitException;
     abstract void execute() throws ExitException;
 }
 
 class EmptyCommand extends Command {
-    @Override
-    void execute(List<String> args) throws ExitException {
-    }
-
     @Override
     void execute() throws ExitException {
     }
 }
 
 class QuitCommand extends Command {
-    @Override
-    void execute(List<String> args) throws ExitException {
-        throw new ExitException();
-    }
-
     @Override
     void execute() throws ExitException {
         throw new ExitException();
@@ -154,7 +144,6 @@ class LoadCommand extends Command {
         return resourceNames;
     }
 
-    @Override
     void execute(List<String> args) {
         for (String filename : args) {
             loadFile(filename);
@@ -174,6 +163,7 @@ class LoadCommand extends Command {
         execute(resourceNames);
     }
 }
+
 class LoadContractor {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
@@ -196,6 +186,7 @@ class LoadContractor {
         }
     }
 }
+
 class UnknownCommand extends Command {
     private final String commandName;
 
@@ -204,15 +195,11 @@ class UnknownCommand extends Command {
     }
 
     @Override
-    void execute(List<String> args) {
-        System.out.println(String.format("unknown command '%s'", commandName));
-    }
-
-    @Override
     void execute() throws ExitException {
         System.out.println(String.format("unknown command '%s'", commandName));
     }
 }
+
 class CommandTable {
     private final HashMap<String, Command> map;
     CommandTable(Environment environment) {
