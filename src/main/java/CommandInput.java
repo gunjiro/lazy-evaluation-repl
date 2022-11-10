@@ -31,11 +31,11 @@ public class CommandInput {
         return new CommandInput(command, arguments);
     }
 
-    public <R> R extract(Extractor<R> extractor) {
-        return extractor.pass(command, arguments);
+    public <R> R extract(Operation<R> operation) {
+        return operation.apply(command, arguments);
     }
 
-    public static interface Extractor<R> {
-        public R pass(String command, List<String> arguments);
+    public static interface Operation<R> {
+        public R apply(String command, List<String> arguments);
     }
 }

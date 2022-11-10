@@ -6,9 +6,9 @@ public class CommandAnalyzer {
     }
 
     private Command analyze(CommandInput input) {
-        return input.extract(new CommandInput.Extractor<Command>() {
+        return input.extract(new CommandInput.Operation<Command>() {
             @Override
-            public Command pass(String command, List<String> arguments) {
+            public Command apply(String command, List<String> arguments) {
                 if (emptyCommandName().matches(command)) {
                     return new EmptyCommand();
 

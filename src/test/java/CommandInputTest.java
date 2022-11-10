@@ -27,9 +27,9 @@ public class CommandInputTest {
     public void createShouldSplitInputStringWithSpace() {
         final String input = ":load sample1 sample2";
 
-        CommandInput.create(input).extract(new CommandInput.Extractor<Void>() {
+        CommandInput.create(input).extract(new CommandInput.Operation<Void>() {
             @Override
-            public Void pass(String command, List<String> arguments) {
+            public Void apply(String command, List<String> arguments) {
                 assertThat(command, is(":load"));
                 assertThat(arguments, is(List.of("sample1", "sample2")));
                 return null;
