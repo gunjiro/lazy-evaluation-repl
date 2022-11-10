@@ -24,7 +24,7 @@ public class CommandAnalyzer {
         if (quitCommandName().matches(inputPieces.get(0))) {
             return new QuitCommand();
         } else if (loadCommandName().matches(inputPieces.get(0))) {
-            return new LoadCommand(environment);
+            return new LoadCommand(inputPieces.subList(1, inputPieces.size()), environment);
         } else {
             return new UnknownCommand(inputPieces.get(0));
         }
