@@ -64,11 +64,19 @@ class CommandRequest extends Request{
 
     @Override
     void send() throws ExitException {
-        analyzer().analyze(environment, input).execute();
+        operator().operate(environment, analyzer().analyze(input));
     }
 
     private CommandAnalyzer analyzer() {
         return new CommandAnalyzer();
+    }
+
+    private CommandOperator operator() {
+        return new CommandOperator(factory().create(), new SystemOutMessagePrinter());
+    }
+
+    private LoadContractorFactory factory() {
+        return new LoadContractorFactory();
     }
 }
 
@@ -111,7 +119,6 @@ class EvaluationRequest extends Request {
 }
 
 interface Command {
-    public void execute() throws ExitException;
     public <R> R accept(Visitor<R> visitor) throws ExitException;
 
     public static interface Visitor<R> {
@@ -124,21 +131,12 @@ interface Command {
 
 class EmptyCommand implements Command {
     @Override
-    public void execute() throws ExitException {
-    }
-
-    @Override
     public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
     }
 }
 
 class QuitCommand implements Command {
-    @Override
-    public void execute() throws ExitException {
-        throw new ExitException();
-    }
-
     @Override
     public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
@@ -147,39 +145,13 @@ class QuitCommand implements Command {
 
 class LoadCommand implements Command {
     private final List<String> resourceNames;
-    private final Environment environment;
 
-    LoadCommand(Environment env) {
-        resourceNames = List.of();
-        environment = env;
-    }
-
-    LoadCommand(List<String> resources, Environment env) {
-        this.resourceNames = resources;
-        environment = env;
+    LoadCommand(List<String> resourceNames) {
+        this.resourceNames = resourceNames;
     }
 
     public List<String> getResourceNames() {
         return resourceNames;
-    }
-
-    void execute(List<String> args) {
-        for (String filename : args) {
-            loadFile(filename);
-        }
-    }
-
-    private void loadFile(String filename) {
-        factory().create().load(environment, filename);
-    }
-
-    private LoadContractorFactory factory() {
-        return new LoadContractorFactory();
-    }
-
-    @Override
-    public void execute() throws ExitException {
-        execute(resourceNames);
     }
 
     @Override
@@ -218,9 +190,8 @@ class UnknownCommand implements Command {
         commandName = name;
     }
 
-    @Override
-    public void execute() throws ExitException {
-        System.out.println(String.format("unknown command '%s'", commandName));
+    public String getCommandName() {
+        return commandName;
     }
 
     @Override
