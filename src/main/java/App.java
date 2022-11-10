@@ -56,24 +56,22 @@ class EmptyRequest extends Request {
 class CommandRequest extends Request{
     private final Environment environment;
     private final String input;
-    private final CommandTable commandTable;
+
     CommandRequest(Environment env, String in) {
         environment = env;
         input = in;
-        commandTable = createCommandTable();
     }
-    @Override void send() throws ExitException {
-        List<String> arguments = Arrays.asList(input.split("\\s+"));
-        int size = arguments.size();
-        if (size > 0) {
-            Command command = commandTable.getCommand(arguments.get(0));
-            command.execute(arguments.subList(1, size));
-        }
+
+    @Override
+    void send() throws ExitException {
+        analyzer().analyze(environment, input).execute();
     }
-    private CommandTable createCommandTable() {
-        return new CommandTable(environment);
+
+    private CommandAnalyzer analyzer() {
+        return new CommandAnalyzer();
     }
 }
+
 class EvaluationRequest extends Request {
     private final Environment environment;
     private final String input;
