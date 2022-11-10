@@ -145,34 +145,13 @@ class QuitCommand implements Command {
 
 class LoadCommand implements Command {
     private final List<String> resourceNames;
-    private final Environment environment;
 
-    LoadCommand(Environment env) {
-        resourceNames = List.of();
-        environment = env;
-    }
-
-    LoadCommand(List<String> resources, Environment env) {
-        this.resourceNames = resources;
-        environment = env;
+    LoadCommand(List<String> resourceNames) {
+        this.resourceNames = resourceNames;
     }
 
     public List<String> getResourceNames() {
         return resourceNames;
-    }
-
-    void execute(List<String> args) {
-        for (String filename : args) {
-            loadFile(filename);
-        }
-    }
-
-    private void loadFile(String filename) {
-        factory().create().load(environment, filename);
-    }
-
-    private LoadContractorFactory factory() {
-        return new LoadContractorFactory();
     }
 
     @Override
