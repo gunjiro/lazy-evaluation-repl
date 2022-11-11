@@ -1,10 +1,6 @@
 public class ValuePrinter {
     private final StringPrinter printer;
 
-    public ValuePrinter() {
-        this.printer = new SystemOutStringPrinter();
-    }
-
     public ValuePrinter(StringPrinter printer) {
         this.printer = printer;
     }
