@@ -15,8 +15,8 @@ class App {
     }
 }
 
-abstract class Request {
-    abstract void send() throws ExitException;
+interface Request {
+    public void send() throws ExitException;
 }
 
 class RequestFactory {
@@ -46,13 +46,13 @@ class RequestFactory {
     }
 }
 
-class EmptyRequest extends Request {
+class EmptyRequest implements Request {
     @Override
-    void send() {
+    public void send() {
     }
 }
 
-class CommandRequest extends Request{
+class CommandRequest implements Request{
     private final Environment environment;
     private final String input;
 
@@ -62,7 +62,7 @@ class CommandRequest extends Request{
     }
 
     @Override
-    void send() throws ExitException {
+    public void send() throws ExitException {
         operator().operate(environment, analyzer().analyze(input));
     }
 
@@ -79,7 +79,7 @@ class CommandRequest extends Request{
     }
 }
 
-class EvaluationRequest extends Request {
+class EvaluationRequest implements Request {
     private final Environment environment;
     private final String input;
     private final ValuePrinter printer;
@@ -91,7 +91,7 @@ class EvaluationRequest extends Request {
     }
 
     @Override
-    void send() {
+    public void send() {
         evaluate();
     }
 
