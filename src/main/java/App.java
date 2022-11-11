@@ -87,7 +87,7 @@ class EvaluationRequest extends Request {
     EvaluationRequest(Environment env, String in) {
         environment = env;
         input = in;
-        printer = new ValuePrinter();
+        printer = new ValuePrinter(new SystemOutStringPrinter());
     }
     @Override void send() {
         try {
