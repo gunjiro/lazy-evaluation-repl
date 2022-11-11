@@ -75,8 +75,8 @@ class CommandRequest extends Request{
         return new CommandOperator(factory().create(), new SystemOutMessagePrinter());
     }
 
-    private LoadContractorFactory factory() {
-        return new LoadContractorFactory();
+    private LoadActionFactory factory() {
+        return new LoadActionFactory();
     }
 }
 
@@ -157,29 +157,6 @@ class LoadCommand implements Command {
     @Override
     public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
-    }
-}
-
-class LoadContractor {
-    private final ResourceProvider provider;
-    private final MessagePrinter printer;
-
-    LoadContractor(ResourceProvider provider, MessagePrinter printer) {
-        this.provider = provider;
-        this.printer = printer;
-    }
-
-    void load(Environment environment, String name) {
-        try (Reader reader = provider.open(name)) {
-            environment.addFunctions(reader);
-            printer.printMessage("loaded: " + name);
-        } catch (ResourceProvider.FailedException e) {
-            printer.printMessage(e.getMessage());
-        } catch (ApplicationException e) {
-            printer.printMessage(e.getMessage());
-        } catch (IOException e) {
-            throw new IOError(e);
-        }
     }
 }
 

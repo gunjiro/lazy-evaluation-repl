@@ -1,9 +1,9 @@
 public class CommandOperator {
-    private final LoadContractor loadContracor;
+    private final LoadAction loadAction;
     private final MessagePrinter printer;
 
-    public CommandOperator(LoadContractor loadContracor, MessagePrinter printer) {
-        this.loadContracor = loadContracor;
+    public CommandOperator(LoadAction loadAction, MessagePrinter printer) {
+        this.loadAction = loadAction;
         this.printer = printer;
     }
 
@@ -21,9 +21,7 @@ public class CommandOperator {
 
             @Override
             public Void visit(LoadCommand command) {
-                for (String name : command.getResourceNames()) {
-                    loadContracor.load(environment, name);
-                }
+                loadAction.apply(environment, command.getResourceNames());
                 return null;
             }
 
