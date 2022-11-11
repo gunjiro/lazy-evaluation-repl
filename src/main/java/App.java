@@ -17,6 +17,13 @@ class App {
 
 interface Request {
     public void send() throws ExitException;
+    public <R> R accept(Visitor<R> visitor) throws ExitException;
+
+    public static interface Visitor<R> {
+        public R visit(EmptyRequest request);
+        public R visit(CommandRequest request) throws ExitException;
+        public R visit(EvaluationRequest request);
+    }
 }
 
 class RequestFactory {
@@ -50,6 +57,11 @@ class EmptyRequest implements Request {
     @Override
     public void send() {
     }
+
+    @Override
+    public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
+    }
 }
 
 class CommandRequest implements Request{
@@ -77,6 +89,11 @@ class CommandRequest implements Request{
     private LoadActionFactory factory() {
         return new LoadActionFactory();
     }
+
+    @Override
+    public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
+    }
 }
 
 class EvaluationRequest implements Request {
@@ -101,6 +118,11 @@ class EvaluationRequest implements Request {
 
     private EvalAction action() {
         return new EvalAction(printer, new SystemOutMessagePrinter());
+    }
+
+    @Override
+    public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
     }
 }
 
