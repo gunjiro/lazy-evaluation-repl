@@ -75,8 +75,8 @@ class CommandRequest extends Request{
         return new CommandOperator(factory().create(), new SystemOutMessagePrinter());
     }
 
-    private LoadContractorFactory factory() {
-        return new LoadContractorFactory();
+    private LoadActionFactory factory() {
+        return new LoadActionFactory();
     }
 }
 
@@ -160,11 +160,11 @@ class LoadCommand implements Command {
     }
 }
 
-class LoadContractor {
+class LoadAction {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
 
-    LoadContractor(ResourceProvider provider, MessagePrinter printer) {
+    LoadAction(ResourceProvider provider, MessagePrinter printer) {
         this.provider = provider;
         this.printer = printer;
     }

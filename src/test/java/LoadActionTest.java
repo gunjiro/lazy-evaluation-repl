@@ -6,7 +6,7 @@ import java.io.StringReader;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class LoadContractorTest {
+public class LoadActionTest {
     // ResourceProviderから宣言を読み込む
     @Test
     public void loadShouldLoadFromResourceProvider() throws EvaluationException, ApplicationException {
@@ -17,14 +17,14 @@ public class LoadContractorTest {
             }
         };
         final Environment environment = new DefaultEnvironment();
-        final LoadContractor contractor = new LoadContractor(provider, new MessagePrinter() {
+        final LoadAction action = new LoadAction(provider, new MessagePrinter() {
             @Override
             public void printMessage(String message) {
             }
             
         });
 
-        contractor.load(environment, "sample");
+        action.load(environment, "sample");
 
         final IntValue value = (IntValue)environment.createThunk(new StringReader("one")).eval();
 
