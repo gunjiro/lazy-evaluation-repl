@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -24,7 +25,7 @@ public class LoadActionTest {
             
         });
 
-        action.apply(environment, "sample");
+        action.apply(environment, List.of("sample"));
 
         final IntValue value = (IntValue)environment.createThunk(new StringReader("one")).eval();
 

@@ -1,6 +1,7 @@
 import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 public class LoadAction {
     private final ResourceProvider provider;
@@ -9,6 +10,12 @@ public class LoadAction {
     public LoadAction(ResourceProvider provider, MessagePrinter printer) {
         this.provider = provider;
         this.printer = printer;
+    }
+
+    public void apply(Environment environment, List<String> names) {
+        for (String name : names) {
+            apply(environment, name);
+        }
     }
 
     public void apply(Environment environment, String name) {
