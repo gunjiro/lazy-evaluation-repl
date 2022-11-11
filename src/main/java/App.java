@@ -94,6 +94,14 @@ class CommandRequest implements Request{
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
     }
+
+    public <R> R extract(Operation<R> operation) {
+        return operation.apply(environment, input);
+    }
+
+    public static interface Operation<R> {
+        public R apply(Environment environment, String input);
+    }
 }
 
 class EvaluationRequest implements Request {
@@ -123,6 +131,14 @@ class EvaluationRequest implements Request {
     @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
+    }
+
+    public <R> R extract(Operation<R> operation) {
+        return operation.apply(environment, input);
+    }
+
+    public static interface Operation<R> {
+        public R apply(Environment environment, String input);
     }
 }
 
