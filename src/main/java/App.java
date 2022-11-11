@@ -95,12 +95,12 @@ class CommandRequest implements Request{
         return visitor.visit(this);
     }
 
-    public <R> R extract(Operation<R> operation) {
+    public <R> R extract(Operation<R> operation) throws ExitException {
         return operation.apply(environment, input);
     }
 
     public static interface Operation<R> {
-        public R apply(Environment environment, String input);
+        public R apply(Environment environment, String input) throws ExitException;
     }
 }
 
