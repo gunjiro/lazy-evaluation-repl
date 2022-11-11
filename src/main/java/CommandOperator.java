@@ -22,7 +22,7 @@ public class CommandOperator {
             @Override
             public Void visit(LoadCommand command) {
                 for (String name : command.getResourceNames()) {
-                    loadAction.load(environment, name);
+                    loadAction.apply(environment, name);
                 }
                 return null;
             }

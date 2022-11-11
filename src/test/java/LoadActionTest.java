@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.*;
 public class LoadActionTest {
     // ResourceProviderから宣言を読み込む
     @Test
-    public void loadShouldLoadFromResourceProvider() throws EvaluationException, ApplicationException {
+    public void applyShouldLoadFromResourceProvider() throws EvaluationException, ApplicationException {
         final ResourceProvider provider = new ResourceProvider() {
             @Override
             public Reader open(String name) throws ResourceProvider.FailedException {
@@ -24,7 +24,7 @@ public class LoadActionTest {
             
         });
 
-        action.load(environment, "sample");
+        action.apply(environment, "sample");
 
         final IntValue value = (IntValue)environment.createThunk(new StringReader("one")).eval();
 

@@ -169,7 +169,7 @@ class LoadAction {
         this.printer = printer;
     }
 
-    void load(Environment environment, String name) {
+    void apply(Environment environment, String name) {
         try (Reader reader = provider.open(name)) {
             environment.addFunctions(reader);
             printer.printMessage("loaded: " + name);
