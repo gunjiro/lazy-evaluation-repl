@@ -84,37 +84,24 @@ class EvaluationRequest extends Request {
     private final Environment environment;
     private final String input;
     private final ValuePrinter printer;
+
     EvaluationRequest(Environment env, String in) {
         environment = env;
         input = in;
         printer = new ValuePrinter(new SystemOutStringPrinter());
     }
-    @Override void send() {
-        try {
-            evaluate();
-        }
-        catch (ApplicationException e) {
-            System.err.println(e.getMessage());
-        }
+
+    @Override
+    void send() {
+        evaluate();
     }
-    private void evaluate() throws ApplicationException {
-        try {
-            Reader reader = new StringReader(input);
-            try {
-                Thunk thunk = environment.createThunk(reader);
-                printer.print(thunk.eval());
-                System.out.println();
-            }
-            finally {
-                reader.close();
-            }
-        }
-        catch (EvaluationException e) {
-            throw new ApplicationException(e);
-        }
-        catch (IOException e) {
-            throw new ApplicationException(e);
-        }
+
+    private void evaluate() {
+        action().apply(environment, input);
+    }
+
+    private EvalAction action() {
+        return new EvalAction(printer, new SystemOutMessagePrinter());
     }
 }
 
