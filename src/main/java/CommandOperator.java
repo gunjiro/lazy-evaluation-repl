@@ -21,9 +21,7 @@ public class CommandOperator {
 
             @Override
             public Void visit(LoadCommand command) {
-                for (String name : command.getResourceNames()) {
-                    loadAction.apply(environment, name);
-                }
+                loadAction.apply(environment, command.getResourceNames());
                 return null;
             }
 
