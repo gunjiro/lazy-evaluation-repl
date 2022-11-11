@@ -1,5 +1,11 @@
-class ValuePrinter {
-    void print(Value value) throws ApplicationException {
+public class ValuePrinter {
+    private final StringPrinter printer;
+
+    public ValuePrinter(StringPrinter printer) {
+        this.printer = printer;
+    }
+
+    public void print(Value value) throws ApplicationException {
         if (value instanceof IntValue) {
             printInt((IntValue)value);
         }
@@ -10,20 +16,22 @@ class ValuePrinter {
             throw new ApplicationException("Unsupported Type For Printing");
         }
     }
+
     private void printInt(IntValue value) {
-        System.out.print(value.getValue());
+        printer.print(String.valueOf(value.getValue()));
     }
+
     private void printList(ListValue list) throws ApplicationException {
         try {
-            System.out.print("[");
+            printer.print("[");
             if (!list.isEmpty()) {
                 print(list.getHead());
                 for (list = list.getTail(); !list.isEmpty(); list = list.getTail()) {
-                    System.out.print(',');
+                    printer.print(",");
                     print(list.getHead());
                 }
             }
-            System.out.print("]");
+            printer.print("]");
         }
         catch (EvaluationException e) {
             throw new ApplicationException(e);
