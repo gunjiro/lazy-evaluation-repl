@@ -9,7 +9,7 @@ public class RequestOperator {
         return new RequestOperator(new RequestActionFactory());
     }
 
-    public void operate(Request request) throws ExitException {
+    public void operate(Environment environment, Request request) throws ExitException {
         request.accept(new Request.Visitor<Void>() {
             @Override
             public Void visit(EmptyRequest request) {
