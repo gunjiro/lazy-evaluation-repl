@@ -13,7 +13,7 @@ public class EvaluationRequestActionTest {
         final String code = "";
         final EvaluationRequestAction action = new EvaluationRequestAction(null, null);
 
-        action.take(null, new EvaluationRequest(null, code));
+        action.take(null, new EvaluationRequest(code));
     }
 
     // 式の場合は評価して出力する
@@ -37,7 +37,7 @@ public class EvaluationRequestActionTest {
             }
         });
 
-        action.take(environment, new EvaluationRequest(environment, code));
+        action.take(environment, new EvaluationRequest(code));
 
         assertThat(builder.toString(), is("2"));
     }
@@ -60,7 +60,7 @@ public class EvaluationRequestActionTest {
             }
         });
 
-        action.take(environment, new EvaluationRequest(environment, code));
+        action.take(environment, new EvaluationRequest(code));
 
         assertThat(builder.toString(), is(not("")));
     }
@@ -83,7 +83,7 @@ public class EvaluationRequestActionTest {
             }
         });
 
-        action.take(environment, new EvaluationRequest(environment, code));
+        action.take(environment, new EvaluationRequest(code));
 
         assertThat(builder.toString(), is(not("")));
     }

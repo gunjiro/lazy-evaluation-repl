@@ -45,10 +45,10 @@ class RequestFactory {
         return new EmptyRequest();
     }
     private Request createCommandRequest(Environment environment, String input) {
-        return new CommandRequest(environment, input);
+        return new CommandRequest(input);
     }
     private Request createEvaluationRequest(Environment environment, String input) {
-        return new EvaluationRequest(environment, input);
+        return new EvaluationRequest(input);
     }
 }
 
@@ -60,11 +60,9 @@ class EmptyRequest implements Request {
 }
 
 class CommandRequest implements Request{
-    private final Environment environment;
     private final String input;
 
-    CommandRequest(Environment env, String in) {
-        environment = env;
+    CommandRequest(String in) {
         input = in;
     }
 
@@ -79,11 +77,9 @@ class CommandRequest implements Request{
 }
 
 class EvaluationRequest implements Request {
-    private final Environment environment;
     private final String input;
 
-    EvaluationRequest(Environment env, String in) {
-        environment = env;
+    EvaluationRequest(String in) {
         input = in;
     }
 
