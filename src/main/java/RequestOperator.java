@@ -30,13 +30,7 @@ public class RequestOperator {
 
             @Override
             public Void visit(EvaluationRequest request) {
-                request.extract(new EvaluationRequest.Operation<Void>() {
-                    @Override
-                    public Void apply(Environment environment, String input) {
-                        evalAction.apply(new EvaluationRequest(environment, input));;
-                        return null;
-                    }
-                });
+                evalAction.apply(request);
                 return null;
             }
         });
