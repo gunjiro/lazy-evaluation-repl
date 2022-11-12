@@ -1,10 +1,12 @@
 public class CommandOperator {
-    private final LoadCommandAction loadAction;
-    private final MessagePrinter printer;
+    private final CommandActionFactory factory;
 
-    public CommandOperator(LoadCommandAction loadAction, MessagePrinter printer) {
-        this.loadAction = loadAction;
-        this.printer = printer;
+    private CommandOperator(CommandActionFactory factory) {
+        this.factory = factory;
+    }
+
+    public static CommandOperator create() {
+        return new CommandOperator(new CommandActionFactory());
     }
 
     public void operate(Environment environment, Command command) throws ExitException {
@@ -16,18 +18,19 @@ public class CommandOperator {
 
             @Override
             public Void visit(QuitCommand command) throws ExitException {
-                throw new ExitException();
+                factory.createQuitCommandAction().take(command);
+                return null;
             }
 
             @Override
             public Void visit(LoadCommand command) {
-                loadAction.take(environment, command);
+                factory.createLoadCommandAction().take(environment, command);
                 return null;
             }
 
             @Override
             public Void visit(UnknownCommand command) {
-                printer.printMessage(String.format("unknown command '%s'", command.getCommandName()));
+                factory.createUnknownCommandAction().take(command);
                 return null;
             }
         });
