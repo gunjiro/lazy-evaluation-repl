@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 class App {
@@ -16,8 +15,14 @@ class App {
     }
 }
 
-abstract class Request {
-    abstract void send() throws ExitException;
+interface Request {
+    public <R> R accept(Visitor<R> visitor) throws ExitException;
+
+    public static interface Visitor<R> {
+        public R visit(EmptyRequest request);
+        public R visit(CommandRequest request) throws ExitException;
+        public R visit(EvaluationRequest request);
+    }
 }
 
 class RequestFactory {
@@ -47,13 +52,14 @@ class RequestFactory {
     }
 }
 
-class EmptyRequest extends Request {
+class EmptyRequest implements Request {
     @Override
-    void send() {
+    public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
     }
 }
 
-class CommandRequest extends Request{
+class CommandRequest implements Request{
     private final Environment environment;
     private final String input;
 
@@ -63,45 +69,39 @@ class CommandRequest extends Request{
     }
 
     @Override
-    void send() throws ExitException {
-        operator().operate(environment, analyzer().analyze(input));
+    public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
     }
 
-    private CommandAnalyzer analyzer() {
-        return new CommandAnalyzer();
+    public <R> R extract(Operation<R> operation) throws ExitException {
+        return operation.apply(environment, input);
     }
 
-    private CommandOperator operator() {
-        return new CommandOperator(factory().create(), new SystemOutMessagePrinter());
-    }
-
-    private LoadActionFactory factory() {
-        return new LoadActionFactory();
+    public static interface Operation<R> {
+        public R apply(Environment environment, String input) throws ExitException;
     }
 }
 
-class EvaluationRequest extends Request {
+class EvaluationRequest implements Request {
     private final Environment environment;
     private final String input;
-    private final ValuePrinter printer;
 
     EvaluationRequest(Environment env, String in) {
         environment = env;
         input = in;
-        printer = new ValuePrinter(new SystemOutStringPrinter());
     }
 
     @Override
-    void send() {
-        evaluate();
+    public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
+        return visitor.visit(this);
     }
 
-    private void evaluate() {
-        action().apply(environment, input);
+    public <R> R extract(Operation<R> operation) {
+        return operation.apply(environment, input);
     }
 
-    private EvalAction action() {
-        return new EvalAction(printer, new SystemOutMessagePrinter());
+    public static interface Operation<R> {
+        public R apply(Environment environment, String input);
     }
 }
 
