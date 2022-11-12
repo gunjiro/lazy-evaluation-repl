@@ -10,9 +10,10 @@ public class EvalActionTest {
     // 空文字の場合は何もしない
     @Test
     public void applyNotDoAnythingWhenCodeIsEmptyString() {
+        final String code = "";
         final EvalAction action = new EvalAction(null, null);
 
-        action.apply(null, "");
+        action.apply(new EvaluationRequest(null, code));
     }
 
     // 式の場合は評価して出力する
@@ -36,7 +37,7 @@ public class EvalActionTest {
             }
         });
 
-        action.apply(environment, code);
+        action.apply(new EvaluationRequest(environment, code));
 
         assertThat(builder.toString(), is("2"));
     }
@@ -59,7 +60,7 @@ public class EvalActionTest {
             }
         });
 
-        action.apply(environment, code);
+        action.apply(new EvaluationRequest(environment, code));
 
         assertThat(builder.toString(), is(not("")));
     }
@@ -82,7 +83,7 @@ public class EvalActionTest {
             }
         });
 
-        action.apply(environment, code);
+        action.apply(new EvaluationRequest(environment, code));
 
         assertThat(builder.toString(), is(not("")));
     }
