@@ -27,18 +27,21 @@ interface Request {
 
 class RequestFactory {
     public Request createRequest(String input) {
-        final Request request;
-        input = input.trim();
+        return createRequestWithTrimmedInput(input.trim());
+    }
+
+    private Request createRequestWithTrimmedInput(String input) {
+        assert input.length() == input.trim().length();
+
         if ("".equals(input)) {
-            request = new EmptyRequest();
+            return new EmptyRequest();
         }
         else if (input.charAt(0) == ':') {
-            request = new CommandRequest(input);
+            return new CommandRequest(input);
         }
         else {
-            request = new EvaluationRequest(input);
+            return new EvaluationRequest(input);
         }
-        return request;
     }
 }
 
