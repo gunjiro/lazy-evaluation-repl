@@ -97,20 +97,10 @@ class CommandRequest implements Request{
 class EvaluationRequest implements Request {
     private final Environment environment;
     private final String input;
-    private final ValuePrinter printer;
 
     EvaluationRequest(Environment env, String in) {
         environment = env;
         input = in;
-        printer = new ValuePrinter(new SystemOutStringPrinter());
-    }
-
-    private void evaluate() {
-        action().apply(environment, input);
-    }
-
-    private EvalAction action() {
-        return new EvalAction(printer, new SystemOutMessagePrinter());
     }
 
     @Override
