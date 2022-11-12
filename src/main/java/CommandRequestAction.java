@@ -8,12 +8,6 @@ public class CommandRequestAction {
     }
 
     public void take(Environment environment, CommandRequest request) throws ExitException {
-        request.extract(new CommandRequest.Operation<Void>() {
-            @Override
-            public Void apply(Environment environment, String input) throws ExitException {
-                operator.operate(environment, analyzer.analyze(input));
-                return null;
-            }
-        });
+        operator.operate(environment, analyzer.analyze(request.getInput()));
     }
 }
