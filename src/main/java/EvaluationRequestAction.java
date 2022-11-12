@@ -1,10 +1,10 @@
 import java.io.StringReader;
 
-public class EvalAction {
+public class EvaluationRequestAction {
     private final ValuePrinter valuePrinter;
     private final MessagePrinter messagePrinter;
 
-    public EvalAction(ValuePrinter valuePrinter, MessagePrinter messagePrinter) {
+    public EvaluationRequestAction(ValuePrinter valuePrinter, MessagePrinter messagePrinter) {
         this.valuePrinter = valuePrinter;
         this.messagePrinter = messagePrinter;
     }

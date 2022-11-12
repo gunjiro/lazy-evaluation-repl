@@ -6,12 +6,12 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class EvalActionTest {
+public class EvaluationRequestActionTest {
     // 空文字の場合は何もしない
     @Test
     public void applyNotDoAnythingWhenCodeIsEmptyString() {
         final String code = "";
-        final EvalAction action = new EvalAction(null, null);
+        final EvaluationRequestAction action = new EvaluationRequestAction(null, null);
 
         action.apply(new EvaluationRequest(null, code));
     }
@@ -26,7 +26,7 @@ public class EvalActionTest {
         environment.addFunctions(reader);
 
         final StringBuilder builder = new StringBuilder();
-        final EvalAction action = new EvalAction(new ValuePrinter(new StringPrinter() {
+        final EvaluationRequestAction action = new EvaluationRequestAction(new ValuePrinter(new StringPrinter() {
             @Override
             public void print(String s) {
                 builder.append(s);
@@ -49,7 +49,7 @@ public class EvalActionTest {
         final Environment environment = new DefaultEnvironment();
 
         final StringBuilder builder = new StringBuilder();
-        final EvalAction action = new EvalAction(new ValuePrinter(new StringPrinter() {
+        final EvaluationRequestAction action = new EvaluationRequestAction(new ValuePrinter(new StringPrinter() {
             @Override
             public void print(String s) {
             }
@@ -72,7 +72,7 @@ public class EvalActionTest {
         final Environment environment = new DefaultEnvironment();
 
         final StringBuilder builder = new StringBuilder();
-        final EvalAction action = new EvalAction(new ValuePrinter(new StringPrinter() {
+        final EvaluationRequestAction action = new EvaluationRequestAction(new ValuePrinter(new StringPrinter() {
             @Override
             public void print(String s) {
             }

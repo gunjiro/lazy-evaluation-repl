@@ -16,8 +16,8 @@ public class RequestOperatorFactory {
         return new LoadAction(new FileResourceProvider(), messagePrinter);
     }
 
-    private EvalAction evalAction(MessagePrinter messagePrinter) {
-        return new EvalAction(valuePrinter(), messagePrinter);
+    private EvaluationRequestAction evalAction(MessagePrinter messagePrinter) {
+        return new EvaluationRequestAction(valuePrinter(), messagePrinter);
     }
 
     private ValuePrinter valuePrinter() {

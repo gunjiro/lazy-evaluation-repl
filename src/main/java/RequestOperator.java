@@ -1,9 +1,9 @@
 public class RequestOperator {
     private final CommandAnalyzer commandAnalyzer;
     private final CommandOperator commandOperator;
-    private final EvalAction evalAction;
+    private final EvaluationRequestAction evalAction;
 
-    public RequestOperator(CommandAnalyzer commandAnalyzer, CommandOperator commandOperator, EvalAction evalAction) {
+    public RequestOperator(CommandAnalyzer commandAnalyzer, CommandOperator commandOperator, EvaluationRequestAction evalAction) {
         this.commandAnalyzer = commandAnalyzer;
         this.commandOperator = commandOperator;
         this.evalAction = evalAction;
