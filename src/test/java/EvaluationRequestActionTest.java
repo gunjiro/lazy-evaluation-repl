@@ -9,16 +9,16 @@ import static org.hamcrest.Matchers.*;
 public class EvaluationRequestActionTest {
     // 空文字の場合は何もしない
     @Test
-    public void applyNotDoAnythingWhenCodeIsEmptyString() {
+    public void takeNotDoAnythingWhenCodeIsEmptyString() {
         final String code = "";
         final EvaluationRequestAction action = new EvaluationRequestAction(null, null);
 
-        action.apply(new EvaluationRequest(null, code));
+        action.take(new EvaluationRequest(null, code));
     }
 
     // 式の場合は評価して出力する
     @Test
-    public void applyShouldOutputValueWhenCodeIsExpressionString() throws ApplicationException {
+    public void takeShouldOutputValueWhenCodeIsExpressionString() throws ApplicationException {
         final Reader reader = new StringReader("two = 1 + 1");
         final String code = "two";
         final Environment environment = new DefaultEnvironment();
@@ -37,14 +37,14 @@ public class EvaluationRequestActionTest {
             }
         });
 
-        action.apply(new EvaluationRequest(environment, code));
+        action.take(new EvaluationRequest(environment, code));
 
         assertThat(builder.toString(), is("2"));
     }
 
     // 評価に失敗した場合はエラーメッセージを出力する
     @Test
-    public void applyShouldOutputErrorMessageWhenEvaluationIsFailed() throws ApplicationException {
+    public void takeShouldOutputErrorMessageWhenEvaluationIsFailed() throws ApplicationException {
         final String code = "1 + (1:[])";
         final Environment environment = new DefaultEnvironment();
 
@@ -60,14 +60,14 @@ public class EvaluationRequestActionTest {
             }
         });
 
-        action.apply(new EvaluationRequest(environment, code));
+        action.take(new EvaluationRequest(environment, code));
 
         assertThat(builder.toString(), is(not("")));
     }
 
     // 構文間違いの場合はエラーメッセージを出力する
     @Test
-    public void applyShouldOutputErrorMessageWhenCodeIsInvalid() throws ApplicationException {
+    public void takeShouldOutputErrorMessageWhenCodeIsInvalid() throws ApplicationException {
         final String code = "#$%";
         final Environment environment = new DefaultEnvironment();
 
@@ -83,7 +83,7 @@ public class EvaluationRequestActionTest {
             }
         });
 
-        action.apply(new EvaluationRequest(environment, code));
+        action.take(new EvaluationRequest(environment, code));
 
         assertThat(builder.toString(), is(not("")));
     }

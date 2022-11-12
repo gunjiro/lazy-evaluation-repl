@@ -30,7 +30,7 @@ public class RequestOperator {
 
             @Override
             public Void visit(EvaluationRequest request) {
-                evalAction.apply(request);
+                evalAction.take(request);
                 return null;
             }
         });
