@@ -18,7 +18,7 @@ public class RequestOperator {
 
             @Override
             public Void visit(CommandRequest request) throws ExitException {
-                factory.createCommandRequestAction().take(request);
+                factory.createCommandRequestAction().take(environment, request);
                 return null;
             }
 

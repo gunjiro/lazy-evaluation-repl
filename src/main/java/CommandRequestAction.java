@@ -7,7 +7,7 @@ public class CommandRequestAction {
         this.operator = operator;
     }
 
-    public void take(CommandRequest request) throws ExitException {
+    public void take(Environment environment, CommandRequest request) throws ExitException {
         request.extract(new CommandRequest.Operation<Void>() {
             @Override
             public Void apply(Environment environment, String input) throws ExitException {
