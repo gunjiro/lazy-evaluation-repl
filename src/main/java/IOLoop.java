@@ -14,7 +14,7 @@ public class IOLoop {
             final Environment environment = new DefaultEnvironment();
             while (true) {
                 String input = receiver.receive();
-                Request request = factory.createRequest(environment, input);
+                Request request = factory.createRequest(input);
                 executor.execute(environment, request);
             }
         } catch (ExitException e) {

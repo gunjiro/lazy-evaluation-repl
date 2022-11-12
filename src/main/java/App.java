@@ -26,7 +26,7 @@ interface Request {
 }
 
 class RequestFactory {
-    public Request createRequest(Environment environment, String input) {
+    public Request createRequest(String input) {
         final Request request;
         input = input.trim();
         if ("".equals(input)) {
