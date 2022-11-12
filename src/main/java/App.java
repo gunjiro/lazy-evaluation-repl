@@ -30,25 +30,15 @@ class RequestFactory {
         final Request request;
         input = input.trim();
         if ("".equals(input)) {
-            request = createEmptyRequest();
+            request = new EmptyRequest();
         }
         else if (input.charAt(0) == ':') {
-            request = createCommandRequest(environment, input);
+            request = new CommandRequest(input);
         }
         else {
-            request = createEvaluationRequest(environment, input);
+            request = new EvaluationRequest(input);
         }
         return request;
-    }
-
-    private Request createEmptyRequest() {
-        return new EmptyRequest();
-    }
-    private Request createCommandRequest(Environment environment, String input) {
-        return new CommandRequest(input);
-    }
-    private Request createEvaluationRequest(Environment environment, String input) {
-        return new EvaluationRequest(input);
     }
 }
 
