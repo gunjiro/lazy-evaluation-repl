@@ -10,27 +10,24 @@ public class EvaluationRequestAction {
     }
 
     public void take(Environment environment, EvaluationRequest request) {
-        request.extract(new EvaluationRequest.Operation<Void>() {
-            @Override
-            public Void apply(Environment environment, String code) {
-                if (code.isEmpty()) {
-                    return null;
-                }
+        take(environment, request.getInput());
+    }
 
-                try {
-                    valuePrinter.print(createThunk(environment, code).eval());
-                    messagePrinter.printMessage("");
-                } catch (ApplicationException e) {
-                    messagePrinter.printMessage("");
-                    messagePrinter.printMessage(e.getMessage());
-                } catch (EvaluationException e) {
-                    messagePrinter.printMessage("");
-                    messagePrinter.printMessage(e.getMessage());
-                }
+    private void take(Environment environment, String code) {
+        if (code.isEmpty()) {
+            return;
+        }
 
-                return null;
-            }
-        });
+        try {
+            valuePrinter.print(createThunk(environment, code).eval());
+            messagePrinter.printMessage("");
+        } catch (ApplicationException e) {
+            messagePrinter.printMessage("");
+            messagePrinter.printMessage(e.getMessage());
+        } catch (EvaluationException e) {
+            messagePrinter.printMessage("");
+            messagePrinter.printMessage(e.getMessage());
+        }
     }
 
     private Thunk createThunk(Environment environment, String code) throws ApplicationException {
