@@ -4,18 +4,10 @@ public class RequestActionFactory {
     }
 
     public CommandRequestAction createCommandRequestAction() {
-        return new CommandRequestAction(new CommandAnalyzer(), createCommandOperator());
+        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create());
     }
 
     private ValuePrinter createValuePrinter() {
         return new ValuePrinter(new SystemOutStringPrinter());
-    }
-
-    private CommandOperator createCommandOperator() {
-        return new CommandOperator(createLoadAction(), new SystemOutMessagePrinter());
-    }
-
-    private LoadAction createLoadAction() {
-        return new LoadAction(new FileResourceProvider(), new SystemOutMessagePrinter());
     }
 }

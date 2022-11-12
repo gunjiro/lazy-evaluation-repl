@@ -20,14 +20,14 @@ public class LoadActionTest {
             }
         };
         final Environment environment = new DefaultEnvironment();
-        final LoadAction action = new LoadAction(provider, new MessagePrinter() {
+        final LoadCommandAction action = new LoadCommandAction(provider, new MessagePrinter() {
             @Override
             public void printMessage(String message) {
             }
             
         });
 
-        action.apply(environment, List.of("sample1", "sample2"));
+        action.take(environment, new LoadCommand(List.of("sample1", "sample2")));
 
         final IntValue value1 = (IntValue)environment.createThunk(new StringReader("one")).eval();
         final IntValue value2 = (IntValue)environment.createThunk(new StringReader("two")).eval();

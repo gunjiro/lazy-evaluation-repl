@@ -1,24 +1,23 @@
 import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.List;
 
-public class LoadAction {
+public class LoadCommandAction {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
 
-    public LoadAction(ResourceProvider provider, MessagePrinter printer) {
+    public LoadCommandAction(ResourceProvider provider, MessagePrinter printer) {
         this.provider = provider;
         this.printer = printer;
     }
 
-    public void apply(Environment environment, List<String> names) {
-        for (String name : names) {
-            apply(environment, name);
+    public void take(Environment environment, LoadCommand command) {
+        for (String name : command.getResourceNames()) {
+            take(environment, name);
         }
     }
 
-    private void apply(Environment environment, String name) {
+    private void take(Environment environment, String name) {
         try (Reader reader = provider.open(name)) {
             environment.addFunctions(reader);
             printer.printMessage("loaded: " + name);
