@@ -68,18 +68,6 @@ class CommandRequest implements Request{
         input = in;
     }
 
-    private CommandAnalyzer analyzer() {
-        return new CommandAnalyzer();
-    }
-
-    private CommandOperator operator() {
-        return new CommandOperator(factory().create(), new SystemOutMessagePrinter());
-    }
-
-    private LoadActionFactory factory() {
-        return new LoadActionFactory();
-    }
-
     @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
