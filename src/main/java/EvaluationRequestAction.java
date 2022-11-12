@@ -9,7 +9,7 @@ public class EvaluationRequestAction {
         this.messagePrinter = messagePrinter;
     }
 
-    public void take(EvaluationRequest request) {
+    public void take(Environment environment, EvaluationRequest request) {
         request.extract(new EvaluationRequest.Operation<Void>() {
             @Override
             public Void apply(Environment environment, String code) {

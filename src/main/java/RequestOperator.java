@@ -24,7 +24,7 @@ public class RequestOperator {
 
             @Override
             public Void visit(EvaluationRequest request) {
-                factory.createEvaluationRequestAction().take(request);
+                factory.createEvaluationRequestAction().take(environment, request);
                 return null;
             }
         });
