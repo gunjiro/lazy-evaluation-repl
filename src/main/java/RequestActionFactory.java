@@ -12,10 +12,10 @@ public class RequestActionFactory {
     }
 
     private CommandOperator createCommandOperator() {
-        return new CommandOperator(createLoadAction(), new SystemOutMessagePrinter());
+        return new CommandOperator(createLoadCommandAction(), new SystemOutMessagePrinter());
     }
 
-    private LoadAction createLoadAction() {
-        return new LoadAction(new FileResourceProvider(), new SystemOutMessagePrinter());
+    private LoadCommandAction createLoadCommandAction() {
+        return new LoadCommandAction(new FileResourceProvider(), new SystemOutMessagePrinter());
     }
 }

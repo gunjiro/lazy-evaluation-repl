@@ -1,8 +1,8 @@
 public class CommandOperator {
-    private final LoadAction loadAction;
+    private final LoadCommandAction loadAction;
     private final MessagePrinter printer;
 
-    public CommandOperator(LoadAction loadAction, MessagePrinter printer) {
+    public CommandOperator(LoadCommandAction loadAction, MessagePrinter printer) {
         this.loadAction = loadAction;
         this.printer = printer;
     }

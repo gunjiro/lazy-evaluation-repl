@@ -20,7 +20,7 @@ public class LoadActionTest {
             }
         };
         final Environment environment = new DefaultEnvironment();
-        final LoadAction action = new LoadAction(provider, new MessagePrinter() {
+        final LoadCommandAction action = new LoadCommandAction(provider, new MessagePrinter() {
             @Override
             public void printMessage(String message) {
             }

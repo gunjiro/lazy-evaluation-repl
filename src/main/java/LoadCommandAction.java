@@ -2,11 +2,11 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 
-public class LoadAction {
+public class LoadCommandAction {
     private final ResourceProvider provider;
     private final MessagePrinter printer;
 
-    public LoadAction(ResourceProvider provider, MessagePrinter printer) {
+    public LoadCommandAction(ResourceProvider provider, MessagePrinter printer) {
         this.provider = provider;
         this.printer = printer;
     }
