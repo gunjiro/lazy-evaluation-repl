@@ -16,7 +16,6 @@ class App {
 }
 
 interface Request {
-    public void send() throws ExitException;
     public <R> R accept(Visitor<R> visitor) throws ExitException;
 
     public static interface Visitor<R> {
@@ -55,10 +54,6 @@ class RequestFactory {
 
 class EmptyRequest implements Request {
     @Override
-    public void send() {
-    }
-
-    @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
     }
@@ -71,11 +66,6 @@ class CommandRequest implements Request{
     CommandRequest(Environment env, String in) {
         environment = env;
         input = in;
-    }
-
-    @Override
-    public void send() throws ExitException {
-        operator().operate(environment, analyzer().analyze(input));
     }
 
     private CommandAnalyzer analyzer() {
@@ -113,11 +103,6 @@ class EvaluationRequest implements Request {
         environment = env;
         input = in;
         printer = new ValuePrinter(new SystemOutStringPrinter());
-    }
-
-    @Override
-    public void send() {
-        evaluate();
     }
 
     private void evaluate() {
