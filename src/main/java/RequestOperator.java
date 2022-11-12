@@ -9,7 +9,7 @@ public class RequestOperator {
         return new RequestOperator(new RequestActionFactory());
     }
 
-    public void operate(Request request) throws ExitException {
+    public void operate(Environment environment, Request request) throws ExitException {
         request.accept(new Request.Visitor<Void>() {
             @Override
             public Void visit(EmptyRequest request) {
@@ -18,13 +18,13 @@ public class RequestOperator {
 
             @Override
             public Void visit(CommandRequest request) throws ExitException {
-                factory.createCommandRequestAction().take(request);
+                factory.createCommandRequestAction().take(environment, request);
                 return null;
             }
 
             @Override
             public Void visit(EvaluationRequest request) {
-                factory.createEvaluationRequestAction().take(request);
+                factory.createEvaluationRequestAction().take(environment, request);
                 return null;
             }
         });

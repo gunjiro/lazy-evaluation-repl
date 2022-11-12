@@ -26,29 +26,22 @@ interface Request {
 }
 
 class RequestFactory {
-    public Request createRequest(Environment environment, String input) {
-        final Request request;
-        input = input.trim();
-        if ("".equals(input)) {
-            request = createEmptyRequest();
-        }
-        else if (input.charAt(0) == ':') {
-            request = createCommandRequest(environment, input);
-        }
-        else {
-            request = createEvaluationRequest(environment, input);
-        }
-        return request;
+    public Request createRequest(String input) {
+        return createRequestWithTrimmedInput(input.trim());
     }
 
-    private Request createEmptyRequest() {
-        return new EmptyRequest();
-    }
-    private Request createCommandRequest(Environment environment, String input) {
-        return new CommandRequest(environment, input);
-    }
-    private Request createEvaluationRequest(Environment environment, String input) {
-        return new EvaluationRequest(environment, input);
+    private Request createRequestWithTrimmedInput(String input) {
+        assert input.length() == input.trim().length();
+
+        if ("".equals(input)) {
+            return new EmptyRequest();
+        }
+        else if (input.charAt(0) == ':') {
+            return new CommandRequest(input);
+        }
+        else {
+            return new EvaluationRequest(input);
+        }
     }
 }
 
@@ -60,48 +53,36 @@ class EmptyRequest implements Request {
 }
 
 class CommandRequest implements Request{
-    private final Environment environment;
     private final String input;
 
-    CommandRequest(Environment env, String in) {
-        environment = env;
+    CommandRequest(String in) {
         input = in;
+    }
+
+    public String getInput() {
+        return input;
     }
 
     @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
-    }
-
-    public <R> R extract(Operation<R> operation) throws ExitException {
-        return operation.apply(environment, input);
-    }
-
-    public static interface Operation<R> {
-        public R apply(Environment environment, String input) throws ExitException;
     }
 }
 
 class EvaluationRequest implements Request {
-    private final Environment environment;
     private final String input;
 
-    EvaluationRequest(Environment env, String in) {
-        environment = env;
+    EvaluationRequest(String in) {
         input = in;
+    }
+
+    public String getInput() {
+        return input;
     }
 
     @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
-    }
-
-    public <R> R extract(Operation<R> operation) {
-        return operation.apply(environment, input);
-    }
-
-    public static interface Operation<R> {
-        public R apply(Environment environment, String input);
     }
 }
 

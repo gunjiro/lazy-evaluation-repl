@@ -1,6 +1,6 @@
 public class AppExecutor implements Executor {
     @Override
-    public void execute(Request request) throws ExitException {
-        RequestOperator.create().operate(request);
+    public void execute(Environment environment, Request request) throws ExitException {
+        RequestOperator.create().operate(environment, request);
     }
 }

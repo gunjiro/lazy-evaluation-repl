@@ -1,3 +1,3 @@
 public interface Executor {
-    public void execute(Request request) throws ExitException;
+    public void execute(Environment environment, Request request) throws ExitException;
 }
