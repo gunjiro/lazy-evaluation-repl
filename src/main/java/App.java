@@ -68,6 +68,10 @@ class CommandRequest implements Request{
         input = in;
     }
 
+    public String getInput() {
+        return input;
+    }
+
     @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
         return visitor.visit(this);
@@ -89,6 +93,10 @@ class EvaluationRequest implements Request {
     EvaluationRequest(Environment env, String in) {
         environment = env;
         input = in;
+    }
+
+    public String getInput() {
+        return input;
     }
 
     @Override
