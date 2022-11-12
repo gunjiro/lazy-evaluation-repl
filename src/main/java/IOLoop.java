@@ -15,7 +15,7 @@ public class IOLoop {
             while (true) {
                 String input = receiver.receive();
                 Request request = factory.createRequest(environment, input);
-                executor.execute(request);
+                executor.execute(environment, request);
             }
         } catch (ExitException e) {
         }

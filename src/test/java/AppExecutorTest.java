@@ -4,8 +4,9 @@ public class AppExecutorTest {
     // :qで終了
     @Test(expected = ExitException.class)
     public void executeShouldExitByQuitCommand() throws ExitException {
-        final Request request = new CommandRequest(new DefaultEnvironment(), ":q");
+        final Environment environment = new DefaultEnvironment();
+        final Request request = new CommandRequest(environment, ":q");
         final Executor executor = new AppExecutor();
-        executor.execute(request);
+        executor.execute(environment, request);
     }
 }
