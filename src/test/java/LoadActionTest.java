@@ -27,7 +27,7 @@ public class LoadActionTest {
             
         });
 
-        action.apply(environment, List.of("sample1", "sample2"));
+        action.take(environment, new LoadCommand(List.of("sample1", "sample2")));
 
         final IntValue value1 = (IntValue)environment.createThunk(new StringReader("one")).eval();
         final IntValue value2 = (IntValue)environment.createThunk(new StringReader("two")).eval();

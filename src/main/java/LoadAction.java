@@ -1,7 +1,6 @@
 import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.List;
 
 public class LoadAction {
     private final ResourceProvider provider;
@@ -12,13 +11,13 @@ public class LoadAction {
         this.printer = printer;
     }
 
-    public void apply(Environment environment, List<String> names) {
-        for (String name : names) {
-            apply(environment, name);
+    public void take(Environment environment, LoadCommand command) {
+        for (String name : command.getResourceNames()) {
+            take(environment, name);
         }
     }
 
-    private void apply(Environment environment, String name) {
+    private void take(Environment environment, String name) {
         try (Reader reader = provider.open(name)) {
             environment.addFunctions(reader);
             printer.printMessage("loaded: " + name);
