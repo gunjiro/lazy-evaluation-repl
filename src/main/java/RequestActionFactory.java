@@ -3,7 +3,7 @@ public class RequestActionFactory {
         return new EvaluationRequestAction(new ValuePrinter(stringPrinter), messagePrinter);
     }
 
-    public CommandRequestAction createCommandRequestAction(ResourceProvider provider, MessagePrinter printer) {
-        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create(provider, printer));
+    public CommandRequestAction createCommandRequestAction(CommandOperator operator) {
+        return new CommandRequestAction(new CommandAnalyzer(), operator);
     }
 }
