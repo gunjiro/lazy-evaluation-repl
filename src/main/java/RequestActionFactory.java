@@ -4,6 +4,6 @@ public class RequestActionFactory {
     }
 
     public CommandRequestAction createCommandRequestAction(ResourceProvider provider, MessagePrinter printer) {
-        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create(provider, printer));
+        return new CommandRequestAction(new CommandAnalyzer(), AppCommandOperator.create(provider, printer));
     }
 }
