@@ -12,8 +12,8 @@ public class RequestOperator {
         this.messagePrinter = messagePrinter;
     }
 
-    public static RequestOperator create() {
-        return new RequestOperator(new RequestActionFactory(), new FileResourceProvider(), new SystemOutStringPrinter(), new SystemOutMessagePrinter());
+    public static RequestOperator create(ResourceProvider provider, StringPrinter strinngPrinter, MessagePrinter messagePrinter) {
+        return new RequestOperator(new RequestActionFactory(), provider, strinngPrinter, messagePrinter);
     }
 
     public void operate(Environment environment, Request request) throws ExitException {
