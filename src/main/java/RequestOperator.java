@@ -1,19 +1,19 @@
 public class RequestOperator {
     private final RequestActionFactory factory;
-    private final ResourceProvider provider;
+    private final CommandOperator operator;
     private final StringPrinter strinngPrinter;
     private final MessagePrinter messagePrinter;
 
-    private RequestOperator(RequestActionFactory factory, ResourceProvider provider, StringPrinter strinngPrinter,
+    private RequestOperator(RequestActionFactory factory, CommandOperator operator, StringPrinter strinngPrinter,
             MessagePrinter messagePrinter) {
         this.factory = factory;
-        this.provider = provider;
+        this.operator = operator;
         this.strinngPrinter = strinngPrinter;
         this.messagePrinter = messagePrinter;
     }
 
-    public static RequestOperator create(ResourceProvider provider, StringPrinter strinngPrinter, MessagePrinter messagePrinter) {
-        return new RequestOperator(new RequestActionFactory(), provider, strinngPrinter, messagePrinter);
+    public static RequestOperator create(CommandOperator operator, StringPrinter strinngPrinter, MessagePrinter messagePrinter) {
+        return new RequestOperator(new RequestActionFactory(), operator, strinngPrinter, messagePrinter);
     }
 
     public void operate(Environment environment, Request request) throws ExitException {
@@ -25,7 +25,7 @@ public class RequestOperator {
 
             @Override
             public Void visit(CommandRequest request) throws ExitException {
-                factory.createCommandRequestAction(provider, messagePrinter).take(environment, request);
+                factory.createCommandRequestAction(operator).take(environment, request);
                 return null;
             }
 
