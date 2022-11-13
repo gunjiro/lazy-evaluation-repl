@@ -1,12 +1,16 @@
 public class CommandOperator {
     private final CommandActionFactory factory;
+    private final ResourceProvider provider;
+    private final MessagePrinter printer;
 
-    private CommandOperator(CommandActionFactory factory) {
+    private CommandOperator(CommandActionFactory factory, ResourceProvider provider, MessagePrinter printer) {
         this.factory = factory;
+        this.provider = provider;
+        this.printer = printer;
     }
 
     public static CommandOperator create() {
-        return new CommandOperator(new CommandActionFactory());
+        return new CommandOperator(new CommandActionFactory(), new FileResourceProvider(), new SystemOutMessagePrinter());
     }
 
     public void operate(Environment environment, Command command) throws ExitException {
@@ -24,13 +28,13 @@ public class CommandOperator {
 
             @Override
             public Void visit(LoadCommand command) {
-                factory.createLoadCommandAction().take(environment, command);
+                factory.createLoadCommandAction(provider, printer).take(environment, command);
                 return null;
             }
 
             @Override
             public Void visit(UnknownCommand command) {
-                factory.createUnknownCommandAction().take(command);
+                factory.createUnknownCommandAction(printer).take(command);
                 return null;
             }
         });

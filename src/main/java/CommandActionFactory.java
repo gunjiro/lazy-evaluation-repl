@@ -3,11 +3,11 @@ public class CommandActionFactory {
         return new QuitCommandAction();
     }
 
-    public LoadCommandAction createLoadCommandAction() {
-        return new LoadCommandAction(new FileResourceProvider(), new SystemOutMessagePrinter());
+    public LoadCommandAction createLoadCommandAction(ResourceProvider provider, MessagePrinter printer) {
+        return new LoadCommandAction(provider, printer);
     }
 
-    public UnknownCommandAction createUnknownCommandAction() {
-        return new UnknownCommandAction(new SystemOutMessagePrinter());
+    public UnknownCommandAction createUnknownCommandAction(MessagePrinter printer) {
+        return new UnknownCommandAction(printer);
     }
 }
