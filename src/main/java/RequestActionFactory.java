@@ -4,7 +4,7 @@ public class RequestActionFactory {
     }
 
     public CommandRequestAction createCommandRequestAction() {
-        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create());
+        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create(new FileResourceProvider(), new SystemOutMessagePrinter()));
     }
 
     private ValuePrinter createValuePrinter() {

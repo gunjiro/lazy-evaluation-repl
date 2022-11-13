@@ -9,8 +9,8 @@ public class CommandOperator {
         this.printer = printer;
     }
 
-    public static CommandOperator create() {
-        return new CommandOperator(new CommandActionFactory(), new FileResourceProvider(), new SystemOutMessagePrinter());
+    public static CommandOperator create(ResourceProvider provider, MessagePrinter printer) {
+        return new CommandOperator(new CommandActionFactory(), provider, printer);
     }
 
     public void operate(Environment environment, Command command) throws ExitException {
