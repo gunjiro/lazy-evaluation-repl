@@ -1,13 +1,9 @@
 public class RequestActionFactory {
-    public EvaluationRequestAction createEvaluationRequestAction() {
-        return new EvaluationRequestAction(createValuePrinter(), new SystemOutMessagePrinter());
+    public EvaluationRequestAction createEvaluationRequestAction(StringPrinter stringPrinter, MessagePrinter messagePrinter) {
+        return new EvaluationRequestAction(new ValuePrinter(stringPrinter), messagePrinter);
     }
 
-    public CommandRequestAction createCommandRequestAction() {
-        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create());
-    }
-
-    private ValuePrinter createValuePrinter() {
-        return new ValuePrinter(new SystemOutStringPrinter());
+    public CommandRequestAction createCommandRequestAction(ResourceProvider provider, MessagePrinter printer) {
+        return new CommandRequestAction(new CommandAnalyzer(), CommandOperator.create(provider, printer));
     }
 }
