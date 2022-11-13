@@ -4,7 +4,7 @@ class Main {
     }
 
     private static App createApp() {
-        return factory().create();
+        return factory().create(SystemInInputReceiver.create(), new FileResourceProvider(), new SystemOutStringPrinter(), new SystemOutMessagePrinter());
     }
 
     private static AppFactory factory() {
