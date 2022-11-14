@@ -31,7 +31,7 @@ class RequestFactory {
     }
 
     private Request createRequestWithTrimmedInput(String input) {
-        assert input.length() == input.trim().length();
+        assert input.trim().equals(input);
 
         if ("".equals(input)) {
             return new EmptyRequest();
