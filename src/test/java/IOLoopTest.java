@@ -10,12 +10,12 @@ public class IOLoopTest {
     @Test
     public void loopShouldloopUntilQuitCommandIsInputed() {
         final LinkedList<String> inputs = new LinkedList<String>(List.of("", "", ":q"));
-        final IOLoop ioLoop = new IOLoop(new InputReceiver() {
+        final IOLoop ioLoop = IOLoop.create(new InputReceiver() {
             @Override
             public String receive() {
                 return inputs.pop();
             }
-        }, new RequestFactory(), AppRequestOperator.create(null, null, null));
+        }, AppRequestOperator.create(null, null, null));
 
         ioLoop.loop();
 

@@ -4,6 +4,6 @@ public class AppFactory {
     }
 
     private IOLoop createIOLoop(InputReceiver receiver, ResourceProvider provider, StringPrinter stringPrinter, MessagePrinter messagePrinter) {
-        return new IOLoop(receiver, new RequestFactory(), AppRequestOperator.create(provider, stringPrinter, messagePrinter));
+        return IOLoop.create(receiver, AppRequestOperator.create(provider, stringPrinter, messagePrinter));
     }
 }
