@@ -1,12 +1,16 @@
 public class IOLoop {
-    private final InputReceiver receiver;
     private final RequestFactory factory;
+    private final InputReceiver receiver;
     private final RequestOperator operator;
 
-    public IOLoop(InputReceiver receiver, RequestFactory factory, RequestOperator operator) {
-        this.receiver = receiver;
+    private IOLoop(RequestFactory factory ,InputReceiver receiver, RequestOperator operator) {
         this.factory = factory;
+        this.receiver = receiver;
         this.operator = operator;
+    }
+
+    public static IOLoop create(InputReceiver receiver, RequestOperator operator) {
+        return new IOLoop(new RequestFactory(), receiver, operator);
     }
 
     public void loop() {
