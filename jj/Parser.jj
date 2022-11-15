@@ -3,6 +3,8 @@ options {
 }
 
 PARSER_BEGIN(Parser)
+package io.github.gunjiro;
+
 import java.util.*;
 
 public class Parser {
