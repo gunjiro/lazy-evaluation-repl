@@ -3,7 +3,7 @@ options {
 }
 
 PARSER_BEGIN(Parser)
-package io.github.gunjiro;
+package io.github.gunjiro.hj;
 
 import java.util.*;
 

@@ -37,7 +37,7 @@ javacc {
     configs {
         template {
             inputFile = file('jj/Parser.jj')
-            packageName = 'io.github.gunjiro'
+            packageName = 'io.github.gunjiro.hj'
         }
     }
 }
