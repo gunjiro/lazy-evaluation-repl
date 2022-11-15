@@ -1,0 +1,29 @@
+foldl f z list = if list == [] then z else foldl f (f z x) xs where {
+    x = head list;
+    xs = tail list;
+};
+
+foldr f z list = if list == [] then z else f x (foldr f z xs) where {
+    x = head list;
+    xs = tail list;
+};
+
+map f list = if list == [] then [] else f x : map f xs where {
+    x = head list;
+    xs = tail list;
+};
+
+take n list = if n <= 0 || list == [] then [] else x:take (n - 1) xs where {
+    x = head list;
+    xs = tail list;
+};
+
+enumFrom x = x : enumFrom (x + 1);
+
+enumFromTo x y = if x > y then [] else x : enumFromTo (x + 1) y;
+
+factorial x = foldl (\x y -> x * y) 1 (enumFromTo 1 x);
+
+sum = foldl (\x y -> x + y) 0;
+
+product = foldl (\x y -> x * y) 0;
