@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
-import io.github.gunjiro.hj.command.CommandName;
-
 public class CommandNameTest {
     // 空文字ならIllegalArgumentException
     @Test(expected = IllegalArgumentException.class)

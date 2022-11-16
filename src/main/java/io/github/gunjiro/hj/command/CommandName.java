@@ -7,8 +7,8 @@ public class CommandName {
     }
 
     public boolean matches(String input) {
-        if (input.isBlank()) {
-            throw new IllegalArgumentException("input should not be blank");
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("input should not be empty string");
         }
 
         return name.startsWith(input);
