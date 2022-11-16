@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
@@ -6,11 +6,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
-
-import io.github.gunjiro.hj.command.EmptyCommand;
-import io.github.gunjiro.hj.command.LoadCommand;
-import io.github.gunjiro.hj.command.QuitCommand;
-import io.github.gunjiro.hj.command.UnknownCommand;
 
 public class CommandAnalyzerTest {
     // １文字目が:じゃないならIllegalArgumentException

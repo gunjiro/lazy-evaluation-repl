@@ -1,13 +1,5 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command;
 import java.util.List;
-
-import io.github.gunjiro.hj.command.Command;
-import io.github.gunjiro.hj.command.CommandInput;
-import io.github.gunjiro.hj.command.CommandName;
-import io.github.gunjiro.hj.command.EmptyCommand;
-import io.github.gunjiro.hj.command.LoadCommand;
-import io.github.gunjiro.hj.command.QuitCommand;
-import io.github.gunjiro.hj.command.UnknownCommand;
 
 public class CommandAnalyzer {
     public Command analyze(String input) {

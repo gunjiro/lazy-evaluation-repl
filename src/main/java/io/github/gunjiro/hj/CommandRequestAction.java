@@ -1,4 +1,7 @@
 package io.github.gunjiro.hj;
+
+import io.github.gunjiro.hj.command.CommandAnalyzer;
+
 public class CommandRequestAction {
     private final CommandAnalyzer analyzer;
     private final CommandOperator operator;
