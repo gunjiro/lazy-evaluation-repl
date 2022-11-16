@@ -1,8 +1,6 @@
 package io.github.gunjiro.hj.command;
 import org.junit.Test;
 
-import io.github.gunjiro.hj.command.CommandInput;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
