@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command;
 import java.util.Arrays;
 import java.util.List;
 

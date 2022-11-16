@@ -2,6 +2,7 @@ package io.github.gunjiro.hj;
 import java.util.List;
 
 import io.github.gunjiro.hj.command.Command;
+import io.github.gunjiro.hj.command.CommandInput;
 import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
