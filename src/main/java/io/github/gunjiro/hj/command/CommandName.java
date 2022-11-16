@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command;
 public class CommandName {
     private final String name;
 

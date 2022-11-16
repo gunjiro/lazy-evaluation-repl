@@ -1,8 +1,10 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
+
+import io.github.gunjiro.hj.command.CommandName;
 
 public class CommandNameTest {
     // 空文字ならIllegalArgumentException
