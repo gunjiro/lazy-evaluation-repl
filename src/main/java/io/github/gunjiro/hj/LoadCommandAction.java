@@ -3,6 +3,8 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 
+import io.github.gunjiro.hj.command.LoadCommand;
+
 public class LoadCommandAction {
     private final ResourceProvider provider;
     private final MessagePrinter printer;

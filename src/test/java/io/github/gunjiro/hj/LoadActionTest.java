@@ -1,6 +1,8 @@
 package io.github.gunjiro.hj;
 import org.junit.Test;
 
+import io.github.gunjiro.hj.command.LoadCommand;
+
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.LinkedList;

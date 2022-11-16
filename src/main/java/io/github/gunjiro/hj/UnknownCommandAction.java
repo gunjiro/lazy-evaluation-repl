@@ -1,4 +1,7 @@
 package io.github.gunjiro.hj;
+
+import io.github.gunjiro.hj.command.UnknownCommand;
+
 public class UnknownCommandAction {
     private final MessagePrinter printer;
 

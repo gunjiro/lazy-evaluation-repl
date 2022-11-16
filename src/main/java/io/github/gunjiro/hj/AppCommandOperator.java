@@ -1,4 +1,11 @@
 package io.github.gunjiro.hj;
+
+import io.github.gunjiro.hj.command.Command;
+import io.github.gunjiro.hj.command.EmptyCommand;
+import io.github.gunjiro.hj.command.LoadCommand;
+import io.github.gunjiro.hj.command.QuitCommand;
+import io.github.gunjiro.hj.command.UnknownCommand;
+
 public class AppCommandOperator implements CommandOperator {
     private final CommandActionFactory factory;
     private final ResourceProvider provider;

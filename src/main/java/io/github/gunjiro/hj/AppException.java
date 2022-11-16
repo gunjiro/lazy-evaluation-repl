@@ -1,6 +1,4 @@
 package io.github.gunjiro.hj;
-class ExitException extends Exception {
-}
 class ApplicationException extends Exception {
     ApplicationException(String message) {
         super(message);

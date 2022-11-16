@@ -87,65 +87,6 @@ class EvaluationRequest implements Request {
     }
 }
 
-interface Command {
-    public <R> R accept(Visitor<R> visitor) throws ExitException;
-
-    public static interface Visitor<R> {
-        public R visit(EmptyCommand command);
-        public R visit(QuitCommand command) throws ExitException;
-        public R visit(LoadCommand command);
-        public R visit(UnknownCommand command);
-    }
-}
-
-class EmptyCommand implements Command {
-    @Override
-    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
-        return visitor.visit(this);
-    }
-}
-
-class QuitCommand implements Command {
-    @Override
-    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
-        return visitor.visit(this);
-    }
-}
-
-class LoadCommand implements Command {
-    private final List<String> resourceNames;
-
-    LoadCommand(List<String> resourceNames) {
-        this.resourceNames = resourceNames;
-    }
-
-    public List<String> getResourceNames() {
-        return resourceNames;
-    }
-
-    @Override
-    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
-        return visitor.visit(this);
-    }
-}
-
-class UnknownCommand implements Command {
-    private final String commandName;
-
-    UnknownCommand(String name) {
-        commandName = name;
-    }
-
-    public String getCommandName() {
-        return commandName;
-    }
-
-    @Override
-    public <R> R accept(Command.Visitor<R> visitor) throws ExitException {
-        return visitor.visit(this);
-    }
-}
-
 class DefaultDeclsNode extends DeclsNode {
     DefaultDeclsNode() {
         super();
