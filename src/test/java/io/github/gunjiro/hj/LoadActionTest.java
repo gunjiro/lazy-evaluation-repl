@@ -2,6 +2,7 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.command.LoadCommand;
+import io.github.gunjiro.hj.command.action.LoadCommandAction;
 
 import java.io.Reader;
 import java.io.StringReader;

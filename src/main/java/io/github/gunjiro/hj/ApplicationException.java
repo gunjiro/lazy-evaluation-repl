@@ -1,5 +1,5 @@
 package io.github.gunjiro.hj;
-class ApplicationException extends Exception {
+public class ApplicationException extends Exception {
     ApplicationException(String message) {
         super(message);
     }

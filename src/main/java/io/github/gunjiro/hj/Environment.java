@@ -3,7 +3,7 @@ import java.util.*;
 
 import java.io.*;
 
-class Environment {
+public class Environment {
     private int initialCapacity;
     private ThunkTable table;
     private Parser parser;
@@ -17,7 +17,7 @@ class Environment {
         table = new ThunkTable(null, initialCapacity);
         nodeToExpression = new NodeToExpression();
     }
-    void addFunctions(Reader reader) throws ApplicationException {
+    public void addFunctions(Reader reader) throws ApplicationException {
         try {
             parser.ReInit(reader);
             addFunctions(parser.loadfile());
