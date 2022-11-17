@@ -1,5 +1,6 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command.action;
 
+import io.github.gunjiro.hj.ExitException;
 import io.github.gunjiro.hj.command.QuitCommand;
 
 public class QuitCommandAction {
