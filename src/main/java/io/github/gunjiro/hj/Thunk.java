@@ -23,7 +23,7 @@ class ThunkTable {
     }
 }
 
-class Thunk {
+public class Thunk {
     private Closure closure;
     private Value cache;
     Thunk(Expression exp, ThunkTable tt) {
@@ -33,7 +33,7 @@ class Thunk {
     private Value force() throws EvaluationException {
         return closure.eval();
     }
-    Value eval() throws EvaluationException {
+    public Value eval() throws EvaluationException {
         if (cache == null) {
             cache = force();
             closure = null;

@@ -42,7 +42,7 @@ public class Environment {
             table.add(new Thunk(exp, table));
         }
     }
-    Thunk createThunk(Reader reader) throws ApplicationException {
+    public Thunk createThunk(Reader reader) throws ApplicationException {
         try {
             parser.ReInit(reader);
             return createThunk(parser.input());

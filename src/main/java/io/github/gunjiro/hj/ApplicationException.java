@@ -15,11 +15,6 @@ class IllegalExpressionException extends Exception {
         super(message);
     }
 }
-class EvaluationException extends Exception {
-    EvaluationException(String message) {
-        super(message);
-    }
-}
 class IntOperationException extends EvaluationException {
     IntOperationException(String message) {
         super(message);

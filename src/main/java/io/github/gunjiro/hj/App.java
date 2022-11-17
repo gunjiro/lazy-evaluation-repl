@@ -108,24 +108,3 @@ class DefaultDeclsNode extends DeclsNode {
         return new DefineNode("tail", Arrays.asList(new String[]{"xs"}), new UnaryOpNode("!tail", new VarNode("xs")));
     }
 }
-
-class DefaultEnvironment extends Environment {
-    DefaultEnvironment() {
-        super(100);
-    }
-    @Override void initFunctions() {
-        super.initFunctions();
-        addDefaultFunctions();
-    }
-    private void addDefaultFunctions() {
-        try {
-            addFunctions(createDeclsNode());
-        }
-        catch (ApplicationException e) {
-            throw new InternalError(e.getMessage());
-        }
-    }
-    private DeclsNode createDeclsNode() {
-        return new DefaultDeclsNode();
-    }
-}

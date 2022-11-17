@@ -1,9 +1,14 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.command.action;
 import org.junit.Test;
 
+import io.github.gunjiro.hj.ApplicationException;
+import io.github.gunjiro.hj.DefaultEnvironment;
+import io.github.gunjiro.hj.Environment;
+import io.github.gunjiro.hj.EvaluationException;
+import io.github.gunjiro.hj.IntValue;
+import io.github.gunjiro.hj.MessagePrinter;
+import io.github.gunjiro.hj.ResourceProvider;
 import io.github.gunjiro.hj.command.LoadCommand;
-import io.github.gunjiro.hj.command.action.LoadCommandAction;
-
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.LinkedList;
@@ -12,7 +17,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class LoadActionTest {
+public class LoadCommandActionTest {
     // ResourceProviderから宣言を読み込む
     @Test
     public void applyShouldLoadFromResourceProvider() throws EvaluationException, ApplicationException {
