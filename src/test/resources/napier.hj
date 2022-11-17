@@ -1,0 +1,11 @@
+ones = 1 : ones;
+mult10 x = head x * 10 : (mult10 (tail x));
+normalize n a = carry : mod (heada + head right) n : tail right
+    where {
+        heada = head a;
+        right = normalize (n + 1) (tail a);
+        carry = if mod heada n + 9 < n then heada / n
+                else (heada + head right) / n;
+    };
+convert x = head x : (convert (normalize 2 (mult10 (tail x))));
+napier = convert (2 : ones);
