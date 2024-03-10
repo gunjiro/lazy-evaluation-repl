@@ -1,7 +1,7 @@
 package io.github.gunjiro.hj;
 import java.util.*;
 
-class App {
+public class App {
     private final IOLoop ioLoop;
     private final MessagePrinter printer;
 
@@ -10,7 +10,7 @@ class App {
         this.printer = printer;
     }
 
-    void run() {
+    public void run() {
         ioLoop.loop();
         printer.printMessage("Bye.");
     }
