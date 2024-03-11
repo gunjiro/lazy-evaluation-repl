@@ -39,12 +39,12 @@ public class REPL {
      * REPLを実行する。
      */
     public void run() {
-        REPL.Result result;
+        REPL.Result result = REPL.Result.Quit;
 
         do {
             final String input = implementor.waitForInput();
             result = implementor.execute(input);
-        } while (result.equals(REPL.Result.Continue));
+        } while (REPL.Result.Continue.equals(result));
 
         implementor.showQuitMessage();
     }
