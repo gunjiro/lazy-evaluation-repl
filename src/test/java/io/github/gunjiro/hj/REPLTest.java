@@ -2,8 +2,6 @@ package io.github.gunjiro.hj;
 
 import org.junit.Test;
 
-import io.github.gunjiro.hj.REPL.Result;
-
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -47,7 +45,7 @@ public class REPLTest {
         }
 
         @Override
-        public Result execute(String input) {
+        public REPL.Result execute(String input) {
             return ":q".equals(input) ? REPL.Result.Quit : REPL.Result.Continue;
         }
 
