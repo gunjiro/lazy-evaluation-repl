@@ -16,36 +16,6 @@ public class App {
     }
 }
 
-interface Request {
-    public <R> R accept(Visitor<R> visitor) throws ExitException;
-
-    public static interface Visitor<R> {
-        public R visit(EmptyRequest request);
-        public R visit(CommandRequest request) throws ExitException;
-        public R visit(EvaluationRequest request);
-    }
-}
-
-class RequestFactory {
-    public Request createRequest(String input) {
-        return createRequestWithTrimmedInput(input.trim());
-    }
-
-    private Request createRequestWithTrimmedInput(String input) {
-        assert input.trim().equals(input);
-
-        if ("".equals(input)) {
-            return new EmptyRequest();
-        }
-        else if (input.charAt(0) == ':') {
-            return new CommandRequest(input);
-        }
-        else {
-            return new EvaluationRequest(input);
-        }
-    }
-}
-
 class EmptyRequest implements Request {
     @Override
     public <R> R accept(Request.Visitor<R> visitor) throws ExitException {
