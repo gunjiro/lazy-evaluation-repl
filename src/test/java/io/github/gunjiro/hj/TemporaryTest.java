@@ -8,5 +8,6 @@ import static org.hamcrest.Matchers.*;
 public class TemporaryTest {
     @Test
     public void test() {
+        assertThat(1, is(1));
     }
 }
