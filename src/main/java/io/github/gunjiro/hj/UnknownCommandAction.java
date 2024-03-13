@@ -3,13 +3,26 @@ package io.github.gunjiro.hj;
 import io.github.gunjiro.hj.command.UnknownCommand;
 
 public class UnknownCommandAction {
-    private final MessagePrinter printer;
+    public static interface Implementor {
+        public void showMessage(String message);
+    }
+
+    private final Implementor implementor;
+
+    public UnknownCommandAction(Implementor implementor) {
+        this.implementor = implementor; 
+    }
 
     public UnknownCommandAction(MessagePrinter printer) {
-        this.printer = printer;
+        this.implementor = new Implementor() {
+            @Override
+            public void showMessage(String message) {
+                printer.printMessage(message);
+            }
+        };
     }
 
     public void take(UnknownCommand command) {
-        printer.printMessage(String.format("unknown command '%s'", command.getCommandName()));
+        implementor.showMessage(String.format("unknown command '%s'", command.getCommandName()));
     }
 }
