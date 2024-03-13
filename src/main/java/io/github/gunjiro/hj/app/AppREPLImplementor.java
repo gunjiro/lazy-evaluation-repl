@@ -34,15 +34,25 @@ class AppREPLImplementor implements REPL.Implementor {
     @Override
     public REPL.Result execute(String input) {
         try {
-            final RequestFactory factory = new RequestFactory();
-            final RequestOperator operator = AppRequestOperator.create(new FileResourceProvider(),
-                    new SystemOutStringPrinter(), new SystemOutMessagePrinter());
-            Request request = factory.createRequest(input);
-            operator.operate(environment, request);
+            operate(input);
             return REPL.Result.Continue;
         } catch (ExitException e) {
             return REPL.Result.Quit;
         }
+    }
+
+    private void operate(String input) throws ExitException {
+        final Request request = createRequest(input);
+        createOperator().operate(environment, request);
+    }
+
+    private static Request createRequest(String input) {
+        final RequestFactory factory = new RequestFactory();
+        return factory.createRequest(input);
+    }
+
+    private static RequestOperator createOperator() {
+        return AppRequestOperator.create(new FileResourceProvider(), new SystemOutStringPrinter(), new SystemOutMessagePrinter());
     }
 
     @Override
