@@ -12,15 +12,4 @@ public class CommandActionFactory {
         return new LoadCommandAction(provider, implementor);
     }
 
-    public LoadCommandAction createLoadCommandAction(ResourceProvider provider, MessagePrinter printer) {
-        return new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
-
-            @Override
-            public void showMessage(String message) {
-                printer.printMessage(message);
-            }
-
-        });
-    }
-
 }
