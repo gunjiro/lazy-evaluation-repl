@@ -7,14 +7,26 @@ import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
 
 public class AppCommandOperator implements CommandOperator {
+    public static interface Implementor {
+        public void showMessage(String message);
+    }
+
     private final CommandActionFactory factory;
     private final ResourceProvider provider;
     private final MessagePrinter printer;
+
+    private final Implementor implementor;
 
     private AppCommandOperator(CommandActionFactory factory, ResourceProvider provider, MessagePrinter printer) {
         this.factory = factory;
         this.provider = provider;
         this.printer = printer;
+        this.implementor = new Implementor() {
+            @Override
+            public void showMessage(String message) {
+                printer.printMessage(message);
+            }
+        };
     }
 
     public static CommandOperator create(ResourceProvider provider, MessagePrinter printer) {
@@ -54,7 +66,7 @@ public class AppCommandOperator implements CommandOperator {
 
             @Override
             public void showMessage(String message) {
-                printer.printMessage(message);
+                implementor.showMessage(message);
             }
 
         });
