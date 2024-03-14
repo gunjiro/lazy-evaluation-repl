@@ -5,7 +5,6 @@ import java.io.Reader;
 
 import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.Environment;
-import io.github.gunjiro.hj.MessagePrinter;
 import io.github.gunjiro.hj.ResourceProvider;
 import io.github.gunjiro.hj.command.LoadCommand;
 
@@ -20,17 +19,6 @@ public class LoadCommandAction {
     public LoadCommandAction(ResourceProvider provider, LoadCommandAction.Implementor implementor) {
         this.provider = provider;
         this.implementor = implementor;
-    }
-
-    public LoadCommandAction(ResourceProvider provider, MessagePrinter printer) {
-        this(provider, new Implementor() {
-
-            @Override
-            public void showMessage(String message) {
-                printer.printMessage(message);
-            }
-
-        });
     }
 
     public void take(Environment environment, LoadCommand command) {
