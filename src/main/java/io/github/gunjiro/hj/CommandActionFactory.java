@@ -8,6 +8,10 @@ public class CommandActionFactory {
         return new QuitCommandAction();
     }
 
+    public LoadCommandAction createLoadCommandAction(ResourceProvider provider, LoadCommandAction.Implementor implementor) {
+        return new LoadCommandAction(provider, implementor);
+    }
+
     public LoadCommandAction createLoadCommandAction(ResourceProvider provider, MessagePrinter printer) {
         return new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
 
