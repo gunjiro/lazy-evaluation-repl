@@ -13,6 +13,14 @@ public class CommandActionFactory {
     }
 
     public UnknownCommandAction createUnknownCommandAction(MessagePrinter printer) {
-        return new UnknownCommandAction(printer);
+        return new UnknownCommandAction(new UnknownCommandAction.Implementor() {
+
+            @Override
+            public void showMessage(String message) {
+                printer.printMessage(message);
+            }
+            
+        });
     }
+
 }
