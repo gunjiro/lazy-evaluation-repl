@@ -16,19 +16,23 @@ public class AppCommandOperator implements CommandOperator {
     private final ResourceProvider provider;
     private final Implementor implementor;
 
-    private AppCommandOperator(CommandActionFactory factory, ResourceProvider provider, MessagePrinter printer) {
+    private AppCommandOperator(CommandActionFactory factory, ResourceProvider provider, Implementor implementor) {
         this.factory = factory;
         this.provider = provider;
-        this.implementor = new Implementor() {
+        this.implementor = implementor;
+    }
+
+    public static CommandOperator create(ResourceProvider provider, AppCommandOperator.Implementor implementor) {
+        return new AppCommandOperator(new CommandActionFactory(), provider, implementor);
+    }
+
+    public static CommandOperator create(ResourceProvider provider, MessagePrinter printer) {
+        return new AppCommandOperator(new CommandActionFactory(), provider, new Implementor() {
             @Override
             public void showMessage(String message) {
                 printer.printMessage(message);
             }
-        };
-    }
-
-    public static CommandOperator create(ResourceProvider provider, MessagePrinter printer) {
-        return new AppCommandOperator(new CommandActionFactory(), provider, printer);
+        });
     }
 
     @Override
