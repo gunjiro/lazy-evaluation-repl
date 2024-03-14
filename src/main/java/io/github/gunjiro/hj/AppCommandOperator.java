@@ -5,6 +5,7 @@ import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
+import io.github.gunjiro.hj.command.action.LoadCommandAction;
 
 public class AppCommandOperator implements CommandOperator {
     public static interface Implementor {
@@ -58,7 +59,7 @@ public class AppCommandOperator implements CommandOperator {
 
         @Override
         public Void visit(LoadCommand command) {
-            factory.createLoadCommandAction(provider, printer).take(environment, command);
+            createLoadCommandAction().take(environment, command);
             return null;
         }
 
@@ -67,6 +68,15 @@ public class AppCommandOperator implements CommandOperator {
             createUnknownCommandAction().take(command);
             return null;
         }
+    }
+
+    private LoadCommandAction createLoadCommandAction() {
+            return factory.createLoadCommandAction(provider, new LoadCommandAction.Implementor() {
+                @Override
+                public void showMessage(String message) {
+                    implementor.showMessage(message);
+                }
+            });
     }
 
     private UnknownCommandAction createUnknownCommandAction() {
