@@ -6,7 +6,6 @@ import io.github.gunjiro.hj.DefaultEnvironment;
 import io.github.gunjiro.hj.Environment;
 import io.github.gunjiro.hj.EvaluationException;
 import io.github.gunjiro.hj.IntValue;
-import io.github.gunjiro.hj.MessagePrinter;
 import io.github.gunjiro.hj.ResourceProvider;
 import io.github.gunjiro.hj.command.LoadCommand;
 import java.io.Reader;
@@ -29,9 +28,9 @@ public class LoadCommandActionTest {
             }
         };
         final Environment environment = new DefaultEnvironment();
-        final LoadCommandAction action = new LoadCommandAction(provider, new MessagePrinter() {
+        final LoadCommandAction action = new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
             @Override
-            public void printMessage(String message) {
+            public void showMessage(String message) {
             }
             
         });
