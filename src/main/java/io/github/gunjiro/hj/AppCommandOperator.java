@@ -6,28 +6,27 @@ import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
 import io.github.gunjiro.hj.command.action.LoadCommandAction;
+import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 public class AppCommandOperator implements CommandOperator {
     public static interface Implementor {
         public void showMessage(String message);
     }
 
-    private final CommandActionFactory factory;
     private final ResourceProvider provider;
     private final Implementor implementor;
 
-    private AppCommandOperator(CommandActionFactory factory, ResourceProvider provider, Implementor implementor) {
-        this.factory = factory;
+    private AppCommandOperator(ResourceProvider provider, Implementor implementor) {
         this.provider = provider;
         this.implementor = implementor;
     }
 
     public static CommandOperator create(ResourceProvider provider, AppCommandOperator.Implementor implementor) {
-        return new AppCommandOperator(new CommandActionFactory(), provider, implementor);
+        return new AppCommandOperator(provider, implementor);
     }
 
     public static CommandOperator create(ResourceProvider provider, MessagePrinter printer) {
-        return new AppCommandOperator(new CommandActionFactory(), provider, new Implementor() {
+        return new AppCommandOperator(provider, new Implementor() {
             @Override
             public void showMessage(String message) {
                 printer.printMessage(message);
@@ -54,7 +53,7 @@ public class AppCommandOperator implements CommandOperator {
 
         @Override
         public Void visit(QuitCommand command) throws ExitException {
-            factory.createQuitCommandAction().take(command);
+            createQuitCommandAction().take(command);
             return null;
         }
 
@@ -69,6 +68,10 @@ public class AppCommandOperator implements CommandOperator {
             createUnknownCommandAction().take(command);
             return null;
         }
+    }
+
+    private QuitCommandAction createQuitCommandAction() {
+        return new QuitCommandAction();
     }
 
     private LoadCommandAction createLoadCommandAction() {
