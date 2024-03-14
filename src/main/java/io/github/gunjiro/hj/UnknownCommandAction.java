@@ -13,15 +13,6 @@ public class UnknownCommandAction {
         this.implementor = implementor; 
     }
 
-    public UnknownCommandAction(MessagePrinter printer) {
-        this.implementor = new Implementor() {
-            @Override
-            public void showMessage(String message) {
-                printer.printMessage(message);
-            }
-        };
-    }
-
     public void take(UnknownCommand command) {
         implementor.showMessage(String.format("unknown command '%s'", command.getCommandName()));
     }
