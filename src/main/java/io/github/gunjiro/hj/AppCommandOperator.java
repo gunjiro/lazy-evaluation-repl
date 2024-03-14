@@ -35,30 +35,38 @@ public class AppCommandOperator implements CommandOperator {
 
     @Override
     public void operate(Environment environment, Command command) throws ExitException {
-        command.accept(new Command.Visitor<Void>() {
-            @Override
-            public Void visit(EmptyCommand command) {
-                return null;
-            }
+        command.accept(new OperationCommandVisitor(environment));
+    }
 
-            @Override
-            public Void visit(QuitCommand command) throws ExitException {
-                factory.createQuitCommandAction().take(command);
-                return null;
-            }
+    public class OperationCommandVisitor implements Command.Visitor<Void> {
+        private final Environment environment;
 
-            @Override
-            public Void visit(LoadCommand command) {
-                factory.createLoadCommandAction(provider, printer).take(environment, command);
-                return null;
-            }
+        public OperationCommandVisitor(Environment environment) {
+            this.environment = environment;
+        }
 
-            @Override
-            public Void visit(UnknownCommand command) {
-                createUnknownCommandAction().take(command);
-                return null;
-            }
-        });
+        @Override
+        public Void visit(EmptyCommand command) {
+            return null;
+        }
+
+        @Override
+        public Void visit(QuitCommand command) throws ExitException {
+            factory.createQuitCommandAction().take(command);
+            return null;
+        }
+
+        @Override
+        public Void visit(LoadCommand command) {
+            factory.createLoadCommandAction(provider, printer).take(environment, command);
+            return null;
+        }
+
+        @Override
+        public Void visit(UnknownCommand command) {
+            createUnknownCommandAction().take(command);
+            return null;
+        }
     }
 
     private UnknownCommandAction createUnknownCommandAction() {
