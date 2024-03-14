@@ -14,14 +14,11 @@ public class AppCommandOperator implements CommandOperator {
 
     private final CommandActionFactory factory;
     private final ResourceProvider provider;
-    private final MessagePrinter printer;
-
     private final Implementor implementor;
 
     private AppCommandOperator(CommandActionFactory factory, ResourceProvider provider, MessagePrinter printer) {
         this.factory = factory;
         this.provider = provider;
-        this.printer = printer;
         this.implementor = new Implementor() {
             @Override
             public void showMessage(String message) {
@@ -71,12 +68,12 @@ public class AppCommandOperator implements CommandOperator {
     }
 
     private LoadCommandAction createLoadCommandAction() {
-            return factory.createLoadCommandAction(provider, new LoadCommandAction.Implementor() {
-                @Override
-                public void showMessage(String message) {
-                    implementor.showMessage(message);
-                }
-            });
+        return new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
+            @Override
+            public void showMessage(String message) {
+                implementor.showMessage(message);
+            }
+        });
     }
 
     private UnknownCommandAction createUnknownCommandAction() {
