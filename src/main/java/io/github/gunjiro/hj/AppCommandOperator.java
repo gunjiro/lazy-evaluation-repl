@@ -43,9 +43,20 @@ public class AppCommandOperator implements CommandOperator {
 
             @Override
             public Void visit(UnknownCommand command) {
-                factory.createUnknownCommandAction(printer).take(command);
+                createUnknownCommandAction().take(command);
                 return null;
             }
+        });
+    }
+
+    private UnknownCommandAction createUnknownCommandAction() {
+        return new UnknownCommandAction(new UnknownCommandAction.Implementor() {
+
+            @Override
+            public void showMessage(String message) {
+                printer.printMessage(message);
+            }
+
         });
     }
 }
