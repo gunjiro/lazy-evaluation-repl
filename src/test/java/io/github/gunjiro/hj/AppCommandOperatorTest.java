@@ -2,7 +2,6 @@ package io.github.gunjiro.hj;
 
 import org.junit.Test;
 
-import io.github.gunjiro.hj.command.Command;
 import io.github.gunjiro.hj.command.UnknownCommand;
 
 import static org.hamcrest.MatcherAssert.assertThat;
