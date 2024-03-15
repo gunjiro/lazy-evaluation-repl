@@ -12,10 +12,12 @@ import java.io.Reader;
 
 public class AppCommandOperatorTest {
     @Test
-    public void operateOutputsMessageWhenInputIsUnknownCommand() throws ExitException {
+    public void outputsMessageWhenInputIsUnknownCommand() throws ExitException {
         // 入力が不明なコマンドの場合、メッセージを出力する。
-        final Command input = new UnknownCommand("☆☆☆☆☆");
-        final StringBuilder output = new StringBuilder();
+        // このテストでは不明なコマンドを処理するモジュールと結果が同等になることを確認する。
+        final UnknownCommand input = new UnknownCommand("☆☆☆☆☆");
+        final StringBuilder outputByOperator = new StringBuilder();
+        final StringBuilder outputByAction = new StringBuilder();
 
         final CommandOperator operator = AppCommandOperator.create(new ResourceProvider() {
 
@@ -27,13 +29,23 @@ public class AppCommandOperatorTest {
 
             @Override
             public void printMessage(String message) {
-                output.append(message);
+                outputByOperator.append(message);
+            }
+            
+        });
+
+        final UnknownCommandAction action = new UnknownCommandAction(new UnknownCommandAction.Implementor() {
+
+            @Override
+            public void showMessage(String message) {
+                outputByAction.append(message);
             }
             
         });
 
         operator.operate(new DefaultEnvironment(), input);
+        action.take(input);
 
-        assertThat(output.toString(), is("unknown command '☆☆☆☆☆'"));
+        assertThat(outputByOperator.toString(), is(outputByAction.toString()));
     }
 }
