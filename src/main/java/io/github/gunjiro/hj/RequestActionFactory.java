@@ -8,6 +8,13 @@ public class RequestActionFactory {
     }
 
     public CommandRequestAction createCommandRequestAction(ResourceProvider provider, MessagePrinter printer) {
-        return new CommandRequestAction(new CommandAnalyzer(), AppCommandOperator.create(provider, printer));
+        return new CommandRequestAction(new CommandAnalyzer(), AppCommandOperator.create(provider, new AppCommandOperator.Implementor() {
+
+            @Override
+            public void showMessage(String message) {
+                printer.printMessage(message);
+            }
+            
+        }));
     }
 }
