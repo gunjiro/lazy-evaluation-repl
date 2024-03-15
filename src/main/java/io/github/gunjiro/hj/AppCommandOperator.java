@@ -25,15 +25,6 @@ public class AppCommandOperator implements CommandOperator {
         return new AppCommandOperator(provider, implementor);
     }
 
-    public static CommandOperator create(ResourceProvider provider, MessagePrinter printer) {
-        return new AppCommandOperator(provider, new Implementor() {
-            @Override
-            public void showMessage(String message) {
-                printer.printMessage(message);
-            }
-        });
-    }
-
     @Override
     public void operate(Environment environment, Command command) throws ExitException {
         command.accept(new OperationCommandVisitor(environment));
