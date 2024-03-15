@@ -14,7 +14,7 @@ public class AppCommandOperatorTest {
     @Test
     public void outputsMessageWhenInputIsUnknownCommand() throws ExitException {
         // 入力が不明なコマンドの場合、メッセージを出力する。
-        // このテストでは不明なコマンドを処理するモジュールと結果が同等になることを確認する。
+        // このテストでは「コマンド処理」が「不明なコマンドを処理するアクション」と結果が同等になることを確認する。
         final UnknownCommand input = new UnknownCommand("☆☆☆☆☆");
         final StringBuilder outputByOperator = new StringBuilder();
         final StringBuilder outputByAction = new StringBuilder();
