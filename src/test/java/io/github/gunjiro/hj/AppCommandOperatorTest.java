@@ -24,10 +24,10 @@ public class AppCommandOperatorTest {
             public Reader open(String name) throws FailedException {
                 throw new UnsupportedOperationException("Unimplemented method 'open'");
             }
-        }, new MessagePrinter() {
+        }, new AppCommandOperator.Implementor() {
 
             @Override
-            public void printMessage(String message) {
+            public void showMessage(String message) {
                 outputByOperator.append(message);
             }
             
