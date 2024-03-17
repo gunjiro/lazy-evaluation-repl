@@ -2,6 +2,7 @@ package io.github.gunjiro.hj;
 
 import org.junit.Test;
 
+import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
 import io.github.gunjiro.hj.command.action.QuitCommandAction;
@@ -89,5 +90,37 @@ public class AppCommandOperatorTest {
         }
 
         assertThat(resultByOperator , is(resultByAction));
+    }
+
+    @Test
+    public void doNothingWhenInputIsEmptyCommand() {
+        // 入力が空のコマンドの場合、何もしない。
+        // このテストでは単に「コマンド処理」の呼び出しが通ることを確認する。
+        String result = "☆☆☆☆☆ do nothing";
+        final CommandOperator operator = AppCommandOperator.create(
+            new ResourceProvider() {
+
+                @Override
+                public Reader open(String name) throws FailedException {
+                    throw new UnsupportedOperationException("Unimplemented method 'open'");
+                }
+
+            },
+            new AppCommandOperator.Implementor() {
+
+                @Override
+                public void showMessage(String message) {
+                    throw new UnsupportedOperationException("Unimplemented method 'showMessage'");
+                }
+
+            });
+
+        try {
+            operator.operate(new DefaultEnvironment(), new EmptyCommand());
+        } catch (ExitException e) {
+            result = "☆☆☆☆☆ quit";
+        }
+
+        assertThat(result, is("☆☆☆☆☆ do nothing"));
     }
 }
