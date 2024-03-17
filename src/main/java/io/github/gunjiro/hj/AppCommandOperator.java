@@ -34,6 +34,10 @@ public class AppCommandOperator implements CommandOperator {
         createQuitCommandAction().take(command);
     }
 
+    private void operate(UnknownCommand command) {
+        createUnknownCommandAction().take(command);
+    }
+
     public class OperationCommandVisitor implements Command.Visitor<Void> {
         private final Environment environment;
 
@@ -60,7 +64,7 @@ public class AppCommandOperator implements CommandOperator {
 
         @Override
         public Void visit(UnknownCommand command) {
-            createUnknownCommandAction().take(command);
+            operate(command);
             return null;
         }
     }
