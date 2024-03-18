@@ -3,14 +3,19 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.command.EmptyCommand;
+import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
+import io.github.gunjiro.hj.command.action.LoadCommandAction;
 import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.io.Reader;
+import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AppCommandOperatorTest {
     @Test
@@ -122,5 +127,47 @@ public class AppCommandOperatorTest {
         }
 
         assertThat(result, is("☆☆☆☆☆ do nothing"));
+    }
+
+    @Test
+    public void outputsMessagesAfterOperatingLoadCommand() throws ExitException {
+        // 入力が読み込みコマンドの場合、リソースから関数定義等を読み込み、メッセージを出力する。
+        // このテストでは「コマンド処理」後のメッセージが「読み込みコマンドを処理するアクション」のメッセージと同等になることを確認する。
+        final LoadCommand input = new LoadCommand(List.of("resource1", "resource2"));
+        final LinkedList<String> outputsByOperator = new LinkedList<String>();
+        final LinkedList<String> outputsByAction = new LinkedList<String>();
+        final ResourceProvider provider = new ResourceProvider() {
+            @Override
+            public Reader open(String name) throws ResourceProvider.FailedException {
+                if ("resource1".equals(name)) {
+                    return new StringReader("one = 1");
+                } else if ("resource2".equals(name)) {
+                    return new StringReader("two = 2");
+                } else {
+                    throw new ResourceProvider.FailedException("☆☆☆☆☆ NOT FOUND");
+                }
+            }
+        };
+        final CommandOperator operator = AppCommandOperator.create(provider, new AppCommandOperator.Implementor() {
+
+            @Override
+            public void showMessage(String message) {
+                outputsByOperator.add(message);
+            }
+            
+        });
+        final LoadCommandAction action = new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
+
+            @Override
+            public void showMessage(String message) {
+                outputsByAction.add(message);
+            }
+            
+        });
+
+        operator.operate(new DefaultEnvironment(), input);
+        action.take(new DefaultEnvironment(), input);
+
+        assertThat(outputsByOperator, is(outputsByAction));
     }
 }
