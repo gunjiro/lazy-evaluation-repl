@@ -15,6 +15,7 @@ import io.github.gunjiro.hj.command.action.QuitCommandAction;
 public class AppCommandOperator implements CommandOperator {
     public static interface Implementor {
         public void showMessage(String message);
+        public void load(String name);
     }
 
     private final ResourceProvider provider;

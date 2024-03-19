@@ -14,6 +14,11 @@ public class RequestActionFactory {
             public void showMessage(String message) {
                 printer.printMessage(message);
             }
+
+            @Override
+            public void load(String name) {
+                throw new UnsupportedOperationException("Unimplemented method 'load'");
+            }
             
         }));
     }

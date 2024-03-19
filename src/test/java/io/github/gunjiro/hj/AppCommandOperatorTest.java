@@ -38,6 +38,11 @@ public class AppCommandOperatorTest {
             public void showMessage(String message) {
                 outputByOperator.append(message);
             }
+
+            @Override
+            public void load(String name) {
+                throw new UnsupportedOperationException("Unimplemented method 'load'");
+            }
             
         });
 
@@ -79,6 +84,11 @@ public class AppCommandOperatorTest {
                     public void showMessage(String message) {
                         throw new UnsupportedOperationException("Unimplemented method 'showMessage'");
                     }
+
+                    @Override
+                    public void load(String name) {
+                        throw new UnsupportedOperationException("Unimplemented method 'load'");
+                    }
                     
                 }
             );
@@ -118,6 +128,11 @@ public class AppCommandOperatorTest {
                     throw new UnsupportedOperationException("Unimplemented method 'showMessage'");
                 }
 
+                @Override
+                public void load(String name) {
+                    throw new UnsupportedOperationException("Unimplemented method 'load'");
+                }
+
             });
 
         try {
@@ -153,6 +168,11 @@ public class AppCommandOperatorTest {
             @Override
             public void showMessage(String message) {
                 outputsByOperator.add(message);
+            }
+
+            @Override
+            public void load(String name) {
+                throw new UnsupportedOperationException("Unimplemented method 'load'");
             }
             
         });
