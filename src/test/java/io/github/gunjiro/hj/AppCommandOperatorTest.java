@@ -172,7 +172,7 @@ public class AppCommandOperatorTest {
 
             @Override
             public void load(String name) {
-                throw new UnsupportedOperationException("Unimplemented method 'load'");
+                outputsByOperator.add("loaded: " + name);
             }
             
         });

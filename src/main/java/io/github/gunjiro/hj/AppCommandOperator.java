@@ -1,9 +1,5 @@
 package io.github.gunjiro.hj;
 
-import java.io.IOError;
-import java.io.IOException;
-import java.io.Reader;
-
 import io.github.gunjiro.hj.command.Command;
 import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
@@ -18,11 +14,9 @@ public class AppCommandOperator implements CommandOperator {
         public void load(String name);
     }
 
-    private final ResourceProvider provider;
     private final Implementor implementor;
 
     private AppCommandOperator(ResourceProvider provider, Implementor implementor) {
-        this.provider = provider;
         this.implementor = implementor;
     }
 
@@ -82,16 +76,7 @@ public class AppCommandOperator implements CommandOperator {
         return new LoadCommandAction(new LoadCommandAction.Implementor() {
             @Override
             public void load(String name) {
-                try (Reader reader = provider.open(name)) {
-                    environment.addFunctions(reader);
-                    implementor.showMessage("loaded: " + name);
-                } catch (ResourceProvider.FailedException e) {
-                    implementor.showMessage(e.getMessage());
-                } catch (ApplicationException e) {
-                    implementor.showMessage(e.getMessage());
-                } catch (IOException e) {
-                    throw new IOError(e);
-                }
+                implementor.load(name);
             }
         });
     }
