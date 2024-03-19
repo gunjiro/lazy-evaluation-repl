@@ -22,4 +22,8 @@ public class RequestActionFactory {
             
         }));
     }
+
+    public CommandRequestAction createCommandRequestAction(ResourceProvider provider, MessagePrinter printer, AppCommandOperator.Implementor implementor) {
+        return new CommandRequestAction(new CommandAnalyzer(), AppCommandOperator.create(provider, implementor));
+    }
 }
