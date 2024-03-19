@@ -31,7 +31,7 @@ public class AppRequestOperator implements RequestOperator {
 
             @Override
             public Void visit(CommandRequest request) throws ExitException {
-                factory.createCommandRequestAction(provider, messagePrinter, new AppCommandOperator.Implementor() {
+                factory.createCommandRequestAction(new AppCommandOperator.Implementor() {
                     @Override
                     public void showMessage(String message) {
                         messagePrinter.printMessage(message);
