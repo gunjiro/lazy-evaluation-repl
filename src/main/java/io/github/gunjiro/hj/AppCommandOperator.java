@@ -30,7 +30,7 @@ public class AppCommandOperator implements CommandOperator {
 
     @Override
     public void operate(Environment environment, Command command) throws ExitException {
-        command.accept(new OperationCommandVisitor(environment));
+        command.accept(new OperationCommandVisitor());
     }
 
     private void operate(QuitCommand command) throws ExitException{
@@ -42,11 +42,6 @@ public class AppCommandOperator implements CommandOperator {
     }
 
     public class OperationCommandVisitor implements Command.Visitor<Void> {
-        private final Environment environment;
-
-        public OperationCommandVisitor(Environment environment) {
-            this.environment = environment;
-        }
 
         @Override
         public Void visit(EmptyCommand command) {
@@ -61,7 +56,7 @@ public class AppCommandOperator implements CommandOperator {
 
         @Override
         public Void visit(LoadCommand command) {
-            createLoadCommandAction(environment).take(command);
+            createLoadCommandAction().take(command);
             return null;
         }
 
@@ -76,7 +71,7 @@ public class AppCommandOperator implements CommandOperator {
         return new QuitCommandAction();
     }
 
-    private LoadCommandAction createLoadCommandAction(Environment environment) {
+    private LoadCommandAction createLoadCommandAction() {
         return new LoadCommandAction(new LoadCommandAction.Implementor() {
             @Override
             public void load(String name) {
