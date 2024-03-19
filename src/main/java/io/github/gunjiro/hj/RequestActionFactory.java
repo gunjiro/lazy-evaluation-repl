@@ -7,10 +7,6 @@ public class RequestActionFactory {
         return new EvaluationRequestAction(new ValuePrinter(stringPrinter), messagePrinter);
     }
 
-    public CommandRequestAction createCommandRequestAction(ResourceProvider provider, MessagePrinter printer, AppCommandOperator.Implementor implementor) {
-        return new CommandRequestAction(new CommandAnalyzer(), new AppCommandOperator(implementor));
-    }
-
     public CommandRequestAction createCommandRequestAction(AppCommandOperator.Implementor implementor) {
         return new CommandRequestAction(new CommandAnalyzer(), new AppCommandOperator(implementor));
     }
