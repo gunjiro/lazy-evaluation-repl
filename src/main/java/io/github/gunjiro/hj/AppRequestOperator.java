@@ -1,4 +1,9 @@
 package io.github.gunjiro.hj;
+
+import java.io.IOError;
+import java.io.IOException;
+import java.io.Reader;
+
 public class AppRequestOperator implements RequestOperator {
     private final RequestActionFactory factory;
     private final ResourceProvider provider;
@@ -26,7 +31,27 @@ public class AppRequestOperator implements RequestOperator {
 
             @Override
             public Void visit(CommandRequest request) throws ExitException {
-                factory.createCommandRequestAction(provider, messagePrinter).take(environment, request);
+                factory.createCommandRequestAction(provider, messagePrinter, new AppCommandOperator.Implementor() {
+                    @Override
+                    public void showMessage(String message) {
+                        messagePrinter.printMessage(message);
+                    }
+
+                    @Override
+                    public void load(String name) {
+                        try (Reader reader = provider.open(name)) {
+                            environment.addFunctions(reader);
+                            showMessage("loaded: " + name);
+                        } catch (ResourceProvider.FailedException e) {
+                            showMessage(e.getMessage());
+                        } catch (ApplicationException e) {
+                            showMessage(e.getMessage());
+                        } catch (IOException e) {
+                            throw new IOError(e);
+                        }
+                    }
+
+                }).take(environment, request);
                 return null;
             }
 
