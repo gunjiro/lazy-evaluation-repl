@@ -1,11 +1,15 @@
 package io.github.gunjiro.hj;
 
+import java.io.IOError;
+import java.io.IOException;
+import java.io.Reader;
+
 import io.github.gunjiro.hj.command.Command;
 import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
-import io.github.gunjiro.hj.command.action.LoadCommandAction;
+import io.github.gunjiro.hj.command.action.NewLoadCommandAction;
 import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 public class AppCommandOperator implements CommandOperator {
@@ -58,7 +62,7 @@ public class AppCommandOperator implements CommandOperator {
 
         @Override
         public Void visit(LoadCommand command) {
-            createLoadCommandAction().take(environment, command);
+            createLoadCommandAction(environment).take(command);
             return null;
         }
 
@@ -73,11 +77,20 @@ public class AppCommandOperator implements CommandOperator {
         return new QuitCommandAction();
     }
 
-    private LoadCommandAction createLoadCommandAction() {
-        return new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
+    private NewLoadCommandAction createLoadCommandAction(Environment environment) {
+        return new NewLoadCommandAction(new NewLoadCommandAction.Implementor() {
             @Override
-            public void showMessage(String message) {
-                implementor.showMessage(message);
+            public void load(String name) {
+                try (Reader reader = provider.open(name)) {
+                    environment.addFunctions(reader);
+                    implementor.showMessage("loaded: " + name);
+                } catch (ResourceProvider.FailedException e) {
+                    implementor.showMessage(e.getMessage());
+                } catch (ApplicationException e) {
+                    implementor.showMessage(e.getMessage());
+                } catch (IOException e) {
+                    throw new IOError(e);
+                }
             }
         });
     }
