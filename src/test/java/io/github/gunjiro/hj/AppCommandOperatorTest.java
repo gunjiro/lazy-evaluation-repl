@@ -6,7 +6,7 @@ import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
-import io.github.gunjiro.hj.command.action.LoadCommandAction;
+import io.github.gunjiro.hj.command.action.NewLoadCommandAction;
 import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -156,17 +156,16 @@ public class AppCommandOperatorTest {
             }
             
         });
-        final LoadCommandAction action = new LoadCommandAction(provider, new LoadCommandAction.Implementor() {
+        final NewLoadCommandAction action = new NewLoadCommandAction(new NewLoadCommandAction.Implementor() {
 
             @Override
-            public void showMessage(String message) {
-                outputsByAction.add(message);
+            public void load(String name) {
+                outputsByAction.add("loaded: " + name);
             }
-            
         });
 
         operator.operate(new DefaultEnvironment(), input);
-        action.take(new DefaultEnvironment(), input);
+        action.take(input);
 
         assertThat(outputsByOperator, is(outputsByAction));
     }
