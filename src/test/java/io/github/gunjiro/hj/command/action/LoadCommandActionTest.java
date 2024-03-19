@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import io.github.gunjiro.hj.command.LoadCommand;
 
-public class NewLoadCommandActionTest {
+public class LoadCommandActionTest {
     @Test
     public void takesLoadCommand() {
         // 読み込みコマンドを処理する。
         // このテストでは複数のリソースを読み込んだとき、その分だけ読み込み処理が行われることを確認する。
         final LoadCommand command = new LoadCommand(List.of("resource1", "resource2"));
         final LinkedList<String> results = new LinkedList<String>();
-        final NewLoadCommandAction action = new NewLoadCommandAction(new NewLoadCommandAction.Implementor() {
+        final LoadCommandAction action = new LoadCommandAction(new LoadCommandAction.Implementor() {
 
             @Override
             public void load(String name) {

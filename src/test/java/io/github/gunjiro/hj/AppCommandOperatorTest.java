@@ -6,7 +6,7 @@ import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
-import io.github.gunjiro.hj.command.action.NewLoadCommandAction;
+import io.github.gunjiro.hj.command.action.LoadCommandAction;
 import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -156,7 +156,7 @@ public class AppCommandOperatorTest {
             }
             
         });
-        final NewLoadCommandAction action = new NewLoadCommandAction(new NewLoadCommandAction.Implementor() {
+        final LoadCommandAction action = new LoadCommandAction(new LoadCommandAction.Implementor() {
 
             @Override
             public void load(String name) {

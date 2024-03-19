@@ -9,7 +9,7 @@ import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
-import io.github.gunjiro.hj.command.action.NewLoadCommandAction;
+import io.github.gunjiro.hj.command.action.LoadCommandAction;
 import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 public class AppCommandOperator implements CommandOperator {
@@ -77,8 +77,8 @@ public class AppCommandOperator implements CommandOperator {
         return new QuitCommandAction();
     }
 
-    private NewLoadCommandAction createLoadCommandAction(Environment environment) {
-        return new NewLoadCommandAction(new NewLoadCommandAction.Implementor() {
+    private LoadCommandAction createLoadCommandAction(Environment environment) {
+        return new LoadCommandAction(new LoadCommandAction.Implementor() {
             @Override
             public void load(String name) {
                 try (Reader reader = provider.open(name)) {

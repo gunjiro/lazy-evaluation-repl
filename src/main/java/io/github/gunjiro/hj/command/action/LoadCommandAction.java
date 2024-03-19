@@ -2,14 +2,14 @@ package io.github.gunjiro.hj.command.action;
 
 import io.github.gunjiro.hj.command.LoadCommand;
 
-public class NewLoadCommandAction {
+public class LoadCommandAction {
     public static interface Implementor {
         public void load(String name);
     }
 
     private final Implementor implementor;
 
-    public NewLoadCommandAction(Implementor implementor) {
+    public LoadCommandAction(Implementor implementor) {
         this.implementor = implementor;
     }
 
