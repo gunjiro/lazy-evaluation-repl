@@ -16,6 +16,10 @@ public class AppCommandOperator implements CommandOperator {
 
     private final Implementor implementor;
 
+    public AppCommandOperator(Implementor implementor) {
+        this.implementor = implementor;
+    }
+
     private AppCommandOperator(ResourceProvider provider, Implementor implementor) {
         this.implementor = implementor;
     }
