@@ -33,8 +33,12 @@ public class AppCommandOperator implements CommandOperator {
         command.accept(new OperationCommandVisitor());
     }
 
-    private void operate(QuitCommand command) throws ExitException{
+    private void operate(QuitCommand command) throws ExitException {
         createQuitCommandAction().take(command);
+    }
+
+    private void operate(LoadCommand command) {
+        createLoadCommandAction().take(command);
     }
 
     private void operate(UnknownCommand command) {
@@ -56,7 +60,7 @@ public class AppCommandOperator implements CommandOperator {
 
         @Override
         public Void visit(LoadCommand command) {
-            createLoadCommandAction().take(command);
+            operate(command);
             return null;
         }
 
