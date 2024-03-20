@@ -7,6 +7,7 @@ import java.io.Reader;
 import io.github.gunjiro.hj.command.Command;
 import io.github.gunjiro.hj.command.CommandAnalyzer;
 import io.github.gunjiro.hj.command.operator.AppCommandOperator;
+import io.github.gunjiro.hj.command.operator.CommandOperator;
 
 public class AppRequestOperator implements RequestOperator {
     public static interface Implementor {
