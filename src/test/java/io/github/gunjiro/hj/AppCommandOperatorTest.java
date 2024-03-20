@@ -12,8 +12,6 @@ import io.github.gunjiro.hj.command.action.QuitCommandAction;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,13 +24,7 @@ public class AppCommandOperatorTest {
         final StringBuilder outputByOperator = new StringBuilder();
         final StringBuilder outputByAction = new StringBuilder();
 
-        final CommandOperator operator = AppCommandOperator.create(new ResourceProvider() {
-
-            @Override
-            public Reader open(String name) throws FailedException {
-                throw new UnsupportedOperationException("Unimplemented method 'open'");
-            }
-        }, new AppCommandOperator.Implementor() {
+        final CommandOperator operator = new AppCommandOperator(new AppCommandOperator.Implementor() {
 
             @Override
             public void showMessage(String message) {
@@ -69,16 +61,7 @@ public class AppCommandOperatorTest {
         String resultByAction = "☆☆☆☆☆ continue";
 
         try {
-            final CommandOperator operator = AppCommandOperator.create(
-                new ResourceProvider() {
-
-                    @Override
-                    public Reader open(String name) throws FailedException {
-                        throw new UnsupportedOperationException("Unimplemented method 'open'");
-                    }
-                    
-                },
-                new AppCommandOperator.Implementor() {
+            final CommandOperator operator = new AppCommandOperator(new AppCommandOperator.Implementor() {
 
                     @Override
                     public void showMessage(String message) {
@@ -112,16 +95,7 @@ public class AppCommandOperatorTest {
         // 入力が空のコマンドの場合、何もしない。
         // このテストでは単に「コマンド処理」の呼び出しが通ることを確認する。
         String result = "☆☆☆☆☆ do nothing";
-        final CommandOperator operator = AppCommandOperator.create(
-            new ResourceProvider() {
-
-                @Override
-                public Reader open(String name) throws FailedException {
-                    throw new UnsupportedOperationException("Unimplemented method 'open'");
-                }
-
-            },
-            new AppCommandOperator.Implementor() {
+        final CommandOperator operator = new AppCommandOperator(new AppCommandOperator.Implementor() {
 
                 @Override
                 public void showMessage(String message) {
@@ -151,31 +125,20 @@ public class AppCommandOperatorTest {
         final LoadCommand input = new LoadCommand(List.of("resource1", "resource2"));
         final LinkedList<String> outputsByOperator = new LinkedList<String>();
         final LinkedList<String> outputsByAction = new LinkedList<String>();
-        final ResourceProvider provider = new ResourceProvider() {
-            @Override
-            public Reader open(String name) throws ResourceProvider.FailedException {
-                if ("resource1".equals(name)) {
-                    return new StringReader("one = 1");
-                } else if ("resource2".equals(name)) {
-                    return new StringReader("two = 2");
-                } else {
-                    throw new ResourceProvider.FailedException("☆☆☆☆☆ NOT FOUND");
-                }
-            }
-        };
-        final CommandOperator operator = AppCommandOperator.create(provider, new AppCommandOperator.Implementor() {
+        final CommandOperator operator = new AppCommandOperator(new AppCommandOperator.Implementor() {
 
             @Override
             public void showMessage(String message) {
-                outputsByOperator.add(message);
+                throw new UnsupportedOperationException("Unimplemented method 'showMessage'");
             }
 
             @Override
             public void load(String name) {
                 outputsByOperator.add("loaded: " + name);
             }
-            
+
         });
+            
         final LoadCommandAction action = new LoadCommandAction(new LoadCommandAction.Implementor() {
 
             @Override
