@@ -11,7 +11,7 @@ import io.github.gunjiro.hj.command.operator.CommandOperator;
 
 public class AppRequestOperator implements RequestOperator {
     public static interface Implementor {
-        public void operate(Command command);
+        public void operate(Command command) throws ExitException;
     }
 
     private final RequestActionFactory factory;
