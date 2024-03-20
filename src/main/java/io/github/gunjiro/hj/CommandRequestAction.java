@@ -12,6 +12,6 @@ public class CommandRequestAction {
     }
 
     public void take(Environment environment, CommandRequest request) throws ExitException {
-        operator.operate(environment, analyzer.analyze(request.getInput()));
+        operator.operate(analyzer.analyze(request.getInput()));
     }
 }
