@@ -28,6 +28,34 @@ public class AppCommandOperator implements CommandOperator {
         return new AppCommandOperator(provider, implementor);
     }
 
+    public void operate(Command command) throws ExitException {
+        command.accept(new Command.Visitor<Void>() {
+
+            @Override
+            public Void visit(EmptyCommand command) {
+                return null;
+            }
+
+            @Override
+            public Void visit(QuitCommand command) throws ExitException {
+                operate(command);
+                return null;
+            }
+
+            @Override
+            public Void visit(LoadCommand command) {
+                operate(command);
+                return null;
+            }
+
+            @Override
+            public Void visit(UnknownCommand command) {
+                operate(command);
+                return null;
+            }
+        });
+    }
+
     @Override
     public void operate(Environment environment, Command command) throws ExitException {
         command.accept(new Command.Visitor<Void>() {
