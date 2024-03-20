@@ -146,8 +146,8 @@ public class AppCommandOperatorTest {
 
     @Test
     public void outputsMessagesAfterOperatingLoadCommand() throws ExitException {
-        // 入力が読み込みコマンドの場合、リソースから関数定義等を読み込み、メッセージを出力する。
-        // このテストでは「コマンド処理」後のメッセージが「読み込みコマンドを処理するアクション」のメッセージと同等になることを確認する。
+        // 入力が読み込みコマンドの場合、リソースから関数定義等を読み込む。
+        // このテストでは「コマンド処理」の結果が「読み込みコマンドを処理するアクション」の結果と同等になることを確認する。
         final LoadCommand input = new LoadCommand(List.of("resource1", "resource2"));
         final LinkedList<String> outputsByOperator = new LinkedList<String>();
         final LinkedList<String> outputsByAction = new LinkedList<String>();
