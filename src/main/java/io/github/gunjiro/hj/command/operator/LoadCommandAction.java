@@ -2,18 +2,18 @@ package io.github.gunjiro.hj.command.operator;
 
 import io.github.gunjiro.hj.command.LoadCommand;
 
-public class LoadCommandAction {
-    public static interface Implementor {
+class LoadCommandAction {
+    static interface Implementor {
         public void load(String name);
     }
 
     private final Implementor implementor;
 
-    public LoadCommandAction(Implementor implementor) {
+    LoadCommandAction(Implementor implementor) {
         this.implementor = implementor;
     }
 
-    public void take(LoadCommand command) {
+    void take(LoadCommand command) {
         for (String name : command.getResourceNames()) {
             take(name);
         }
