@@ -4,6 +4,8 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 
+import io.github.gunjiro.hj.command.CommandAnalyzer;
+
 public class AppRequestOperator implements RequestOperator {
     private final RequestActionFactory factory;
     private final ResourceProvider provider;
@@ -31,7 +33,8 @@ public class AppRequestOperator implements RequestOperator {
 
             @Override
             public Void visit(CommandRequest request) throws ExitException {
-                factory.createCommandRequestAction(new AppCommandOperator.Implementor() {
+                final CommandAnalyzer analyzer = new CommandAnalyzer();
+                final CommandOperator operator = new AppCommandOperator(new AppCommandOperator.Implementor() {
                     @Override
                     public void showMessage(String message) {
                         messagePrinter.printMessage(message);
@@ -51,7 +54,8 @@ public class AppRequestOperator implements RequestOperator {
                         }
                     }
 
-                }).take(request);
+                });
+                operator.operate(analyzer.analyze(request.getInput()));
                 return null;
             }
 
