@@ -28,6 +28,7 @@ public class AppCommandOperator implements CommandOperator {
         return new AppCommandOperator(provider, implementor);
     }
 
+    @Override
     public void operate(Command command) throws ExitException {
         command.accept(new Command.Visitor<Void>() {
 
