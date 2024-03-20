@@ -5,14 +5,11 @@ import org.junit.Test;
 import io.github.gunjiro.hj.CommandOperator;
 import io.github.gunjiro.hj.ExitException;
 import io.github.gunjiro.hj.UnknownCommandAction;
-import io.github.gunjiro.hj.UnknownCommandAction.Implementor;
 import io.github.gunjiro.hj.command.EmptyCommand;
 import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
 import io.github.gunjiro.hj.command.action.LoadCommandAction;
-import io.github.gunjiro.hj.command.operator.AppCommandOperator;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
