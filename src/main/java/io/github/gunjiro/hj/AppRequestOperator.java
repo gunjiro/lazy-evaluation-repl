@@ -51,7 +51,7 @@ public class AppRequestOperator implements RequestOperator {
                         }
                     }
 
-                }).take(environment, request);
+                }).take(request);
                 return null;
             }
 
