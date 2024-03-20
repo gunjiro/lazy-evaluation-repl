@@ -20,14 +20,6 @@ public class AppCommandOperator implements CommandOperator {
         this.implementor = implementor;
     }
 
-    private AppCommandOperator(ResourceProvider provider, Implementor implementor) {
-        this.implementor = implementor;
-    }
-
-    public static CommandOperator create(ResourceProvider provider, AppCommandOperator.Implementor implementor) {
-        return new AppCommandOperator(provider, implementor);
-    }
-
     @Override
     public void operate(Command command) throws ExitException {
         command.accept(new Command.Visitor<Void>() {
