@@ -57,35 +57,6 @@ public class AppCommandOperator implements CommandOperator {
         });
     }
 
-    @Override
-    public void operate(Environment environment, Command command) throws ExitException {
-        command.accept(new Command.Visitor<Void>() {
-
-            @Override
-            public Void visit(EmptyCommand command) {
-                return null;
-            }
-
-            @Override
-            public Void visit(QuitCommand command) throws ExitException {
-                operate(command);
-                return null;
-            }
-
-            @Override
-            public Void visit(LoadCommand command) {
-                operate(command);
-                return null;
-            }
-
-            @Override
-            public Void visit(UnknownCommand command) {
-                operate(command);
-                return null;
-            }
-        });
-    }
-
     private void operate(QuitCommand command) throws ExitException {
         createQuitCommandAction().take(command);
     }
