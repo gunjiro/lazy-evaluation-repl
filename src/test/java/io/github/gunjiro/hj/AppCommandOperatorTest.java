@@ -55,7 +55,7 @@ public class AppCommandOperatorTest {
             
         });
 
-        operator.operate(new DefaultEnvironment(), input);
+        operator.operate(input);
         action.take(input);
 
         assertThat(outputByOperator.toString(), is(outputByAction.toString()));
@@ -92,7 +92,7 @@ public class AppCommandOperatorTest {
                     
                 }
             );
-            operator.operate(new DefaultEnvironment(), new QuitCommand());
+            operator.operate(new QuitCommand());
         } catch (ExitException e) {
             resultByOperator = "☆☆☆☆☆ quit";
         }
@@ -136,7 +136,7 @@ public class AppCommandOperatorTest {
             });
 
         try {
-            operator.operate(new DefaultEnvironment(), new EmptyCommand());
+            operator.operate(new EmptyCommand());
         } catch (ExitException e) {
             result = "☆☆☆☆☆ quit";
         }
@@ -184,7 +184,7 @@ public class AppCommandOperatorTest {
             }
         });
 
-        operator.operate(new DefaultEnvironment(), input);
+        operator.operate(input);
         action.take(input);
 
         assertThat(outputsByOperator, is(outputsByAction));
