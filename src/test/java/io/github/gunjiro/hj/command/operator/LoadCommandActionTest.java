@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.command.LoadCommand;
-import io.github.gunjiro.hj.command.operator.LoadCommandAction;
 
 public class LoadCommandActionTest {
     @Test
