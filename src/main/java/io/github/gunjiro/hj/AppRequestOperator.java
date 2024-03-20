@@ -4,9 +4,14 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 
+import io.github.gunjiro.hj.command.Command;
 import io.github.gunjiro.hj.command.CommandAnalyzer;
 
 public class AppRequestOperator implements RequestOperator {
+    public static interface Implementor {
+        public void operate(Command command);
+    }
+
     private final RequestActionFactory factory;
     private final ResourceProvider provider;
     private final StringPrinter strinngPrinter;
