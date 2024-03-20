@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj.command.action;
+package io.github.gunjiro.hj.command.operator;
 
 import io.github.gunjiro.hj.command.LoadCommand;
 

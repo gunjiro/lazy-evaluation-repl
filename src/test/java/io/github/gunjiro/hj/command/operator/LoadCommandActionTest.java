@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj.command.action;
+package io.github.gunjiro.hj.command.operator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.command.LoadCommand;
+import io.github.gunjiro.hj.command.operator.LoadCommandAction;
 
 public class LoadCommandActionTest {
     @Test
