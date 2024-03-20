@@ -9,7 +9,6 @@ import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
 import io.github.gunjiro.hj.command.action.LoadCommandAction;
-import io.github.gunjiro.hj.command.action.QuitCommandAction;
 
 public class AppCommandOperator implements CommandOperator {
     public static interface Implementor {

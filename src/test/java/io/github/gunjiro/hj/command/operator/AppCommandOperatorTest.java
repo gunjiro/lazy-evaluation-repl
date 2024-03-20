@@ -11,7 +11,6 @@ import io.github.gunjiro.hj.command.LoadCommand;
 import io.github.gunjiro.hj.command.QuitCommand;
 import io.github.gunjiro.hj.command.UnknownCommand;
 import io.github.gunjiro.hj.command.action.LoadCommandAction;
-import io.github.gunjiro.hj.command.action.QuitCommandAction;
 import io.github.gunjiro.hj.command.operator.AppCommandOperator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
