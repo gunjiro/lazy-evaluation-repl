@@ -17,7 +17,6 @@ public class REPL {
         public void showMessage(String message);
         public void execute(String input);
         public boolean isRunning();
-        public void showQuitMessage();
     }
 
     public REPL(Implementor implementor) {
@@ -43,7 +42,7 @@ public class REPL {
                 implementor.execute(input);
             } while (implementor.isRunning());
 
-            implementor.showQuitMessage();
+            implementor.showMessage("Bye.");
         } catch (IOException e) {
             implementor.showMessage(e.getMessage());
         }
@@ -65,11 +64,6 @@ public class REPL {
             @Override
             public String waitForInput() throws IOException {
                 return receiver.receive();
-            }
-
-            @Override
-            public void showQuitMessage() {
-                outOperation.printMessage("Bye.");
             }
 
             @Override

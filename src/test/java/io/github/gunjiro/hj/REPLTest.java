@@ -186,11 +186,6 @@ public class REPLTest {
             public boolean isRunning() {
                 throw new UnsupportedOperationException("Unimplemented method 'isRunning'");
             }
-
-            @Override
-            public void showQuitMessage() {
-                throw new UnsupportedOperationException("Unimplemented method 'showQuitMessage'");
-            }
             
         });
         repl.run();
