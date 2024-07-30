@@ -13,7 +13,8 @@ public class REPL {
 
     public static interface Implementor {
         public void showPrompt();
-        public String waitForInput();
+        public String waitForInput() throws IOException;
+        public void showMessage(String message);
         public void execute(String input);
         public boolean isRunning();
         public void showQuitMessage();
@@ -35,13 +36,17 @@ public class REPL {
     }
 
     public void run() {
-        do {
-            implementor.showPrompt();
-            final String input = implementor.waitForInput();
-            implementor.execute(input);
-        } while (implementor.isRunning());
+        try {
+            do {
+                implementor.showPrompt();
+                final String input = implementor.waitForInput();
+                implementor.execute(input);
+            } while (implementor.isRunning());
 
-        implementor.showQuitMessage();
+            implementor.showQuitMessage();
+        } catch (IOException e) {
+            implementor.showMessage(e.getMessage());
+        }
     }
 
     private static Implementor createImplementor(Factory factory) {
@@ -58,14 +63,8 @@ public class REPL {
             }
 
             @Override
-            public String waitForInput() {
-                try {
-                    return receiver.receive();
-                } catch (IOException e) {
-                    outOperation.printMessage(e.getMessage());
-                    information.changeStopping();
-                    return "";
-                }
+            public String waitForInput() throws IOException {
+                return receiver.receive();
             }
 
             @Override
@@ -76,6 +75,16 @@ public class REPL {
             @Override
             public void execute(String input) {
                 operate(input);
+            }
+
+            @Override
+            public boolean isRunning() {
+                return information.isStateRunning();
+            }
+
+            @Override
+            public void showMessage(String message) {
+                outOperation.printMessage(message);
             }
 
             private void operate(String input) {
@@ -144,11 +153,6 @@ public class REPL {
                     }
 
                 });
-            }
-
-            @Override
-            public boolean isRunning() {
-                return information.isStateRunning();
             }
 
         };
