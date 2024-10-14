@@ -19,6 +19,40 @@ public class REPL {
         public boolean isRunning();
     }
 
+    public static interface DisplayUnit {
+        public void printMessage(String message);
+
+        public void printText(String text);
+
+        public void startANewLine();
+    }
+
+    public static interface InputUnit {
+        public String receive() throws IOException;
+    }
+
+    public static interface ControlUnit {
+        public void changeStopping();
+
+        public boolean isStateRunning();
+    }
+
+    public static interface ThunkTableUnit {
+        public void addFunctions(Reader reader) throws ApplicationException;
+
+        public Thunk createThunk(Reader reader) throws ApplicationException;
+    }
+
+    public static interface UnitFactory {
+        public DisplayUnit createDisplayUnit();
+
+        public InputUnit createInputUnit();
+
+        public ControlUnit createControlUnit();
+
+        public ThunkTableUnit createThunkTableUnit();
+    }
+
     public REPL(Implementor implementor) {
         this.implementor = implementor;
     }
