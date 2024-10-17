@@ -157,14 +157,7 @@ public class REPL {
                             }
 
                         });
-                        loader.addObserver(new FileLoader.Observer() {
-
-                            @Override
-                            public void receiveMessage(String message) {
-                                display.printMessage(message);
-                            }
-
-                        });
+                        loader.addObserver(display::printMessage);
                         loader.load(name);
                     }
 
