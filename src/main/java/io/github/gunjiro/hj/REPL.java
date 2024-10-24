@@ -230,8 +230,26 @@ public class REPL {
 
     }
 
+    private static class EnvironmentThunkTableUnit implements ThunkTableUnit {
+        private final Environment environment;
+
+        private EnvironmentThunkTableUnit(Environment environment) {
+            this.environment = environment;
+        }
+
+        @Override
+        public void addFunctions(Reader reader) throws ApplicationException {
+            environment.addFunctions(reader);
+        }
+
+        @Override
+        public Thunk createThunk(Reader reader) throws ApplicationException {
+            return environment.createThunk(reader);
+        }
+
+    }
+
     private static UnitFactory createUnitFactory(Factory factory) {
-        final Environment environment = factory.createEnvironment();
 
         return new UnitFactory() {
 
@@ -252,19 +270,7 @@ public class REPL {
 
             @Override
             public ThunkTableUnit createThunkTableUnit() {
-                return new ThunkTableUnit() {
-
-                    @Override
-                    public void addFunctions(Reader reader) throws ApplicationException {
-                        environment.addFunctions(reader);
-                    }
-
-                    @Override
-                    public Thunk createThunk(Reader reader) throws ApplicationException {
-                        return environment.createThunk(reader);
-                    }
-                    
-                };
+                return new EnvironmentThunkTableUnit(factory.createEnvironment());
             }
             
         };
