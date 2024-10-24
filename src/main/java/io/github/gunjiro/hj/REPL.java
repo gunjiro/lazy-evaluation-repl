@@ -249,34 +249,36 @@ public class REPL {
 
     }
 
-    private static UnitFactory createUnitFactory(Factory factory) {
+    private static class DefaultUnitFactory implements UnitFactory {
+        private final Factory factory;
 
-        return new UnitFactory() {
+        private DefaultUnitFactory(Factory factory) {
+            this.factory = factory;
+        }
 
-            @Override
-            public DisplayUnit createDisplayUnit() {
-                return new OutputOperationDisplayUnit(factory.createOutputOperation());
-            }
+        @Override
+        public DisplayUnit createDisplayUnit() {
+            return new OutputOperationDisplayUnit(factory.createOutputOperation());
+        }
 
-            @Override
-            public InputUnit createInputUnit() {
-                return new InputReceiverInputUnit(factory.createInputReceiver());
-            }
+        @Override
+        public InputUnit createInputUnit() {
+            return new InputReceiverInputUnit(factory.createInputReceiver());
+        }
 
-            @Override
-            public ControlUnit createControlUnit() {
-                return new AppInformationControlUnit(factory.createAppInformation());
-            }
+        @Override
+        public ControlUnit createControlUnit() {
+            return new AppInformationControlUnit(factory.createAppInformation());
+        }
 
-            @Override
-            public ThunkTableUnit createThunkTableUnit() {
-                return new EnvironmentThunkTableUnit(factory.createEnvironment());
-            }
-            
-        };
+        @Override
+        public ThunkTableUnit createThunkTableUnit() {
+            return new EnvironmentThunkTableUnit(factory.createEnvironment());
+        }
+
     }
 
     private static Implementor createImplementor(Factory factory) {
-        return createImplementor(createUnitFactory(factory));
+        return createImplementor(new DefaultUnitFactory(factory));
     }
 }
