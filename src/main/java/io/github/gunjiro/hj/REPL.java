@@ -81,6 +81,81 @@ public class REPL {
         implementor.showMessage("Bye.");
     }
 
+    private static class DefaultOperationUnit implements OperationUnit {
+        private final ControlUnit controlUnit;
+        private final DisplayUnit displayUnit;
+        private final ThunkTableUnit thunkTableUnit;
+
+        private DefaultOperationUnit(ControlUnit controlUnit, DisplayUnit displayUnit, ThunkTableUnit thunkTableUnit) {
+            this.controlUnit = controlUnit;
+            this.displayUnit = displayUnit;
+            this.thunkTableUnit = thunkTableUnit;
+        }
+
+        @Override
+        public void operate(String input) {
+            final Request request = createRequest(input);
+            createOperator().operate(request);
+        }
+
+        private Request createRequest(String input) {
+            final RequestFactory factory = new RequestFactory();
+            return factory.createRequest(input);
+        }
+
+        private AppRequestOperator createOperator() {
+            return new AppRequestOperator(new AppRequestOperator.Implementor() {
+
+                @Override
+                public void quit() {
+                    controlUnit.changeStopping();
+                }
+
+                @Override
+                public void sendText(String text) {
+                    displayUnit.printText(text);
+                }
+
+                @Override
+                public void sendMessage(String message) {
+                    displayUnit.printMessage(message);
+                }
+
+                @Override
+                public void load(String name) {
+                    final FileLoader loader = new FileLoader(new FileLoader.DefaultImplementor() {
+
+                        @Override
+                        public void storeFunctions(Reader reader) {
+                            try {
+                                thunkTableUnit.addFunctions(reader);
+                            } catch (ApplicationException e) {
+                                displayUnit.printMessage(e.getMessage());
+                            }
+                        }
+
+                    });
+                    loader.addObserver(displayUnit::printMessage);
+                    loader.load(name);
+                }
+
+                @Override
+                public void sendBreak() {
+                    displayUnit.startANewLine();
+                }
+
+            }, new AppRequestOperator.Factory() {
+
+                @Override
+                public Thunk createThunk(String code) throws ApplicationException {
+                    return thunkTableUnit.createThunk(new StringReader(code));
+                }
+
+            });
+        }
+
+    }
+
     private static class DefaultImplementor implements Implementor {
         private final DisplayUnit displayUnit;
         private final InputUnit inputUnit;
