@@ -43,6 +43,10 @@ public class REPL {
         public Thunk createThunk(Reader reader) throws ApplicationException;
     }
 
+    private static interface OperationUnit {
+        public void operate(String input);
+    }
+
     public static interface UnitFactory {
         public DisplayUnit createDisplayUnit();
 
