@@ -14,7 +14,7 @@ public class REPL {
 
     public static interface Implementor {
         public void showPrompt();
-        public String waitForInput() throws IOException;
+        public String waitForInput();
         public void showMessage(String message);
         public void execute(String input);
         public boolean isRunning();
@@ -70,17 +70,13 @@ public class REPL {
     }
 
     public void run() {
-        try {
-            do {
-                implementor.showPrompt();
-                final String input = implementor.waitForInput();
-                implementor.execute(input);
-            } while (implementor.isRunning());
+        do {
+            implementor.showPrompt();
+            final String input = implementor.waitForInput();
+            implementor.execute(input);
+        } while (implementor.isRunning());
 
-            implementor.showMessage("Bye.");
-        } catch (IOException e) {
-            implementor.showMessage(e.getMessage());
-        }
+        implementor.showMessage("Bye.");
     }
 
     private static Implementor createImplementor(UnitFactory factory) {
@@ -97,7 +93,7 @@ public class REPL {
             }
 
             @Override
-            public String waitForInput() throws IOException {
+            public String waitForInput() {
                 return input.receive();
             }
 

@@ -8,7 +8,6 @@ import io.github.gunjiro.hj.ui.OutputOperation;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -155,42 +154,6 @@ public class REPLTest {
         repl.run();
 
         assertThat(output, hasItem("unknown command ':nothing'"));
-    }
-
-    @Test
-    public void quitIfThrowsIOExceptionWhenWaitForInput() {
-        final StringBuilder output = new StringBuilder();
-
-        final REPL repl = new REPL(new REPL.Implementor() {
-
-            @Override
-            public void showPrompt() {
-            }
-
-            @Override
-            public String waitForInput() throws IOException {
-                throw new IOException("..... can't read input .....");
-            }
-
-            @Override
-            public void showMessage(String message) {
-                output.append(message);
-            }
-
-            @Override
-            public void execute(String input) {
-                throw new UnsupportedOperationException("Unimplemented method 'execute'");
-            }
-
-            @Override
-            public boolean isRunning() {
-                throw new UnsupportedOperationException("Unimplemented method 'isRunning'");
-            }
-            
-        });
-        repl.run();
-
-        assertThat(output, hasToString("..... can't read input ....."));
     }
 
 }
