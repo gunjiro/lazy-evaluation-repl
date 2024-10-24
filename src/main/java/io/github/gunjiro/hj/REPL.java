@@ -77,97 +77,105 @@ public class REPL {
         implementor.showMessage("Bye.");
     }
 
-    private static Implementor createImplementor(UnitFactory factory) {
-        final DisplayUnit display = factory.createDisplayUnit();
-        final InputUnit input = factory.createInputUnit();
-        final ControlUnit control = factory.createControlUnit();
-        final ThunkTableUnit table = factory.createThunkTableUnit();
+    private static class DefaultImplementor implements Implementor {
+        private final DisplayUnit displayUnit;
+        private final InputUnit inputUnit;
+        private final ControlUnit controlUnit;
+        private final ThunkTableUnit thunkTableUnit;
 
-        return new Implementor() {
+        private DefaultImplementor(DisplayUnit displayUnit, InputUnit inputUnit, ControlUnit controlUnit,
+                ThunkTableUnit thunkTableUnit) {
+            this.displayUnit = displayUnit;
+            this.inputUnit = inputUnit;
+            this.controlUnit = controlUnit;
+            this.thunkTableUnit = thunkTableUnit;
+        }
 
-            @Override
-            public String waitForInput() {
-                display.printText("> ");
-                return input.receive();
-            }
+        @Override
+        public String waitForInput() {
+            displayUnit.printText("> ");
+            return inputUnit.receive();
+        }
 
-            @Override
-            public void execute(String input) {
-                operate(input);
-            }
+        @Override
+        public void showMessage(String message) {
+            displayUnit.printMessage(message);
+        }
 
-            @Override
-            public boolean isRunning() {
-                return control.isStateRunning();
-            }
+        @Override
+        public void execute(String input) {
+            operate(input);
+        }
 
-            @Override
-            public void showMessage(String message) {
-                display.printMessage(message);
-            }
+        @Override
+        public boolean isRunning() {
+            return controlUnit.isStateRunning();
+        }
 
-            private void operate(String input) {
-                final Request request = createRequest(input);
-                createOperator().operate(request);
-            }
+        private void operate(String input) {
+            final Request request = createRequest(input);
+            createOperator().operate(request);
+        }
 
-            private Request createRequest(String input) {
-                final RequestFactory factory = new RequestFactory();
-                return factory.createRequest(input);
-            }
+        private Request createRequest(String input) {
+            final RequestFactory factory = new RequestFactory();
+            return factory.createRequest(input);
+        }
 
-            private AppRequestOperator createOperator() {
-                return new AppRequestOperator(new AppRequestOperator.Implementor() {
+        private AppRequestOperator createOperator() {
+            return new AppRequestOperator(new AppRequestOperator.Implementor() {
 
-                    @Override
-                    public void quit() {
-                        control.changeStopping();
-                    }
+                @Override
+                public void quit() {
+                    controlUnit.changeStopping();
+                }
 
-                    @Override
-                    public void sendText(String text) {
-                        display.printText(text);
-                    }
+                @Override
+                public void sendText(String text) {
+                    displayUnit.printText(text);
+                }
 
-                    @Override
-                    public void sendMessage(String message) {
-                        display.printMessage(message);
-                    }
+                @Override
+                public void sendMessage(String message) {
+                    displayUnit.printMessage(message);
+                }
 
-                    @Override
-                    public void load(String name) {
-                        final FileLoader loader = new FileLoader(new FileLoader.DefaultImplementor() {
+                @Override
+                public void load(String name) {
+                    final FileLoader loader = new FileLoader(new FileLoader.DefaultImplementor() {
 
-                            @Override
-                            public void storeFunctions(Reader reader) {
-                                try {
-                                    table.addFunctions(reader);
-                                } catch (ApplicationException e) {
-                                    display.printMessage(e.getMessage());
-                                }
+                        @Override
+                        public void storeFunctions(Reader reader) {
+                            try {
+                                thunkTableUnit.addFunctions(reader);
+                            } catch (ApplicationException e) {
+                                displayUnit.printMessage(e.getMessage());
                             }
+                        }
 
-                        });
-                        loader.addObserver(display::printMessage);
-                        loader.load(name);
-                    }
+                    });
+                    loader.addObserver(displayUnit::printMessage);
+                    loader.load(name);
+                }
 
-                    @Override
-                    public void sendBreak() {
-                        display.startANewLine();
-                    }
+                @Override
+                public void sendBreak() {
+                    displayUnit.startANewLine();
+                }
 
-                }, new AppRequestOperator.Factory() {
+            }, new AppRequestOperator.Factory() {
 
-                    @Override
-                    public Thunk createThunk(String code) throws ApplicationException {
-                        return table.createThunk(new StringReader(code));
-                    }
+                @Override
+                public Thunk createThunk(String code) throws ApplicationException {
+                    return thunkTableUnit.createThunk(new StringReader(code));
+                }
 
-                });
-            }
+            });
+        }
+    }
 
-        };
+    private static Implementor createImplementor(UnitFactory factory) {
+        return new DefaultImplementor(factory.createDisplayUnit(), factory.createInputUnit(), factory.createControlUnit(), factory.createThunkTableUnit());
     }
 
     private static class OutputOperationDisplayUnit implements DisplayUnit {
