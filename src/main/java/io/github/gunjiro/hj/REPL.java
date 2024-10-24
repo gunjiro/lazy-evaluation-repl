@@ -193,9 +193,26 @@ public class REPL {
         }
     }
 
+    private static class InputReceiverInputUnit implements InputUnit {
+        private final InputReceiver inputReceiver;
+
+        private InputReceiverInputUnit(InputReceiver inputReceiver) {
+            this.inputReceiver = inputReceiver;
+        }
+
+        @Override
+        public String receive() {
+            try {
+                return inputReceiver.receive();
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+
+    }
+
     private static UnitFactory createUnitFactory(Factory factory) {
         final Environment environment = factory.createEnvironment();
-        final InputReceiver receiver = factory.createInputReceiver();
         final AppInformation information = factory.createAppInformation();
 
         return new UnitFactory() {
@@ -207,13 +224,7 @@ public class REPL {
 
             @Override
             public InputUnit createInputUnit() {
-                return () -> {
-                    try {
-                        return receiver.receive();
-                    } catch (IOException e) {
-                        throw new IOError(e);
-                    }
-                };
+                return new InputReceiverInputUnit(factory.createInputReceiver());
             }
 
             @Override
