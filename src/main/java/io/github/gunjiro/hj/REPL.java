@@ -170,9 +170,31 @@ public class REPL {
         };
     }
 
+    private static class OutputOperationDisplayUnit implements DisplayUnit {
+        private final OutputOperation outputOperation;
+
+        private OutputOperationDisplayUnit(OutputOperation outputOperation) {
+            this.outputOperation = outputOperation;
+        }
+
+        @Override
+        public void printMessage(String message) {
+            outputOperation.printMessage(message);
+        }
+
+        @Override
+        public void printText(String text) {
+            outputOperation.printText(text);
+        }
+
+        @Override
+        public void startANewLine() {
+            outputOperation.startANewLine();
+        }
+    }
+
     private static UnitFactory createUnitFactory(Factory factory) {
         final Environment environment = factory.createEnvironment();
-        final OutputOperation outOperation = factory.createOutputOperation();
         final InputReceiver receiver = factory.createInputReceiver();
         final AppInformation information = factory.createAppInformation();
 
@@ -180,24 +202,7 @@ public class REPL {
 
             @Override
             public DisplayUnit createDisplayUnit() {
-                return new DisplayUnit() {
-
-                    @Override
-                    public void printMessage(String message) {
-                        outOperation.printMessage(message);
-                    }
-
-                    @Override
-                    public void printText(String text) {
-                        outOperation.printText(text);
-                    }
-
-                    @Override
-                    public void startANewLine() {
-                        outOperation.startANewLine();
-                    }
-                    
-                };
+                return new OutputOperationDisplayUnit(factory.createOutputOperation());
             }
 
             @Override
