@@ -1,5 +1,6 @@
 package io.github.gunjiro.hj;
 
+import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -28,7 +29,7 @@ public class REPL {
     }
 
     public static interface InputUnit {
-        public String receive() throws IOException;
+        public String receive();
     }
 
     public static interface ControlUnit {
@@ -211,13 +212,12 @@ public class REPL {
 
             @Override
             public InputUnit createInputUnit() {
-                return new InputUnit() {
-
-                    @Override
-                    public String receive() throws IOException {
+                return () -> {
+                    try {
                         return receiver.receive();
+                    } catch (IOException e) {
+                        throw new IOError(e);
                     }
-                    
                 };
             }
 
