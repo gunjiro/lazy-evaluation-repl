@@ -211,9 +211,27 @@ public class REPL {
 
     }
 
+    private static class AppInformationControlUnit implements ControlUnit {
+        private final AppInformation appInformation;
+
+        private AppInformationControlUnit(AppInformation appInformation) {
+            this.appInformation = appInformation;
+        }
+
+        @Override
+        public void changeStopping() {
+            appInformation.changeStopping();
+        }
+
+        @Override
+        public boolean isStateRunning() {
+            return appInformation.isStateRunning();
+        }
+
+    }
+
     private static UnitFactory createUnitFactory(Factory factory) {
         final Environment environment = factory.createEnvironment();
-        final AppInformation information = factory.createAppInformation();
 
         return new UnitFactory() {
 
@@ -229,19 +247,7 @@ public class REPL {
 
             @Override
             public ControlUnit createControlUnit() {
-                return new ControlUnit() {
-
-                    @Override
-                    public void changeStopping() {
-                        information.changeStopping();
-                    }
-
-                    @Override
-                    public boolean isStateRunning() {
-                        return information.isStateRunning();
-                    }
-                    
-                };
+                return new AppInformationControlUnit(factory.createAppInformation());
             }
 
             @Override
