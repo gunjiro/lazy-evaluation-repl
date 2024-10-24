@@ -183,73 +183,13 @@ public class REPL {
 
         @Override
         public void execute(String input) {
-            operate(input);
+            final OperationUnit operationUnit = new DefaultOperationUnit(controlUnit, displayUnit, thunkTableUnit);
+            operationUnit.operate(input);
         }
 
         @Override
         public boolean isRunning() {
             return controlUnit.isStateRunning();
-        }
-
-        private void operate(String input) {
-            final Request request = createRequest(input);
-            createOperator().operate(request);
-        }
-
-        private Request createRequest(String input) {
-            final RequestFactory factory = new RequestFactory();
-            return factory.createRequest(input);
-        }
-
-        private AppRequestOperator createOperator() {
-            return new AppRequestOperator(new AppRequestOperator.Implementor() {
-
-                @Override
-                public void quit() {
-                    controlUnit.changeStopping();
-                }
-
-                @Override
-                public void sendText(String text) {
-                    displayUnit.printText(text);
-                }
-
-                @Override
-                public void sendMessage(String message) {
-                    displayUnit.printMessage(message);
-                }
-
-                @Override
-                public void load(String name) {
-                    final FileLoader loader = new FileLoader(new FileLoader.DefaultImplementor() {
-
-                        @Override
-                        public void storeFunctions(Reader reader) {
-                            try {
-                                thunkTableUnit.addFunctions(reader);
-                            } catch (ApplicationException e) {
-                                displayUnit.printMessage(e.getMessage());
-                            }
-                        }
-
-                    });
-                    loader.addObserver(displayUnit::printMessage);
-                    loader.load(name);
-                }
-
-                @Override
-                public void sendBreak() {
-                    displayUnit.startANewLine();
-                }
-
-            }, new AppRequestOperator.Factory() {
-
-                @Override
-                public Thunk createThunk(String code) throws ApplicationException {
-                    return thunkTableUnit.createThunk(new StringReader(code));
-                }
-
-            });
         }
     }
 
