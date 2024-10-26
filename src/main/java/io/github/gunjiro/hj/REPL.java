@@ -104,7 +104,7 @@ public class REPL {
         }
 
         private AppRequestOperator createOperator() {
-            return new AppRequestOperator(new AppRequestOperator.Implementor() {
+            final AppRequestOperator.Implementor implementor = new AppRequestOperator.Implementor() {
 
                 @Override
                 public void quit() {
@@ -144,14 +144,16 @@ public class REPL {
                     displayUnit.startANewLine();
                 }
 
-            }, new AppRequestOperator.Factory() {
+            };
+            final AppRequestOperator.Factory factory = new AppRequestOperator.Factory() {
 
                 @Override
                 public Thunk createThunk(String code) throws ApplicationException {
                     return thunkTableUnit.createThunk(new StringReader(code));
                 }
 
-            });
+            };
+            return new AppRequestOperator(implementor, factory);
         }
 
     }
