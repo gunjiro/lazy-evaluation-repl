@@ -103,6 +103,21 @@ public class REPL {
             return factory.createRequest(input);
         }
 
+        private FileLoader createFileLoader() {
+            return new FileLoader(new FileLoader.DefaultImplementor() {
+
+                @Override
+                public void storeFunctions(Reader reader) {
+                    try {
+                        thunkTableUnit.addFunctions(reader);
+                    } catch (ApplicationException e) {
+                        displayUnit.printMessage(e.getMessage());
+                    }
+                }
+
+            });
+        }
+
         private AppRequestOperator createOperator() {
             final AppRequestOperator.Implementor implementor = new AppRequestOperator.Implementor() {
 
@@ -123,18 +138,7 @@ public class REPL {
 
                 @Override
                 public void load(String name) {
-                    final FileLoader loader = new FileLoader(new FileLoader.DefaultImplementor() {
-
-                        @Override
-                        public void storeFunctions(Reader reader) {
-                            try {
-                                thunkTableUnit.addFunctions(reader);
-                            } catch (ApplicationException e) {
-                                displayUnit.printMessage(e.getMessage());
-                            }
-                        }
-
-                    });
+                    final FileLoader loader = createFileLoader();
                     loader.addObserver(displayUnit::printMessage);
                     loader.load(name);
                 }
