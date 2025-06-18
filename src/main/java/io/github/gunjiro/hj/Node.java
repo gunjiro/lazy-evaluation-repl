@@ -49,7 +49,7 @@ class DefineNode implements DeclNode {
         return exp;
     }
     boolean hasArgs() {
-        return args.size() > 0;
+        return !args.isEmpty();
     }
     @Override
     public String getName() {
