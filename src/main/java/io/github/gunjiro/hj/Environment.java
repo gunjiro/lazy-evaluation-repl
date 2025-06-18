@@ -95,7 +95,7 @@ public class Environment {
                 for (DefineNode d : defs) {
                     table.addSymbol(d.getName());
                 }
-                List<Expression> exps = new ArrayList<Expression>(defs.size());
+                List<Expression> exps = new ArrayList<>(defs.size());
                 for (DefineNode d : defs) {
                     exps.add(registerDefine(d));
                 }
