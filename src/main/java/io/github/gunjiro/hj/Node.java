@@ -33,30 +33,6 @@ interface ExpNodeVisitor {
     public Expression visit(EmptyListNode node) throws IllegalExpressionException;
 }
 
-class DeclsNode implements Node {
-    private final List<DefineNode> defList;
-    DeclsNode() {
-        defList = new ArrayList<DefineNode>();
-    }
-    void add(DefineNode d) {
-        if (d != null) {
-            defList.add(d);
-        }
-    }
-    void addAll(DeclsNode ds) {
-        defList.addAll(ds.defList);
-    }
-    List<DefineNode> getDefineNodes() {
-        return defList;
-    }
-    int size() {
-        return defList.size();
-    }
-    @Override
-    public void accept(NodeVisitor v) {
-        v.visit(this);
-    }
-}
 class DefineNode implements DeclNode {
     private final String name;
     private final List<String> args;
