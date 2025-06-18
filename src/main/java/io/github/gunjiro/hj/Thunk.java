@@ -1,5 +1,7 @@
 package io.github.gunjiro.hj;
 
+import io.github.gunjiro.hj.environment.ThunkTable;
+
 public class Thunk {
     private Closure closure;
     private Value cache;

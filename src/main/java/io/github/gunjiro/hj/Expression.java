@@ -1,6 +1,8 @@
 package io.github.gunjiro.hj;
 import java.util.*;
 
+import io.github.gunjiro.hj.environment.ThunkTable;
+
 interface Expression {
     public void accept(VoidExpressionVisitor v);
     public Value evalWith(ThunkTable tt) throws EvaluationException;

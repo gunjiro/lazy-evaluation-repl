@@ -1,18 +1,20 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.environment;
 
 import java.util.ArrayList;
+
+import io.github.gunjiro.hj.Thunk;
 
 public class ThunkTable {
     private final ThunkTable parent;
     private final ArrayList<Thunk> list;
-    ThunkTable(ThunkTable p, int initCapacity) {
+    public ThunkTable(ThunkTable p, int initCapacity) {
         parent = p;
         list = new ArrayList<>(initCapacity);
     }
-    void add(Thunk t) {
+    public void add(Thunk t) {
         list.add(t);
     }
-    Thunk getThunk(int level, int index) {
+    public Thunk getThunk(int level, int index) {
         ThunkTable table = this;
         for (int i = 0; i < level; i++) {
             table = table.parent;

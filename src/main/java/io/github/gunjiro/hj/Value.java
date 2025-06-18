@@ -1,4 +1,7 @@
 package io.github.gunjiro.hj;
+
+import io.github.gunjiro.hj.environment.ThunkTable;
+
 interface Value {
     public Value apply(Thunk arg) throws EvaluationException;
     public Value getHead() throws EvaluationException;

@@ -1,6 +1,8 @@
 package io.github.gunjiro.hj;
 import java.util.*;
 
+import io.github.gunjiro.hj.environment.ThunkTable;
+
 import java.io.*;
 
 public class Environment {
