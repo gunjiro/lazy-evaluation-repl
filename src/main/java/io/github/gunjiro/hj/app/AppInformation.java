@@ -3,7 +3,7 @@ package io.github.gunjiro.hj.app;
 public class AppInformation {
     private State state = State.RUNNING;
 
-    public static enum State {
+    public enum State {
         RUNNING,
         STOPPING
     }
