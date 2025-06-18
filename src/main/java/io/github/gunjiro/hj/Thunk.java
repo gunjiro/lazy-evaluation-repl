@@ -6,7 +6,7 @@ class ThunkTable {
     private final ArrayList<Thunk> list;
     ThunkTable(ThunkTable p, int initCapacity) {
         parent = p;
-        list = new ArrayList<Thunk>(initCapacity);
+        list = new ArrayList<>(initCapacity);
     }
     void add(Thunk t) {
         list.add(t);
