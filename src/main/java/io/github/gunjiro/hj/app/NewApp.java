@@ -5,6 +5,7 @@ import io.github.gunjiro.hj.Environment;
 import io.github.gunjiro.hj.REPL;
 import io.github.gunjiro.hj.InputReceiver;
 import io.github.gunjiro.hj.ui.OutputOperation;
+import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 public class NewApp {
     public static void run() {
@@ -32,6 +33,11 @@ public class NewApp {
             @Override
             public AppInformation createAppInformation() {
                 return new AppInformation();
+            }
+
+            @Override
+            public TextOutputUnit createTextOutputUnit() {
+                return new AppTextOutputUnit();
             }
             
         });

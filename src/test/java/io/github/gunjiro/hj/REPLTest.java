@@ -3,7 +3,9 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppInformation;
+import io.github.gunjiro.hj.app.AppTextOutputUnit;
 import io.github.gunjiro.hj.ui.OutputOperation;
+import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,6 +52,11 @@ public class REPLTest {
             @Override
             public AppInformation createAppInformation() {
                 return new AppInformation();
+            }
+
+            @Override
+            public TextOutputUnit createTextOutputUnit() {
+                return new AppTextOutputUnit();
             }
             
         });
@@ -100,6 +107,12 @@ public class REPLTest {
             public AppInformation createAppInformation() {
                 return new AppInformation();
             }
+
+            @Override
+            public TextOutputUnit createTextOutputUnit() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'createTextOutputUnit'");
+            }
             
         });
         repl.run();
@@ -148,6 +161,12 @@ public class REPLTest {
             @Override
             public AppInformation createAppInformation() {
                 return new AppInformation();
+            }
+
+            @Override
+            public TextOutputUnit createTextOutputUnit() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'createTextOutputUnit'");
             }
             
         });

@@ -67,6 +67,7 @@ public class REPL {
         public OutputOperation createOutputOperation();
         public InputReceiver createInputReceiver();
         public AppInformation createAppInformation();
+        public TextOutputUnit createTextOutputUnit();
     }
 
     public static REPL create(Factory factory) {
