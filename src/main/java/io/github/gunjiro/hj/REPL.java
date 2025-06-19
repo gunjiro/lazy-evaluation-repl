@@ -8,6 +8,7 @@ import java.io.StringReader;
 import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.ui.OutputOperation;
+import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 public class REPL {
     private final Implementor implementor;
@@ -223,6 +224,30 @@ public class REPL {
         @Override
         public void startANewLine() {
             outputOperation.startANewLine();
+        }
+    }
+
+    private static class TextOutputUnitDisplayUnit implements DisplayUnit {
+        private final TextOutputUnit unit;
+
+        public TextOutputUnitDisplayUnit(TextOutputUnit unit) {
+            this.unit = unit;
+        }
+
+        @Override
+        public void printMessage(String message) {
+            unit.output(message);
+            unit.newline();
+        }
+
+        @Override
+        public void printText(String text) {
+            unit.output(text);
+        }
+
+        @Override
+        public void startANewLine() {
+            unit.newline();
         }
     }
 
