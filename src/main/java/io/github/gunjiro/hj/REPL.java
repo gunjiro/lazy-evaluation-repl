@@ -63,6 +63,7 @@ public class REPL {
         public InputReceiver createInputReceiver();
         public TextOutputUnit createTextOutputUnit();
         public ManagingStateUnit createManagingStateUnit();
+        public InputUnit createInputUnit();
     }
 
     public static REPL create(Factory factory) {

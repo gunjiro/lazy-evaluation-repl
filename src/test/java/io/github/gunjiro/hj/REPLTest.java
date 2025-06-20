@@ -3,12 +3,14 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
+import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -64,6 +66,20 @@ public class REPLTest {
             public ManagingStateUnit createManagingStateUnit() {
                 return new AppManagingStateUnit();
             }
+
+            @Override
+            public InputUnit createInputUnit() {
+                return new InputUnit() {
+
+                    @Override
+                    public String getInput() throws IOException {
+                        assert !inputs.isEmpty() : "..... already received all inputs .....";
+                        messages.add("..... received .....");
+                        return inputs.pop();
+                    }
+                    
+                };
+            }
             
         });
         repl.run();
@@ -118,6 +134,19 @@ public class REPLTest {
             public ManagingStateUnit createManagingStateUnit() {
                 return new AppManagingStateUnit();
             }
+
+            @Override
+            public InputUnit createInputUnit() {
+                return new InputUnit() {
+
+                    @Override
+                    public String getInput() throws IOException {
+                        assert !inputs.isEmpty() : "..... already received all inputs .....";
+                        return inputs.pop();
+                    }
+                    
+                };
+            }
             
         });
         repl.run();
@@ -171,6 +200,19 @@ public class REPLTest {
             @Override
             public ManagingStateUnit createManagingStateUnit() {
                 return new AppManagingStateUnit();
+            }
+
+            @Override
+            public InputUnit createInputUnit() {
+                return new InputUnit() {
+
+                    @Override
+                    public String getInput() throws IOException {
+                        assert !inputs.isEmpty() : "..... already received all inputs .....";
+                        return inputs.pop();
+                    }
+                    
+                };
             }
             
         });
