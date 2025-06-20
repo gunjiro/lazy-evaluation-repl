@@ -186,14 +186,12 @@ public class REPL {
     }
 
     private static class DefaultImplementor implements Implementor {
-        private final OldInputUnit oldInputUnit;
         private final ThunkTableUnit thunkTableUnit;
         private final TextOutputUnit textOutputUnit;
         private final ManagingStateUnit managingStateUnit;
         private final InputUnit inputUnit;
 
         private DefaultImplementor(OldInputUnit oldInputUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
-            this.oldInputUnit = oldInputUnit;
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
             this.managingStateUnit = managingStateUnit;
