@@ -15,7 +15,7 @@ public class REPL {
     private final Implementor implementor;
 
     public static interface Implementor {
-        public String waitForInput();
+        public String waitForInput() throws IOException;
         public void execute(String input);
         public void output(String text);
         public void newline();
@@ -80,7 +80,11 @@ public class REPL {
     }
 
     private String waitForInput() {
-        return implementor.waitForInput();
+        try {
+            return implementor.waitForInput();
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
     }
 
     private void execute(String input) {
@@ -196,9 +200,9 @@ public class REPL {
         }
 
         @Override
-        public String waitForInput() {
+        public String waitForInput() throws IOException {
             textOutputUnit.output("> ");
-            return inputUnit.receive();
+            return inputUnit.getNewInputUnit().getInput();
         }
 
         @Override
