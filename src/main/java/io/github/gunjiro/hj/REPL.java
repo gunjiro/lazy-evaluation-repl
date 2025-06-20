@@ -7,6 +7,7 @@ import java.io.StringReader;
 
 import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 public class REPL {
@@ -67,6 +68,7 @@ public class REPL {
         public InputReceiver createInputReceiver();
         public AppInformation createAppInformation();
         public TextOutputUnit createTextOutputUnit();
+        public ManagingStateUnit createManagingStateUnit();
     }
 
     public static REPL create(Factory factory) {

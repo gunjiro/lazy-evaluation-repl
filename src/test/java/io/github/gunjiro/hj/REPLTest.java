@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.app.AppTextOutputUnit;
+import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 import static org.hamcrest.Matchers.*;
@@ -51,6 +52,12 @@ public class REPLTest {
             @Override
             public TextOutputUnit createTextOutputUnit() {
                 return new AppTextOutputUnit();
+            }
+
+            @Override
+            public ManagingStateUnit createManagingStateUnit() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'createManagingStateUnit'");
             }
             
         });
@@ -106,6 +113,12 @@ public class REPLTest {
 
                 };
             }
+
+            @Override
+            public ManagingStateUnit createManagingStateUnit() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'createManagingStateUnit'");
+            }
             
         });
         repl.run();
@@ -159,6 +172,12 @@ public class REPLTest {
                     }
 
                 };
+            }
+
+            @Override
+            public ManagingStateUnit createManagingStateUnit() {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'createManagingStateUnit'");
             }
             
         });
