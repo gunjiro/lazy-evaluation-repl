@@ -228,10 +228,6 @@ public class REPL {
         }
     }
 
-    private static Implementor createImplementor(UnitFactory factory, InputUnit inputUnit) {
-        return new DefaultImplementor(factory.createThunkTableUnit(), factory.createTextOutputUnit(), factory.createManagingStateUnit(), inputUnit);
-    }
-
     private static class InputReceiverInputUnit implements OldInputUnit {
         private final InputReceiver inputReceiver;
 
