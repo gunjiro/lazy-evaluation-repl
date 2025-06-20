@@ -74,11 +74,11 @@ public class REPL {
 
     public void run() {
         do {
-            final String input = implementor.waitForInput();
-            implementor.execute(input);
-        } while (implementor.isRunning());
+            final String input = waitForInput();
+            execute(input);
+        } while (isRunning());
 
-        implementor.showMessage("Bye.");
+        showMessage("Bye.");
     }
 
     private String waitForInput() {
