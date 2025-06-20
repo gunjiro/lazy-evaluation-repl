@@ -182,13 +182,14 @@ public class REPL {
 
         @Override
         public String waitForInput() {
-            displayUnit.printText("> ");
+            textOutputUnit.output("> ");
             return inputUnit.receive();
         }
 
         @Override
         public void showMessage(String message) {
-            displayUnit.printMessage(message);
+            textOutputUnit.output(message);
+            textOutputUnit.newline();
         }
 
         @Override
