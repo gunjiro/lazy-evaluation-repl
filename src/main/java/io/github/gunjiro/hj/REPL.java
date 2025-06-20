@@ -186,22 +186,24 @@ public class REPL {
     }
 
     private static class DefaultImplementor implements Implementor {
-        private final OldInputUnit inputUnit;
+        private final OldInputUnit oldInputUnit;
         private final ThunkTableUnit thunkTableUnit;
         private final TextOutputUnit textOutputUnit;
         private final ManagingStateUnit managingStateUnit;
+        private final InputUnit inputUnit;
 
-        private DefaultImplementor(OldInputUnit inputUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
-            this.inputUnit = inputUnit;
+        private DefaultImplementor(OldInputUnit oldInputUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
+            this.oldInputUnit = oldInputUnit;
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
             this.managingStateUnit = managingStateUnit;
+            this.inputUnit = oldInputUnit.getNewInputUnit();
         }
 
         @Override
         public String waitForInput() throws IOException {
             textOutputUnit.output("> ");
-            return inputUnit.getNewInputUnit().getInput();
+            return inputUnit.getInput();
         }
 
         @Override
