@@ -68,7 +68,7 @@ public class REPL {
     public static REPL create(Factory factory) {
         final UnitFactory unitFactory = new DefaultUnitFactory(factory);
         final InputUnit inputUnit = unitFactory.createInputUnit().getNewInputUnit();
-        return new REPL(createImplementor(unitFactory, inputUnit));
+        return new REPL(new DefaultImplementor(unitFactory.createThunkTableUnit(), unitFactory.createTextOutputUnit(), unitFactory.createManagingStateUnit(), inputUnit));
     }
 
     public void run() {
