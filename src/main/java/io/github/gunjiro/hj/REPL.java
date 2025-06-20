@@ -88,7 +88,7 @@ public class REPL {
         private final ThunkTableUnit thunkTableUnit;
         private final TextOutputUnit textOutputUnit;
 
-        private DefaultOperationUnit(ControlUnit controlUnit, DisplayUnit displayUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit) {
+        private DefaultOperationUnit(ControlUnit controlUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit) {
             this.controlUnit = controlUnit;
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
@@ -199,7 +199,7 @@ public class REPL {
 
         @Override
         public void execute(String input) {
-            final OperationUnit operationUnit = new DefaultOperationUnit(controlUnit, displayUnit, thunkTableUnit, textOutputUnit);
+            final OperationUnit operationUnit = new DefaultOperationUnit(controlUnit, thunkTableUnit, textOutputUnit);
             operationUnit.operate(input);
         }
 
