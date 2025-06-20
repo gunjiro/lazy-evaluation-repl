@@ -7,6 +7,7 @@ import java.io.StringReader;
 
 import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
@@ -148,7 +149,7 @@ public class REPL {
 
                 @Override
                 public void quit() {
-                    controlUnit.changeStopping();
+                    managingStateUnit.stopApplication();
                 }
 
                 @Override
@@ -221,7 +222,7 @@ public class REPL {
 
         @Override
         public boolean isRunning() {
-            return controlUnit.isStateRunning();
+            return State.RUNNING.equals(managingStateUnit.getState());
         }
 
         @Override
