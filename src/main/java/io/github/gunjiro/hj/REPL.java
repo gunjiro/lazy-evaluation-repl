@@ -45,13 +45,7 @@ public class REPL {
     }
 
     public static interface UnitFactory {
-        public OldInputUnit createInputUnit();
-
         public ThunkTableUnit createThunkTableUnit();
-
-        public TextOutputUnit createTextOutputUnit();
-
-        public ManagingStateUnit createManagingStateUnit();
     }
 
     public REPL(Implementor implementor) {
@@ -270,23 +264,8 @@ public class REPL {
         }
 
         @Override
-        public OldInputUnit createInputUnit() {
-            return new InputReceiverInputUnit(factory.createInputReceiver());
-        }
-
-        @Override
         public ThunkTableUnit createThunkTableUnit() {
             return new EnvironmentThunkTableUnit(factory.createEnvironment());
-        }
-
-        @Override
-        public TextOutputUnit createTextOutputUnit() {
-            return factory.createTextOutputUnit();
-        }
-
-        @Override
-        public ManagingStateUnit createManagingStateUnit() {
-            return factory.createManagingStateUnit();
         }
 
     }
