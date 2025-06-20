@@ -49,6 +49,7 @@ public class REPL {
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
         final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
+        final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit, managingStateUnit);
 
         return new REPL(new Implementor() {
 
@@ -60,8 +61,6 @@ public class REPL {
 
             @Override
             public void execute(String input) {
-                final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit,
-                        managingStateUnit);
                 operationUnit.operate(input);
             }
 
