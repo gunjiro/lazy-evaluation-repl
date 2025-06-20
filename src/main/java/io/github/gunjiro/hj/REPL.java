@@ -16,7 +16,6 @@ public class REPL {
     public static interface Implementor {
         public String waitForInput();
         public void execute(String input);
-        public boolean isRunning();
         public void output(String text);
         public void newline();
         public State getState();
@@ -204,11 +203,6 @@ public class REPL {
         public void execute(String input) {
             final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit, managingStateUnit);
             operationUnit.operate(input);
-        }
-
-        @Override
-        public boolean isRunning() {
-            return State.RUNNING.equals(managingStateUnit.getState());
         }
 
         @Override
