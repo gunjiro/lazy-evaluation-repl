@@ -48,8 +48,6 @@ public class REPL {
     }
 
     public static interface UnitFactory {
-        public DisplayUnit createDisplayUnit();
-
         public InputUnit createInputUnit();
 
         public ControlUnit createControlUnit();
@@ -296,11 +294,6 @@ public class REPL {
 
         private DefaultUnitFactory(Factory factory) {
             this.factory = factory;
-        }
-
-        @Override
-        public DisplayUnit createDisplayUnit() {
-            return new TextOutputUnitDisplayUnit(factory.createTextOutputUnit());
         }
 
         @Override
