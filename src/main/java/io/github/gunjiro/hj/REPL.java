@@ -216,27 +216,6 @@ public class REPL {
 
     }
 
-    private static class InputReceiverInputUnit implements OldInputUnit {
-        private final InputReceiver inputReceiver;
-
-        private InputReceiverInputUnit(InputReceiver inputReceiver) {
-            this.inputReceiver = inputReceiver;
-        }
-
-        @Override
-        public InputUnit getNewInputUnit() {
-            return new InputUnit() {
-
-                @Override
-                public String getInput() throws IOException {
-                    return inputReceiver.receive();
-                }
-                
-            };
-        }
-
-    }
-
     private static class EnvironmentThunkTableUnit implements ThunkTableUnit {
         private final Environment environment;
 
