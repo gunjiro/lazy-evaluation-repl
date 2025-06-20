@@ -251,25 +251,6 @@ public class REPL {
 
     }
 
-    private static class AppInformationControlUnit implements ControlUnit {
-        private final AppInformation appInformation;
-
-        private AppInformationControlUnit(AppInformation appInformation) {
-            this.appInformation = appInformation;
-        }
-
-        @Override
-        public void changeStopping() {
-            appInformation.changeStopping();
-        }
-
-        @Override
-        public boolean isStateRunning() {
-            return appInformation.isStateRunning();
-        }
-
-    }
-
     private static class EnvironmentThunkTableUnit implements ThunkTableUnit {
         private final Environment environment;
 
