@@ -7,7 +7,6 @@ import java.io.StringReader;
 
 import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.processor.FileLoader;
-import io.github.gunjiro.hj.ui.OutputOperation;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 public class REPL {
