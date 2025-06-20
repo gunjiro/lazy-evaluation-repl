@@ -32,10 +32,6 @@ public class REPL {
         public void operate(String input);
     }
 
-    public static interface UnitFactory {
-        public ThunkTableUnit createThunkTableUnit();
-    }
-
     public REPL(Implementor implementor) {
         this.implementor = implementor;
     }
