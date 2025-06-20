@@ -15,7 +15,6 @@ public class REPL {
     private final Implementor implementor;
 
     public static interface Implementor {
-        public String waitForInput() throws IOException;
         public void execute(String input);
         public void output(String text);
         public void newline();
@@ -53,12 +52,6 @@ public class REPL {
         final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit, managingStateUnit);
 
         return new REPL(new Implementor() {
-
-            @Override
-            public String waitForInput() throws IOException {
-                textOutputUnit.output("> ");
-                return inputUnit.getInput();
-            }
 
             @Override
             public void execute(String input) {
