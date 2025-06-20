@@ -22,18 +22,6 @@ public class REPL {
         public State getState();
     }
 
-    public static interface DisplayUnit {
-        public void printMessage(String message);
-
-        public void printText(String text);
-
-        public void startANewLine();
-    }
-
-    public static interface OldInputUnit {
-        public InputUnit getNewInputUnit();
-    }
-
     public static interface ThunkTableUnit {
         public void addFunctions(Reader reader) throws ApplicationException;
 
