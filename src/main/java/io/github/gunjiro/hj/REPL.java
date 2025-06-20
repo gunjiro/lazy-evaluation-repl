@@ -115,7 +115,8 @@ public class REPL {
                     try {
                         thunkTableUnit.addFunctions(reader);
                     } catch (ApplicationException e) {
-                        displayUnit.printMessage(e.getMessage());
+                        textOutputUnit.output(e.getMessage());
+                        textOutputUnit.newline();
                     }
                 }
 
@@ -132,24 +133,28 @@ public class REPL {
 
                 @Override
                 public void sendText(String text) {
-                    displayUnit.printText(text);
+                    textOutputUnit.output(text);
                 }
 
                 @Override
                 public void sendMessage(String message) {
-                    displayUnit.printMessage(message);
+                    textOutputUnit.output(message);
+                    textOutputUnit.newline();
                 }
 
                 @Override
                 public void load(String name) {
                     final FileLoader loader = createFileLoader();
-                    loader.addObserver(displayUnit::printMessage);
+                    loader.addObserver(message -> {
+                        textOutputUnit.output(message);
+                        textOutputUnit.newline();
+                    });
                     loader.load(name);
                 }
 
                 @Override
                 public void sendBreak() {
-                    displayUnit.startANewLine();
+                    textOutputUnit.newline();
                 }
 
             };
