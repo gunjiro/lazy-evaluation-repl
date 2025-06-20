@@ -52,8 +52,7 @@ public class REPL {
         final TextOutputUnit textOutputUnit = factory.createTextOutputUnit();
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
-        final UnitFactory unitFactory = new DefaultUnitFactory(factory);
-        final ThunkTableUnit thunkTableUnit = unitFactory.createThunkTableUnit();
+        final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
 
         return new REPL(new Implementor() {
 
