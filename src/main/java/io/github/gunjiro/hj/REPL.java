@@ -226,8 +226,8 @@ public class REPL {
         }
     }
 
-    private static Implementor createImplementor(UnitFactory factory) {
-        return new DefaultImplementor(factory.createThunkTableUnit(), factory.createTextOutputUnit(), factory.createManagingStateUnit(), factory.createInputUnit().getNewInputUnit());
+    private static Implementor createImplementor(UnitFactory factory, InputUnit inputUnit) {
+        return new DefaultImplementor(factory.createThunkTableUnit(), factory.createTextOutputUnit(), factory.createManagingStateUnit(), inputUnit);
     }
 
     private static class InputReceiverInputUnit implements OldInputUnit {
@@ -300,6 +300,8 @@ public class REPL {
     }
 
     private static Implementor createImplementor(Factory factory) {
-        return createImplementor(new DefaultUnitFactory(factory));
+        final DefaultUnitFactory unitFactory = new DefaultUnitFactory(factory);
+        final InputUnit inputUnit = unitFactory.createInputUnit().getNewInputUnit();
+        return createImplementor(unitFactory, inputUnit);
     }
 }
