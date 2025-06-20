@@ -55,6 +55,8 @@ public class REPL {
         public ControlUnit createControlUnit();
 
         public ThunkTableUnit createThunkTableUnit();
+
+        public TextOutputUnit createTextOutputUnit();
     }
 
     public REPL(Implementor implementor) {
@@ -308,6 +310,11 @@ public class REPL {
         @Override
         public ThunkTableUnit createThunkTableUnit() {
             return new EnvironmentThunkTableUnit(factory.createEnvironment());
+        }
+
+        @Override
+        public TextOutputUnit createTextOutputUnit() {
+            return factory.createTextOutputUnit();
         }
 
     }
