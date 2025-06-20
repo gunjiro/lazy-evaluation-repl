@@ -67,11 +67,11 @@ public class REPL {
     }
 
     public static REPL create(Factory factory) {
+        final TextOutputUnit textOutputUnit = factory.createTextOutputUnit();
+        final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
+        final InputUnit inputUnit = factory.createInputUnit();
         final UnitFactory unitFactory = new DefaultUnitFactory(factory);
         final ThunkTableUnit thunkTableUnit = unitFactory.createThunkTableUnit();
-        final TextOutputUnit textOutputUnit = unitFactory.createTextOutputUnit();
-        final InputUnit inputUnit = unitFactory.createInputUnit().getNewInputUnit();
-        final ManagingStateUnit managingStateUnit = unitFactory.createManagingStateUnit();
 
         return new REPL(new Implementor() {
 
