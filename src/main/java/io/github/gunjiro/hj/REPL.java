@@ -81,6 +81,22 @@ public class REPL {
         implementor.showMessage("Bye.");
     }
 
+    private String waitForInput() {
+        return implementor.waitForInput();
+    }
+
+    private void execute(String input) {
+        implementor.execute(input);
+    }
+
+    private boolean isRunning() {
+        return implementor.isRunning();
+    }
+
+    private void showMessage(String message) {
+        implementor.showMessage(message);
+    }
+
     private static class DefaultOperationUnit implements OperationUnit {
         private final ControlUnit controlUnit;
         private final ThunkTableUnit thunkTableUnit;
