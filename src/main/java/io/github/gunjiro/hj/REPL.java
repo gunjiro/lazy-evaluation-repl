@@ -14,7 +14,6 @@ public class REPL {
 
     public static interface Implementor {
         public String waitForInput();
-        public void showMessage(String message);
         public void execute(String input);
         public boolean isRunning();
         public void output(String text);
@@ -204,12 +203,6 @@ public class REPL {
         public String waitForInput() {
             textOutputUnit.output("> ");
             return inputUnit.receive();
-        }
-
-        @Override
-        public void showMessage(String message) {
-            textOutputUnit.output(message);
-            textOutputUnit.newline();
         }
 
         @Override
