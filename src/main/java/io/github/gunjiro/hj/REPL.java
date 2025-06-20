@@ -169,13 +169,15 @@ public class REPL {
         private final InputUnit inputUnit;
         private final ControlUnit controlUnit;
         private final ThunkTableUnit thunkTableUnit;
+        private final TextOutputUnit textOutputUnit;
 
         private DefaultImplementor(DisplayUnit displayUnit, InputUnit inputUnit, ControlUnit controlUnit,
-                ThunkTableUnit thunkTableUnit) {
+                ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit) {
             this.displayUnit = displayUnit;
             this.inputUnit = inputUnit;
             this.controlUnit = controlUnit;
             this.thunkTableUnit = thunkTableUnit;
+            this.textOutputUnit = textOutputUnit;
         }
 
         @Override
@@ -202,7 +204,7 @@ public class REPL {
     }
 
     private static Implementor createImplementor(UnitFactory factory) {
-        return new DefaultImplementor(factory.createDisplayUnit(), factory.createInputUnit(), factory.createControlUnit(), factory.createThunkTableUnit());
+        return new DefaultImplementor(factory.createDisplayUnit(), factory.createInputUnit(), factory.createControlUnit(), factory.createThunkTableUnit(), factory.createTextOutputUnit());
     }
 
     private static class TextOutputUnitDisplayUnit implements DisplayUnit {
