@@ -17,6 +17,8 @@ public class REPL {
         public void showMessage(String message);
         public void execute(String input);
         public boolean isRunning();
+        public void output(String text);
+        public void newline();
     }
 
     public static interface DisplayUnit {
@@ -218,6 +220,16 @@ public class REPL {
         @Override
         public boolean isRunning() {
             return controlUnit.isStateRunning();
+        }
+
+        @Override
+        public void output(String text) {
+            textOutputUnit.output(text);
+        }
+
+        @Override
+        public void newline() {
+            textOutputUnit.newline();
         }
     }
 
