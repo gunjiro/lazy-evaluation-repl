@@ -87,7 +87,7 @@ public class REPL {
     }
 
     private boolean isRunning() {
-        return implementor.isRunning();
+        return State.RUNNING.equals(implementor.getState());
     }
 
     private void showMessage(String message) {
