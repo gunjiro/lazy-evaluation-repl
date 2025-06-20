@@ -3,7 +3,6 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
-import io.github.gunjiro.hj.app.AppTextOutputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
@@ -46,7 +45,19 @@ public class REPLTest {
 
             @Override
             public TextOutputUnit createTextOutputUnit() {
-                return new AppTextOutputUnit();
+                return new TextOutputUnit() {
+
+                    @Override
+                    public void output(String text) {
+                      // output
+                    }
+
+                    @Override
+                    public void newline() {
+                      // newline
+                    }
+
+                };
             }
 
             @Override
