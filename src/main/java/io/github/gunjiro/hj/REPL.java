@@ -67,7 +67,7 @@ public class REPL {
 
     public static REPL create(Factory factory) {
         final UnitFactory unitFactory = new DefaultUnitFactory(factory);
-        return new REPL(createImplementor(unitFactory));
+        return new REPL(createImplementor(unitFactory, unitFactory.createInputUnit().getNewInputUnit()));
     }
 
     public void run() {
@@ -300,8 +300,4 @@ public class REPL {
 
     }
 
-    private static Implementor createImplementor(UnitFactory unitFactory) {
-        final InputUnit inputUnit = unitFactory.createInputUnit().getNewInputUnit();
-        return createImplementor(unitFactory, inputUnit);
-    }
 }
