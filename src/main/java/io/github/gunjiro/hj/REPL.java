@@ -33,12 +33,6 @@ public class REPL {
         public String receive();
     }
 
-    public static interface ControlUnit {
-        public void changeStopping();
-
-        public boolean isStateRunning();
-    }
-
     public static interface ThunkTableUnit {
         public void addFunctions(Reader reader) throws ApplicationException;
 
