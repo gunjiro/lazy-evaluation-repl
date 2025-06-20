@@ -72,7 +72,37 @@ public class REPL {
         final InputUnit inputUnit = unitFactory.createInputUnit().getNewInputUnit();
         final ManagingStateUnit managingStateUnit = unitFactory.createManagingStateUnit();
 
-        return new REPL(new DefaultImplementor(thunkTableUnit, textOutputUnit, managingStateUnit, inputUnit));
+        return new REPL(new Implementor() {
+
+            @Override
+            public String waitForInput() throws IOException {
+                textOutputUnit.output("> ");
+                return inputUnit.getInput();
+            }
+
+            @Override
+            public void execute(String input) {
+                final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit,
+                        managingStateUnit);
+                operationUnit.operate(input);
+            }
+
+            @Override
+            public void output(String text) {
+                textOutputUnit.output(text);
+            }
+
+            @Override
+            public void newline() {
+                textOutputUnit.newline();
+            }
+
+            @Override
+            public State getState() {
+                return managingStateUnit.getState();
+            }
+
+        });
     }
 
     public void run() {
