@@ -20,6 +20,7 @@ public class REPL {
         public void output(String text);
         public void newline();
         public State getState();
+        public String getInput() throws IOException;
     }
 
     public static interface ThunkTableUnit {
@@ -77,6 +78,11 @@ public class REPL {
             @Override
             public State getState() {
                 return managingStateUnit.getState();
+            }
+
+            @Override
+            public String getInput() throws IOException {
+                return inputUnit.getInput();
             }
 
         });
