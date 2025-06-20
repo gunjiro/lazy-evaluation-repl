@@ -3,6 +3,7 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppInformation;
+import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.app.AppTextOutputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
@@ -56,8 +57,7 @@ public class REPLTest {
 
             @Override
             public ManagingStateUnit createManagingStateUnit() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'createManagingStateUnit'");
+                return new AppManagingStateUnit();
             }
             
         });
@@ -116,8 +116,7 @@ public class REPLTest {
 
             @Override
             public ManagingStateUnit createManagingStateUnit() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'createManagingStateUnit'");
+                return new AppManagingStateUnit();
             }
             
         });
@@ -176,8 +175,7 @@ public class REPLTest {
 
             @Override
             public ManagingStateUnit createManagingStateUnit() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'createManagingStateUnit'");
+                return new AppManagingStateUnit();
             }
             
         });
