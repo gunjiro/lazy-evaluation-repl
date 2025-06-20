@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
