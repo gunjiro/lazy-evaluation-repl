@@ -110,14 +110,25 @@ public class REPLTest {
 
             @Override
             public TextOutputUnit createTextOutputUnit() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'createTextOutputUnit'");
+                return new TextOutputUnit() {
+
+                    @Override
+                    public void output(String text) {
+                        output.append(text);
+                    }
+
+                    @Override
+                    public void newline() {
+                        output.append("↵");
+                    }
+
+                };
             }
             
         });
         repl.run();
 
-        assertThat(output, hasToString("Bye."));
+        assertThat(output.toString(), endsWith("Bye.↵"));
     }
 
     @Test
@@ -165,8 +176,19 @@ public class REPLTest {
 
             @Override
             public TextOutputUnit createTextOutputUnit() {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'createTextOutputUnit'");
+                return new TextOutputUnit() {
+
+                    @Override
+                    public void output(String text) {
+                        output.add(text);
+                    }
+
+                    @Override
+                    public void newline() {
+                        output.add("↵");
+                    }
+
+                };
             }
             
         });

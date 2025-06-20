@@ -317,7 +317,7 @@ public class REPL {
 
         @Override
         public DisplayUnit createDisplayUnit() {
-            return new OutputOperationDisplayUnit(factory.createOutputOperation());
+            return new TextOutputUnitDisplayUnit(factory.createTextOutputUnit());
         }
 
         @Override
