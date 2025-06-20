@@ -191,11 +191,11 @@ public class REPL {
         private final ManagingStateUnit managingStateUnit;
         private final InputUnit inputUnit;
 
-        private DefaultImplementor(OldInputUnit oldInputUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
+        private DefaultImplementor(ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit, InputUnit inputUnit) {
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
             this.managingStateUnit = managingStateUnit;
-            this.inputUnit = oldInputUnit.getNewInputUnit();
+            this.inputUnit = inputUnit;
         }
 
         @Override
@@ -227,7 +227,7 @@ public class REPL {
     }
 
     private static Implementor createImplementor(UnitFactory factory) {
-        return new DefaultImplementor(factory.createInputUnit(), factory.createThunkTableUnit(), factory.createTextOutputUnit(), factory.createManagingStateUnit());
+        return new DefaultImplementor(factory.createThunkTableUnit(), factory.createTextOutputUnit(), factory.createManagingStateUnit(), factory.createInputUnit().getNewInputUnit());
     }
 
     private static class InputReceiverInputUnit implements OldInputUnit {
