@@ -57,6 +57,8 @@ public class REPL {
         public ThunkTableUnit createThunkTableUnit();
 
         public TextOutputUnit createTextOutputUnit();
+
+        public ManagingStateUnit createManagingStateUnit();
     }
 
     public REPL(Implementor implementor) {
@@ -314,6 +316,11 @@ public class REPL {
         @Override
         public TextOutputUnit createTextOutputUnit() {
             return factory.createTextOutputUnit();
+        }
+
+        @Override
+        public ManagingStateUnit createManagingStateUnit() {
+            return factory.createManagingStateUnit();
         }
 
     }
