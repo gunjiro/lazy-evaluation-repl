@@ -8,10 +8,14 @@ import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 public class NewApp {
     public static void run() {
-        createREPL().run();
+        create().createREPL().run();
     }
 
-    private static REPL createREPL() {
+    private static NewApp create() {
+        return new NewApp();
+    }
+
+    private REPL createREPL() {
         return REPL.create(new REPL.Factory() {
 
             @Override
