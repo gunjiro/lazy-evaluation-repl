@@ -7,6 +7,7 @@ import java.io.StringReader;
 
 import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.state.State;
+import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
@@ -31,6 +32,7 @@ public class REPL {
 
     public static interface OldInputUnit {
         public String receive();
+        public InputUnit getNewInputUnit();
     }
 
     public static interface ThunkTableUnit {
@@ -239,6 +241,18 @@ public class REPL {
             } catch (IOException e) {
                 throw new IOError(e);
             }
+        }
+
+        @Override
+        public InputUnit getNewInputUnit() {
+            return new InputUnit() {
+
+                @Override
+                public String getInput() throws IOException {
+                    return inputReceiver.receive();
+                }
+                
+            };
         }
 
     }
