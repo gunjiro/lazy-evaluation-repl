@@ -64,7 +64,6 @@ public class REPL {
 
     public static interface Factory {
         public Environment createEnvironment();
-        public OutputOperation createOutputOperation();
         public InputReceiver createInputReceiver();
         public AppInformation createAppInformation();
         public TextOutputUnit createTextOutputUnit();

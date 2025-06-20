@@ -21,11 +21,6 @@ public class NewApp {
             }
 
             @Override
-            public OutputOperation createOutputOperation() {
-                return new OutputOperation();
-            }
-
-            @Override
             public InputReceiver createInputReceiver() {
                 return new InputReceiver();
             }

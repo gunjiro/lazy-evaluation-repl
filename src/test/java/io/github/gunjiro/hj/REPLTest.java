@@ -31,11 +31,6 @@ public class REPLTest {
             }
 
             @Override
-            public OutputOperation createOutputOperation() {
-                return new OutputOperation();
-            }
-
-            @Override
             public InputReceiver createInputReceiver() {
                 return new InputReceiver() {
 
@@ -76,18 +71,6 @@ public class REPLTest {
             @Override
             public Environment createEnvironment() {
                 return new DefaultEnvironment();
-            }
-
-            @Override
-            public OutputOperation createOutputOperation() {
-                return new OutputOperation() {
-
-                    @Override
-                    public void printMessage(String message) {
-                        output.append(message);
-                    }
-
-                };
             }
 
             @Override
@@ -142,18 +125,6 @@ public class REPLTest {
             @Override
             public Environment createEnvironment() {
                 return new DefaultEnvironment();
-            }
-
-            @Override
-            public OutputOperation createOutputOperation() {
-                return new OutputOperation() {
-
-                    @Override
-                    public void printMessage(String message) {
-                        output.add(message);
-                    }
-
-                };
             }
 
             @Override
