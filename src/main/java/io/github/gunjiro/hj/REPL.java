@@ -53,8 +53,6 @@ public class REPL {
     public static interface UnitFactory {
         public InputUnit createInputUnit();
 
-        public ControlUnit createControlUnit();
-
         public ThunkTableUnit createThunkTableUnit();
 
         public TextOutputUnit createTextOutputUnit();
@@ -301,11 +299,6 @@ public class REPL {
         @Override
         public InputUnit createInputUnit() {
             return new InputReceiverInputUnit(factory.createInputReceiver());
-        }
-
-        @Override
-        public ControlUnit createControlUnit() {
-            return new AppInformationControlUnit(factory.createAppInformation());
         }
 
         @Override
