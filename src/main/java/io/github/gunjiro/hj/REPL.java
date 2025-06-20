@@ -222,18 +222,4 @@ public class REPL {
 
     }
 
-    private static class DefaultUnitFactory implements UnitFactory {
-        private final Factory factory;
-
-        private DefaultUnitFactory(Factory factory) {
-            this.factory = factory;
-        }
-
-        @Override
-        public ThunkTableUnit createThunkTableUnit() {
-            return new EnvironmentThunkTableUnit(factory.createEnvironment());
-        }
-
-    }
-
 }
