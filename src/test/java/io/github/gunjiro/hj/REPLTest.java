@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.app.AppTextOutputUnit;
-import io.github.gunjiro.hj.ui.OutputOperation;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 import static org.hamcrest.Matchers.*;
