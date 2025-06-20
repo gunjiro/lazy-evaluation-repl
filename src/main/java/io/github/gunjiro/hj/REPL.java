@@ -19,6 +19,7 @@ public class REPL {
         public boolean isRunning();
         public void output(String text);
         public void newline();
+        public State getState();
     }
 
     public static interface DisplayUnit {
@@ -218,6 +219,11 @@ public class REPL {
         @Override
         public void newline() {
             textOutputUnit.newline();
+        }
+
+        @Override
+        public State getState() {
+            return managingStateUnit.getState();
         }
     }
 
