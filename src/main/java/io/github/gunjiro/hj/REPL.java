@@ -170,7 +170,6 @@ public class REPL {
     }
 
     private static class DefaultImplementor implements Implementor {
-        private final DisplayUnit displayUnit;
         private final InputUnit inputUnit;
         private final ControlUnit controlUnit;
         private final ThunkTableUnit thunkTableUnit;
@@ -178,7 +177,6 @@ public class REPL {
 
         private DefaultImplementor(DisplayUnit displayUnit, InputUnit inputUnit, ControlUnit controlUnit,
                 ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit) {
-            this.displayUnit = displayUnit;
             this.inputUnit = inputUnit;
             this.controlUnit = controlUnit;
             this.thunkTableUnit = thunkTableUnit;
