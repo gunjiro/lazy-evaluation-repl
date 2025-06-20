@@ -209,30 +209,6 @@ public class REPL {
         return new DefaultImplementor(factory.createInputUnit(), factory.createControlUnit(), factory.createThunkTableUnit(), factory.createTextOutputUnit());
     }
 
-    private static class TextOutputUnitDisplayUnit implements DisplayUnit {
-        private final TextOutputUnit unit;
-
-        public TextOutputUnitDisplayUnit(TextOutputUnit unit) {
-            this.unit = unit;
-        }
-
-        @Override
-        public void printMessage(String message) {
-            unit.output(message);
-            unit.newline();
-        }
-
-        @Override
-        public void printText(String text) {
-            unit.output(text);
-        }
-
-        @Override
-        public void startANewLine() {
-            unit.newline();
-        }
-    }
-
     private static class InputReceiverInputUnit implements InputUnit {
         private final InputReceiver inputReceiver;
 
