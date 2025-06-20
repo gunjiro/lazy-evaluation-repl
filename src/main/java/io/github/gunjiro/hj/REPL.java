@@ -99,7 +99,8 @@ public class REPL {
 
     private String waitForInput() {
         try {
-            return implementor.waitForInput();
+            implementor.output("> ");
+            return implementor.getInput();
         } catch (IOException e) {
             throw new IOError(e);
         }
