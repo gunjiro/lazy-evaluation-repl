@@ -96,7 +96,8 @@ public class REPL {
     }
 
     private void showMessage(String message) {
-        implementor.showMessage(message);
+        implementor.output(message);
+        implementor.newline();
     }
 
     private static class DefaultOperationUnit implements OperationUnit {
