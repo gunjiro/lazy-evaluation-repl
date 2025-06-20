@@ -2,7 +2,6 @@ package io.github.gunjiro.hj;
 
 import org.junit.Test;
 
-import io.github.gunjiro.hj.app.AppInformation;
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.app.AppTextOutputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
