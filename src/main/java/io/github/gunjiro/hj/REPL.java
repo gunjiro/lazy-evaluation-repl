@@ -31,7 +31,6 @@ public class REPL {
     }
 
     public static interface OldInputUnit {
-        public String receive();
         public InputUnit getNewInputUnit();
     }
 
@@ -236,15 +235,6 @@ public class REPL {
 
         private InputReceiverInputUnit(InputReceiver inputReceiver) {
             this.inputReceiver = inputReceiver;
-        }
-
-        @Override
-        public String receive() {
-            try {
-                return inputReceiver.receive();
-            } catch (IOException e) {
-                throw new IOError(e);
-            }
         }
 
         @Override
