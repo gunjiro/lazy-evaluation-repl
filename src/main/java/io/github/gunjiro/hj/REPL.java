@@ -85,13 +85,11 @@ public class REPL {
 
     private static class DefaultOperationUnit implements OperationUnit {
         private final ControlUnit controlUnit;
-        private final DisplayUnit displayUnit;
         private final ThunkTableUnit thunkTableUnit;
         private final TextOutputUnit textOutputUnit;
 
         private DefaultOperationUnit(ControlUnit controlUnit, DisplayUnit displayUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit) {
             this.controlUnit = controlUnit;
-            this.displayUnit = displayUnit;
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
         }
