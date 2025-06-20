@@ -29,7 +29,7 @@ public class REPL {
         public void startANewLine();
     }
 
-    public static interface InputUnit {
+    public static interface OldInputUnit {
         public String receive();
     }
 
@@ -44,7 +44,7 @@ public class REPL {
     }
 
     public static interface UnitFactory {
-        public InputUnit createInputUnit();
+        public OldInputUnit createInputUnit();
 
         public ThunkTableUnit createThunkTableUnit();
 
@@ -181,12 +181,12 @@ public class REPL {
     }
 
     private static class DefaultImplementor implements Implementor {
-        private final InputUnit inputUnit;
+        private final OldInputUnit inputUnit;
         private final ThunkTableUnit thunkTableUnit;
         private final TextOutputUnit textOutputUnit;
         private final ManagingStateUnit managingStateUnit;
 
-        private DefaultImplementor(InputUnit inputUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
+        private DefaultImplementor(OldInputUnit inputUnit, ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
             this.inputUnit = inputUnit;
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
@@ -225,7 +225,7 @@ public class REPL {
         return new DefaultImplementor(factory.createInputUnit(), factory.createThunkTableUnit(), factory.createTextOutputUnit(), factory.createManagingStateUnit());
     }
 
-    private static class InputReceiverInputUnit implements InputUnit {
+    private static class InputReceiverInputUnit implements OldInputUnit {
         private final InputReceiver inputReceiver;
 
         private InputReceiverInputUnit(InputReceiver inputReceiver) {
@@ -270,7 +270,7 @@ public class REPL {
         }
 
         @Override
-        public InputUnit createInputUnit() {
+        public OldInputUnit createInputUnit() {
             return new InputReceiverInputUnit(factory.createInputReceiver());
         }
 
