@@ -30,11 +30,6 @@ public class NewApp {
             }
 
             @Override
-            public AppInformation createAppInformation() {
-                return new AppInformation();
-            }
-
-            @Override
             public TextOutputUnit createTextOutputUnit() {
                 return new AppTextOutputUnit();
             }

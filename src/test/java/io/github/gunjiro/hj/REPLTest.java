@@ -46,11 +46,6 @@ public class REPLTest {
             }
 
             @Override
-            public AppInformation createAppInformation() {
-                return new AppInformation();
-            }
-
-            @Override
             public TextOutputUnit createTextOutputUnit() {
                 return new AppTextOutputUnit();
             }
@@ -90,11 +85,6 @@ public class REPLTest {
                     }
                     
                 };
-            }
-
-            @Override
-            public AppInformation createAppInformation() {
-                return new AppInformation();
             }
 
             @Override
@@ -149,11 +139,6 @@ public class REPLTest {
                     }
 
                 };
-            }
-
-            @Override
-            public AppInformation createAppInformation() {
-                return new AppInformation();
             }
 
             @Override
