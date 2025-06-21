@@ -43,17 +43,21 @@ public class GeneralOperator {
         return factory.createRequest(input);
     }
 
+    private void storeFunctions(Reader reader) {
+        try {
+            thunkTableUnit.addFunctions(reader);
+        } catch (ApplicationException e) {
+            textOutputUnit.output(e.getMessage());
+            textOutputUnit.newline();
+        }
+    }
+
     private FileLoader createFileLoader() {
         return new FileLoader(new FileLoader.DefaultImplementor() {
 
             @Override
             public void storeFunctions(Reader reader) {
-                try {
-                    thunkTableUnit.addFunctions(reader);
-                } catch (ApplicationException e) {
-                    textOutputUnit.output(e.getMessage());
-                    textOutputUnit.newline();
-                }
+                GeneralOperator.this.storeFunctions(reader);
             }
 
         });
