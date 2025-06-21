@@ -69,6 +69,10 @@ public class GeneralOperator {
         textOutputUnit.newline();
     }
 
+    private void quit() {
+        managingStateUnit.stopApplication();
+    }
+
     private FileLoader createFileLoader() {
         return new FileLoader(new FileLoader.DefaultImplementor() {
 
@@ -85,7 +89,7 @@ public class GeneralOperator {
 
             @Override
             public void quit() {
-                managingStateUnit.stopApplication();
+                GeneralOperator.this.quit();
             }
 
             @Override
