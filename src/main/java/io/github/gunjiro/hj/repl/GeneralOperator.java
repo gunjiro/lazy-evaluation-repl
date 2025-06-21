@@ -11,7 +11,6 @@ import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
-import io.github.gunjiro.hj.unit.ThunkTableUnit;
 
 public class GeneralOperator {
     private final Implementor implementor;
