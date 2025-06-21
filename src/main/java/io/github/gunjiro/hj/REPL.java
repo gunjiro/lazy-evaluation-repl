@@ -41,9 +41,24 @@ public class REPL {
         final TextOutputUnit textOutputUnit = factory.createTextOutputUnit();
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
-        final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
-        final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit, managingStateUnit);
-        final GeneralOperator generalOperator = operationUnit.getGeneralOperator();
+        final GeneralOperator generalOperator = new GeneralOperator(new GeneralOperator.Implementor() {
+
+            @Override
+            public TextOutputUnit createTextOutputUnit() {
+                return textOutputUnit;
+            }
+
+            @Override
+            public ManagingStateUnit createManagingStateUnit() {
+                return managingStateUnit;
+            }
+
+            @Override
+            public ThunkTableUnit createThunkTableUnit() {
+                return new EnvironmentThunkTableUnit(factory.createEnvironment());
+            }
+            
+        });
 
         return new REPL(new Implementor() {
 
