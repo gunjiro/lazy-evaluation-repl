@@ -5,11 +5,7 @@ import java.io.Reader;
 import io.github.gunjiro.hj.unit.ThunkTableUnit;
 
 public class EnvironmentThunkTableUnit extends ThunkTableUnit {
-    private final Environment environment;
-
-    public EnvironmentThunkTableUnit(Environment environment) {
-        this.environment = environment;
-    }
+    private final Environment environment = new DefaultEnvironment();
 
     @Override
     public void addFunctions(Reader reader) throws ApplicationException {

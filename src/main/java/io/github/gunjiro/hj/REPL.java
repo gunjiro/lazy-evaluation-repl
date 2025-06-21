@@ -37,7 +37,7 @@ public class REPL {
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
         final GeneralOperator generalOperator = new GeneralOperator(new GeneralOperator.Implementor() {
-            private final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
+            private final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit();
 
             @Override
             public void addFunctions(Reader reader) throws ApplicationException {
