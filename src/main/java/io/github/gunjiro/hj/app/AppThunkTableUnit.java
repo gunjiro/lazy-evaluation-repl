@@ -8,7 +8,7 @@ import io.github.gunjiro.hj.Environment;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.unit.ThunkTableUnit;
 
-public class EnvironmentThunkTableUnit extends ThunkTableUnit {
+public class AppThunkTableUnit extends ThunkTableUnit {
     private final Environment environment = new DefaultEnvironment();
 
     @Override

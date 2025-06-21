@@ -4,7 +4,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 
-import io.github.gunjiro.hj.app.EnvironmentThunkTableUnit;
+import io.github.gunjiro.hj.app.AppThunkTableUnit;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;
@@ -39,7 +39,7 @@ public class REPL {
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
         final GeneralOperator generalOperator = new GeneralOperator(new GeneralOperator.Implementor() {
-            private final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit();
+            private final ThunkTableUnit thunkTableUnit = new AppThunkTableUnit();
 
             @Override
             public void addFunctions(Reader reader) throws ApplicationException {
