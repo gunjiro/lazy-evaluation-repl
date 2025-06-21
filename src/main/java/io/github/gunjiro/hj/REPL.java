@@ -127,23 +127,4 @@ public class REPL {
         implementor.newline();
     }
 
-    private static class EnvironmentThunkTableUnit extends ThunkTableUnit {
-        private final Environment environment;
-
-        private EnvironmentThunkTableUnit(Environment environment) {
-            this.environment = environment;
-        }
-
-        @Override
-        public void addFunctions(Reader reader) throws ApplicationException {
-            environment.addFunctions(reader);
-        }
-
-        @Override
-        public Thunk createThunk(Reader reader) throws ApplicationException {
-            return environment.createThunk(reader);
-        }
-
-    }
-
 }
