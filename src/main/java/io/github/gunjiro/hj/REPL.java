@@ -23,6 +23,7 @@ public class REPL {
 
     private static interface OperationUnit {
         public void operate(String input);
+        public GeneralOperator getGeneralOperator();
     }
 
     public REPL(Implementor implementor) {
@@ -132,6 +133,11 @@ public class REPL {
         @Override
         public void operate(String input) {
             operator.operate(input);
+        }
+
+        @Override
+        public GeneralOperator getGeneralOperator() {
+            return operator;
         }
 
     }
