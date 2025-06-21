@@ -22,15 +22,15 @@ public class GeneralOperator {
 
     public GeneralOperator(Implementor implementor) {
         this.implementor = implementor;
-        this.thunkTableUnit = implementor.createThunkTableUnit();
-        this.textOutputUnit = implementor.createTextOutputUnit();
-        this.managingStateUnit = implementor.createManagingStateUnit();
+        this.thunkTableUnit = implementor.getThunkTableUnit();
+        this.textOutputUnit = implementor.getTextOutputUnit();
+        this.managingStateUnit = implementor.getManagingStateUnit();
     }
 
     public static interface Implementor {
-        public TextOutputUnit createTextOutputUnit();
-        public ManagingStateUnit createManagingStateUnit();
-        public ThunkTableUnit createThunkTableUnit();
+        public TextOutputUnit getTextOutputUnit();
+        public ManagingStateUnit getManagingStateUnit();
+        public ThunkTableUnit getThunkTableUnit();
     }
 
     public void operate(String input) {

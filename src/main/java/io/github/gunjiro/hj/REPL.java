@@ -39,17 +39,17 @@ public class REPL {
         final GeneralOperator generalOperator = new GeneralOperator(new GeneralOperator.Implementor() {
 
             @Override
-            public TextOutputUnit createTextOutputUnit() {
+            public TextOutputUnit getTextOutputUnit() {
                 return textOutputUnit;
             }
 
             @Override
-            public ManagingStateUnit createManagingStateUnit() {
+            public ManagingStateUnit getManagingStateUnit() {
                 return managingStateUnit;
             }
 
             @Override
-            public ThunkTableUnit createThunkTableUnit() {
+            public ThunkTableUnit getThunkTableUnit() {
                 return new EnvironmentThunkTableUnit(factory.createEnvironment());
             }
             
