@@ -52,6 +52,10 @@ public class GeneralOperator {
         }
     }
 
+    private Thunk createThunk(String code) throws ApplicationException {
+        return thunkTableUnit.createThunk(new StringReader(code));
+    }
+
     private FileLoader createFileLoader() {
         return new FileLoader(new FileLoader.DefaultImplementor() {
 
@@ -102,7 +106,7 @@ public class GeneralOperator {
 
             @Override
             public Thunk createThunk(String code) throws ApplicationException {
-                return thunkTableUnit.createThunk(new StringReader(code));
+                return GeneralOperator.this.createThunk(code);
             }
 
         };
