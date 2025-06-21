@@ -15,12 +15,10 @@ import io.github.gunjiro.hj.unit.TextOutputUnit;
 public class GeneralOperator {
     private final Implementor implementor;
 
-    private final TextOutputUnit textOutputUnit;
     private final ManagingStateUnit managingStateUnit;
 
     public GeneralOperator(Implementor implementor) {
         this.implementor = implementor;
-        this.textOutputUnit = implementor.getTextOutputUnit();
         this.managingStateUnit = implementor.getManagingStateUnit();
     }
 
@@ -47,8 +45,8 @@ public class GeneralOperator {
         try {
             implementor.addFunctions(reader);
         } catch (ApplicationException e) {
-            textOutputUnit.output(e.getMessage());
-            textOutputUnit.newline();
+            implementor.output(e.getMessage());
+            implementor.newline();
         }
     }
 
@@ -57,16 +55,16 @@ public class GeneralOperator {
     }
 
     private void sendText(String text) {
-        textOutputUnit.output(text);
+        implementor.output(text);
     }
 
     private void sendMessage(String message) {
-        textOutputUnit.output(message);
-        textOutputUnit.newline();
+        implementor.output(message);
+        implementor.newline();
     }
 
     private void sendBreak() {
-        textOutputUnit.newline();
+        implementor.newline();
     }
 
     private void quit() {
