@@ -14,11 +14,8 @@ import io.github.gunjiro.hj.unit.ManagingStateUnit;
 public class GeneralOperator {
     private final Implementor implementor;
 
-    private final ManagingStateUnit managingStateUnit;
-
     public GeneralOperator(Implementor implementor) {
         this.implementor = implementor;
-        this.managingStateUnit = implementor.getManagingStateUnit();
     }
 
     public static interface Implementor {
@@ -67,7 +64,7 @@ public class GeneralOperator {
     }
 
     private void quit() {
-        managingStateUnit.stopApplication();
+        implementor.stopApplication();
     }
 
     private FileLoader createFileLoader() {
