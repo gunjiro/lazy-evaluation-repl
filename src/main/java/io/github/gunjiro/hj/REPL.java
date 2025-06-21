@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
@@ -111,11 +112,30 @@ public class REPL {
         private final ThunkTableUnit thunkTableUnit;
         private final TextOutputUnit textOutputUnit;
         private final ManagingStateUnit managingStateUnit;
+        private final GeneralOperator operator;
 
         private DefaultOperationUnit(ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
             this.thunkTableUnit = thunkTableUnit;
             this.textOutputUnit = textOutputUnit;
             this.managingStateUnit = managingStateUnit;
+            this.operator = new GeneralOperator(new GeneralOperator.Implementor() {
+
+                @Override
+                public TextOutputUnit createTextOutputUnit() {
+                    return textOutputUnit;
+                }
+
+                @Override
+                public ManagingStateUnit createManagingStateUnit() {
+                    return managingStateUnit;
+                }
+
+                @Override
+                public ThunkTableUnit createThunkTableUnit() {
+                    return thunkTableUnit;
+                }
+                
+            });
         }
 
         @Override
