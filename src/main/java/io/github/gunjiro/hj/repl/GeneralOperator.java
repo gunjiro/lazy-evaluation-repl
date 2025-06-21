@@ -47,7 +47,7 @@ public class GeneralOperator {
 
     private void storeFunctions(Reader reader) {
         try {
-            thunkTableUnit.addFunctions(reader);
+            implementor.addFunctions(reader);
         } catch (ApplicationException e) {
             textOutputUnit.output(e.getMessage());
             textOutputUnit.newline();
@@ -55,7 +55,7 @@ public class GeneralOperator {
     }
 
     private Thunk createThunk(String code) throws ApplicationException {
-        return thunkTableUnit.createThunk(new StringReader(code));
+        return implementor.createThunk(new StringReader(code));
     }
 
     private void sendText(String text) {
