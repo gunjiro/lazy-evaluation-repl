@@ -56,6 +56,19 @@ public class GeneralOperator {
         return thunkTableUnit.createThunk(new StringReader(code));
     }
 
+    private void sendText(String text) {
+        textOutputUnit.output(text);
+    }
+
+    private void sendMessage(String message) {
+        textOutputUnit.output(message);
+        textOutputUnit.newline();
+    }
+
+    private void sendBreak() {
+        textOutputUnit.newline();
+    }
+
     private FileLoader createFileLoader() {
         return new FileLoader(new FileLoader.DefaultImplementor() {
 
@@ -77,28 +90,24 @@ public class GeneralOperator {
 
             @Override
             public void sendText(String text) {
-                textOutputUnit.output(text);
+                GeneralOperator.this.sendText(text);
             }
 
             @Override
             public void sendMessage(String message) {
-                textOutputUnit.output(message);
-                textOutputUnit.newline();
+                GeneralOperator.this.sendMessage(message);
             }
 
             @Override
             public void load(String name) {
                 final FileLoader loader = createFileLoader();
-                loader.addObserver(message -> {
-                    textOutputUnit.output(message);
-                    textOutputUnit.newline();
-                });
+                loader.addObserver(GeneralOperator.this::sendMessage);
                 loader.load(name);
             }
 
             @Override
             public void sendBreak() {
-                textOutputUnit.newline();
+                GeneralOperator.this.sendBreak();
             }
 
         };
