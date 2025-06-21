@@ -38,8 +38,8 @@ public class REPL {
         final TextOutputUnit textOutputUnit = factory.createTextOutputUnit();
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
+        final ThunkTableUnit thunkTableUnit = new AppThunkTableUnit();
         final GeneralOperator generalOperator = new GeneralOperator(new GeneralOperator.Implementor() {
-            private final ThunkTableUnit thunkTableUnit = new AppThunkTableUnit();
 
             @Override
             public void addFunctions(Reader reader) throws ApplicationException {
