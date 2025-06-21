@@ -58,6 +58,16 @@ public class REPL {
             public Thunk createThunk(Reader reader) throws ApplicationException {
                 return thunkTableUnit.createThunk(reader);
             }
+
+            @Override
+            public void output(String text) {
+                textOutputUnit.output(text);
+            }
+
+            @Override
+            public void newline() {
+                textOutputUnit.newline();
+            }
             
         });
 

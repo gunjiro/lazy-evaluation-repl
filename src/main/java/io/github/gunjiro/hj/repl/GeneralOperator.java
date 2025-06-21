@@ -29,6 +29,8 @@ public class GeneralOperator {
         public ManagingStateUnit getManagingStateUnit();
         public void addFunctions(Reader reader) throws ApplicationException;
         public Thunk createThunk(Reader reader) throws ApplicationException;
+        public void output(String text);
+        public void newline();
     }
 
     public void operate(String input) {
