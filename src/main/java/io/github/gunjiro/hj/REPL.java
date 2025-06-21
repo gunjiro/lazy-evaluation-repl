@@ -40,11 +40,6 @@ public class REPL {
             private final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
 
             @Override
-            public ManagingStateUnit getManagingStateUnit() {
-                return managingStateUnit;
-            }
-
-            @Override
             public void addFunctions(Reader reader) throws ApplicationException {
                 thunkTableUnit.addFunctions(reader);
             }
