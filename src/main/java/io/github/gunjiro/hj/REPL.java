@@ -50,11 +50,6 @@ public class REPL {
             }
 
             @Override
-            public ThunkTableUnit getThunkTableUnit() {
-                return thunkTableUnit;
-            }
-
-            @Override
             public void addFunctions(Reader reader) throws ApplicationException {
                 thunkTableUnit.addFunctions(reader);
             }
