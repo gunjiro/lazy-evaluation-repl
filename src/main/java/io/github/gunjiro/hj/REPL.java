@@ -140,8 +140,7 @@ public class REPL {
 
         @Override
         public void operate(String input) {
-            final Request request = createRequest(input);
-            createOperator().operate(request);
+            operator.operate(input);
         }
 
         private Request createRequest(String input) {
