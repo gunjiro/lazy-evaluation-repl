@@ -16,13 +16,11 @@ import io.github.gunjiro.hj.unit.ThunkTableUnit;
 public class GeneralOperator {
     private final Implementor implementor;
 
-    private final ThunkTableUnit thunkTableUnit;
     private final TextOutputUnit textOutputUnit;
     private final ManagingStateUnit managingStateUnit;
 
     public GeneralOperator(Implementor implementor) {
         this.implementor = implementor;
-        this.thunkTableUnit = implementor.getThunkTableUnit();
         this.textOutputUnit = implementor.getTextOutputUnit();
         this.managingStateUnit = implementor.getManagingStateUnit();
     }
