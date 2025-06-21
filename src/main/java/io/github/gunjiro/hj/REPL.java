@@ -63,6 +63,11 @@ public class REPL {
             public void newline() {
                 textOutputUnit.newline();
             }
+
+            @Override
+            public void stopApplication() {
+                managingStateUnit.stopApplication();
+            }
             
         });
 

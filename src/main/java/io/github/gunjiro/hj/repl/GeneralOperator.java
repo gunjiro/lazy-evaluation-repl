@@ -27,6 +27,7 @@ public class GeneralOperator {
         public Thunk createThunk(Reader reader) throws ApplicationException;
         public void output(String text);
         public void newline();
+        public void stopApplication();
     }
 
     public void operate(String input) {
