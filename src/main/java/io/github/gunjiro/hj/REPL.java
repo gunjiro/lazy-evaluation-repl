@@ -43,12 +43,13 @@ public class REPL {
         final InputUnit inputUnit = factory.createInputUnit();
         final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
         final OperationUnit operationUnit = new DefaultOperationUnit(thunkTableUnit, textOutputUnit, managingStateUnit);
+        final GeneralOperator generalOperator = operationUnit.getGeneralOperator();
 
         return new REPL(new Implementor() {
 
             @Override
             public void execute(String input) {
-                operationUnit.getGeneralOperator().operate(input);
+                generalOperator.operate(input);
             }
 
             @Override
