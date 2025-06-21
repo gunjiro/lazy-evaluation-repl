@@ -32,20 +32,6 @@ public class REPLTest {
             }
 
             @Override
-            public InputReceiver createInputReceiver() {
-                return new InputReceiver() {
-
-                    @Override
-                    public String receive() {
-                        assert !inputs.isEmpty() : "..... already received all inputs .....";
-                        messages.add("..... received .....");
-                        return inputs.pop();
-                    }
-
-                };
-            }
-
-            @Override
             public TextOutputUnit createTextOutputUnit() {
                 return new TextOutputUnit() {
 
@@ -101,19 +87,6 @@ public class REPLTest {
             }
 
             @Override
-            public InputReceiver createInputReceiver() {
-                return new InputReceiver() {
-
-                    @Override
-                    public String receive() {
-                        assert !inputs.isEmpty() : "..... already received all inputs .....";
-                        return inputs.pop();
-                    }
-                    
-                };
-            }
-
-            @Override
             public TextOutputUnit createTextOutputUnit() {
                 return new TextOutputUnit() {
 
@@ -165,19 +138,6 @@ public class REPLTest {
             @Override
             public Environment createEnvironment() {
                 return new DefaultEnvironment();
-            }
-
-            @Override
-            public InputReceiver createInputReceiver() {
-                return new InputReceiver() {
-
-                    @Override
-                    public String receive() {
-                        assert !inputs.isEmpty() : "..... already received all inputs .....";
-                        return inputs.pop();
-                    }
-
-                };
             }
 
             @Override

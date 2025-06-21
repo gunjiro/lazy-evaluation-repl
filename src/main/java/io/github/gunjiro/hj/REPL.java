@@ -27,7 +27,6 @@ public class REPL {
 
     public static interface Factory {
         public Environment createEnvironment();
-        public InputReceiver createInputReceiver();
         public TextOutputUnit createTextOutputUnit();
         public ManagingStateUnit createManagingStateUnit();
         public InputUnit createInputUnit();
