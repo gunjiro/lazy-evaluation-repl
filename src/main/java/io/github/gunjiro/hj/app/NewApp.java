@@ -17,28 +17,6 @@ public class NewApp {
     }
 
     private REPL createREPL() {
-        return REPL.create(new REPL.Factory() {
-
-            @Override
-            public Environment createEnvironment() {
-                return new DefaultEnvironment();
-            }
-
-            @Override
-            public TextOutputUnit createTextOutputUnit() {
-                return new AppTextOutputUnit();
-            }
-
-            @Override
-            public ManagingStateUnit createManagingStateUnit() {
-                return new AppManagingStateUnit();
-            }
-
-            @Override
-            public InputUnit createInputUnit() {
-                return new AppInputUnit();
-            }
-            
-        });
+        return new REPL(new AppImplementorOfREPL());
     }
 }
