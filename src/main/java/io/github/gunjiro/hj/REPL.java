@@ -3,9 +3,6 @@ package io.github.gunjiro.hj;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringReader;
-
-import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;
@@ -109,15 +106,9 @@ public class REPL {
     }
 
     private static class DefaultOperationUnit implements OperationUnit {
-        private final ThunkTableUnit thunkTableUnit;
-        private final TextOutputUnit textOutputUnit;
-        private final ManagingStateUnit managingStateUnit;
         private final GeneralOperator operator;
 
         private DefaultOperationUnit(ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
-            this.thunkTableUnit = thunkTableUnit;
-            this.textOutputUnit = textOutputUnit;
-            this.managingStateUnit = managingStateUnit;
             this.operator = new GeneralOperator(new GeneralOperator.Implementor() {
 
                 @Override
@@ -141,73 +132,6 @@ public class REPL {
         @Override
         public void operate(String input) {
             operator.operate(input);
-        }
-
-        private Request createRequest(String input) {
-            final RequestFactory factory = new RequestFactory();
-            return factory.createRequest(input);
-        }
-
-        private FileLoader createFileLoader() {
-            return new FileLoader(new FileLoader.DefaultImplementor() {
-
-                @Override
-                public void storeFunctions(Reader reader) {
-                    try {
-                        thunkTableUnit.addFunctions(reader);
-                    } catch (ApplicationException e) {
-                        textOutputUnit.output(e.getMessage());
-                        textOutputUnit.newline();
-                    }
-                }
-
-            });
-        }
-
-        private AppRequestOperator createOperator() {
-            final AppRequestOperator.Implementor implementor = new AppRequestOperator.Implementor() {
-
-                @Override
-                public void quit() {
-                    managingStateUnit.stopApplication();
-                }
-
-                @Override
-                public void sendText(String text) {
-                    textOutputUnit.output(text);
-                }
-
-                @Override
-                public void sendMessage(String message) {
-                    textOutputUnit.output(message);
-                    textOutputUnit.newline();
-                }
-
-                @Override
-                public void load(String name) {
-                    final FileLoader loader = createFileLoader();
-                    loader.addObserver(message -> {
-                        textOutputUnit.output(message);
-                        textOutputUnit.newline();
-                    });
-                    loader.load(name);
-                }
-
-                @Override
-                public void sendBreak() {
-                    textOutputUnit.newline();
-                }
-
-            };
-            final AppRequestOperator.Factory factory = new AppRequestOperator.Factory() {
-
-                @Override
-                public Thunk createThunk(String code) throws ApplicationException {
-                    return thunkTableUnit.createThunk(new StringReader(code));
-                }
-
-            };
-            return new AppRequestOperator(implementor, factory);
         }
 
     }
