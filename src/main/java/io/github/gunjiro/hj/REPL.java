@@ -21,10 +21,6 @@ public class REPL {
         public String getInput() throws IOException;
     }
 
-    private static interface OperationUnit {
-        public GeneralOperator getGeneralOperator();
-    }
-
     public REPL(Implementor implementor) {
         this.implementor = implementor;
     }
@@ -119,37 +115,6 @@ public class REPL {
     private void showMessage(String message) {
         implementor.output(message);
         implementor.newline();
-    }
-
-    private static class DefaultOperationUnit implements OperationUnit {
-        private final GeneralOperator operator;
-
-        private DefaultOperationUnit(ThunkTableUnit thunkTableUnit, TextOutputUnit textOutputUnit, ManagingStateUnit managingStateUnit) {
-            this.operator = new GeneralOperator(new GeneralOperator.Implementor() {
-
-                @Override
-                public TextOutputUnit createTextOutputUnit() {
-                    return textOutputUnit;
-                }
-
-                @Override
-                public ManagingStateUnit createManagingStateUnit() {
-                    return managingStateUnit;
-                }
-
-                @Override
-                public ThunkTableUnit createThunkTableUnit() {
-                    return thunkTableUnit;
-                }
-                
-            });
-        }
-
-        @Override
-        public GeneralOperator getGeneralOperator() {
-            return operator;
-        }
-
     }
 
     private static class EnvironmentThunkTableUnit extends ThunkTableUnit {
