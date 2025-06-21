@@ -37,6 +37,7 @@ public class REPL {
         final ManagingStateUnit managingStateUnit = factory.createManagingStateUnit();
         final InputUnit inputUnit = factory.createInputUnit();
         final GeneralOperator generalOperator = new GeneralOperator(new GeneralOperator.Implementor() {
+            private final ThunkTableUnit thunkTableUnit = new EnvironmentThunkTableUnit(factory.createEnvironment());
 
             @Override
             public TextOutputUnit getTextOutputUnit() {
@@ -50,7 +51,17 @@ public class REPL {
 
             @Override
             public ThunkTableUnit getThunkTableUnit() {
-                return new EnvironmentThunkTableUnit(factory.createEnvironment());
+                return thunkTableUnit;
+            }
+
+            @Override
+            public void addFunctions(Reader reader) throws ApplicationException {
+                thunkTableUnit.addFunctions(reader);
+            }
+
+            @Override
+            public Thunk createThunk(Reader reader) throws ApplicationException {
+                return thunkTableUnit.createThunk(reader);
             }
             
         });

@@ -31,6 +31,8 @@ public class GeneralOperator {
         public TextOutputUnit getTextOutputUnit();
         public ManagingStateUnit getManagingStateUnit();
         public ThunkTableUnit getThunkTableUnit();
+        public void addFunctions(Reader reader) throws ApplicationException;
+        public Thunk createThunk(Reader reader) throws ApplicationException;
     }
 
     public void operate(String input) {
