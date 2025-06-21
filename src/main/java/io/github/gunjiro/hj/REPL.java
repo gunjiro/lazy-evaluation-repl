@@ -193,7 +193,7 @@ public class REPL {
 
     }
 
-    private static class EnvironmentThunkTableUnit implements ThunkTableUnit {
+    private static class EnvironmentThunkTableUnit extends ThunkTableUnit {
         private final Environment environment;
 
         private EnvironmentThunkTableUnit(Environment environment) {
