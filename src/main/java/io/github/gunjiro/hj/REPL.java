@@ -3,6 +3,8 @@ package io.github.gunjiro.hj;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
+
+import io.github.gunjiro.hj.app.EnvironmentThunkTableUnit;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;

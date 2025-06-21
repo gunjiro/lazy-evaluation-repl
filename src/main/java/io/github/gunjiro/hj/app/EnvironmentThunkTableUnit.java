@@ -1,7 +1,11 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.app;
 
 import java.io.Reader;
 
+import io.github.gunjiro.hj.ApplicationException;
+import io.github.gunjiro.hj.DefaultEnvironment;
+import io.github.gunjiro.hj.Environment;
+import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.unit.ThunkTableUnit;
 
 public class EnvironmentThunkTableUnit extends ThunkTableUnit {
