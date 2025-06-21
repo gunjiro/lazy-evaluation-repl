@@ -60,7 +60,7 @@ public class GeneralOperator {
     }
 
     private AppRequestOperator createOperator() {
-        final AppRequestOperator.Implementor implementor = new AppRequestOperator.Implementor() {
+        final AppRequestOperator.Implementor appRequestOperatorImplementor = new AppRequestOperator.Implementor() {
 
             @Override
             public void quit() {
@@ -102,7 +102,7 @@ public class GeneralOperator {
             }
 
         };
-        return new AppRequestOperator(implementor, factory);
+        return new AppRequestOperator(appRequestOperatorImplementor, factory);
     }
 
 }
