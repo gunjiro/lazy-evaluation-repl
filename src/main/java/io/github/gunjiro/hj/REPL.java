@@ -49,7 +49,7 @@ public class REPL {
 
             @Override
             public void execute(String input) {
-                operationUnit.operate(input);
+                operationUnit.getGeneralOperator().operate(input);
             }
 
             @Override
