@@ -9,7 +9,6 @@ import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.RequestFactory;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.processor.FileLoader;
-import io.github.gunjiro.hj.unit.ManagingStateUnit;
 
 public class GeneralOperator {
     private final Implementor implementor;
