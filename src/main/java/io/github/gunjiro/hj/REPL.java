@@ -99,7 +99,7 @@ public class REPL {
     public void run() {
         do {
             final String input = waitForInput();
-            execute(input);
+            operate(input);
         } while (isRunning());
 
         showMessage("Bye.");
@@ -114,7 +114,7 @@ public class REPL {
         }
     }
 
-    private void execute(String input) {
+    private void operate(String input) {
         implementor.operate(input);
     }
 
