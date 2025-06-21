@@ -14,7 +14,7 @@ public class REPL {
     private final Implementor implementor;
 
     public static interface Implementor {
-        public void execute(String input);
+        public void operate(String input);
         public void output(String text);
         public void newline();
         public State getState();
@@ -69,7 +69,7 @@ public class REPL {
         return new REPL(new Implementor() {
 
             @Override
-            public void execute(String input) {
+            public void operate(String input) {
                 generalOperator.operate(input);
             }
 
@@ -115,7 +115,7 @@ public class REPL {
     }
 
     private void execute(String input) {
-        implementor.execute(input);
+        implementor.operate(input);
     }
 
     private boolean isRunning() {
