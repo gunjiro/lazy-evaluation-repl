@@ -22,12 +22,6 @@ public class REPL {
         public String getInput() throws IOException;
     }
 
-    public static interface ThunkTableUnit {
-        public void addFunctions(Reader reader) throws ApplicationException;
-
-        public Thunk createThunk(Reader reader) throws ApplicationException;
-    }
-
     private static interface OperationUnit {
         public void operate(String input);
     }
