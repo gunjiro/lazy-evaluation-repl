@@ -11,14 +11,7 @@ public class InputReceiver {
     }
 
     private static LineReader createLineReader() {
-        return new LineReader(new LineReader.Factory() {
-
-            @Override
-            public BufferedReader createBufferedReader() {
-                return new BufferedReader(new InputStreamReader(System.in));
-            }
-            
-        });
+        return new LineReader(() -> new BufferedReader(new InputStreamReader(System.in)));
     }
 
 }
