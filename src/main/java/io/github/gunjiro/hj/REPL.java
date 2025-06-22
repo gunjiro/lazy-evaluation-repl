@@ -2,15 +2,10 @@ package io.github.gunjiro.hj;
 
 import java.io.IOError;
 import java.io.IOException;
-import java.io.Reader;
-
-import io.github.gunjiro.hj.app.AppThunkTableUnit;
-import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
-import io.github.gunjiro.hj.unit.ThunkTableUnit;
 
 public class REPL {
     private final Implementor implementor;
