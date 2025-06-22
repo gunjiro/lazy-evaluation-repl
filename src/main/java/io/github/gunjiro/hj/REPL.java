@@ -3,9 +3,6 @@ package io.github.gunjiro.hj;
 import java.io.IOError;
 import java.io.IOException;
 import io.github.gunjiro.hj.state.State;
-import io.github.gunjiro.hj.unit.InputUnit;
-import io.github.gunjiro.hj.unit.ManagingStateUnit;
-import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 public class REPL {
     private final Implementor implementor;
@@ -20,13 +17,6 @@ public class REPL {
 
     public REPL(Implementor implementor) {
         this.implementor = implementor;
-    }
-
-    public static interface Factory {
-        public Environment createEnvironment();
-        public TextOutputUnit createTextOutputUnit();
-        public ManagingStateUnit createManagingStateUnit();
-        public InputUnit createInputUnit();
     }
 
     public void run() {
