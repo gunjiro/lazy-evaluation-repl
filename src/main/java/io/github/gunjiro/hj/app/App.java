@@ -2,13 +2,13 @@ package io.github.gunjiro.hj.app;
 
 import io.github.gunjiro.hj.REPL;
 
-public class NewApp {
+public class App {
     public static void run() {
         create().createREPL().run();
     }
 
-    private static NewApp create() {
-        return new NewApp();
+    private static App create() {
+        return new App();
     }
 
     private REPL createREPL() {
