@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.state.State;
-import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
-import io.github.gunjiro.hj.unit.TextOutputUnit;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
