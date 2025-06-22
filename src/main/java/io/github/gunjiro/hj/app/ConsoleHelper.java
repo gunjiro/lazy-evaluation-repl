@@ -1,9 +1,26 @@
 package io.github.gunjiro.hj.app;
 
 import java.io.Console;
+import java.io.IOError;
 import java.io.IOException;
 
 public class ConsoleHelper {
+    public void output(String text) {
+        try {
+            getConsole().writer().print(text);
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
+
+    public void newline() {
+        try {
+            getConsole().writer().println();
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
+
     public String getInput() throws IOException {
         return readLine();
     }
