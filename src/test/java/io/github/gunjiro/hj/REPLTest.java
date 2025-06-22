@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,62 +50,24 @@ public class REPLTest {
             return inputs.removeFirst();
         }
 
+        private void addInputs(String ... newInputs) {
+            inputs.addAll(List.of(newInputs));
+        }
+
+        private List<String> getOutputs() {
+            return Collections.unmodifiableList(outputs);
+        }
     }
 
     @Test
-    public void verifyLoop() {
-        // REPLは入力と実行の繰り返しを制御する。
-        // このテストでは４回、空の入力をしたあと、５回目の終了コマンドで終了することを検証する。
-        final Deque<String> messages = new LinkedList<>();
+    public void thisRepeatsTheProcessUntilItInputsQuitCommand() {
+        final StubImplementor implementor = new StubImplementor();
+        final REPL repl = new REPL(implementor);
 
-        final Deque<String> inputs = new LinkedList<>(List.of("", "", "", "", ":q"));
-        final REPL repl = REPL.create(new REPL.Factory() {
-
-            @Override
-            public Environment createEnvironment() {
-                return new DefaultEnvironment();
-            }
-
-            @Override
-            public TextOutputUnit createTextOutputUnit() {
-                return new TextOutputUnit() {
-
-                    @Override
-                    public void output(String text) {
-                      // output
-                    }
-
-                    @Override
-                    public void newline() {
-                      // newline
-                    }
-
-                };
-            }
-
-            @Override
-            public ManagingStateUnit createManagingStateUnit() {
-                return new AppManagingStateUnit();
-            }
-
-            @Override
-            public InputUnit createInputUnit() {
-                return new InputUnit() {
-
-                    @Override
-                    public String getInput() throws IOException {
-                        assert !inputs.isEmpty() : "..... already received all inputs .....";
-                        messages.add("..... received .....");
-                        return inputs.pop();
-                    }
-                    
-                };
-            }
-            
-        });
+        implementor.addInputs("", "", "", "", ":q");
         repl.run();
 
-        assertThat(messages, hasSize(5));
+        assertThat(String.join("|", implementor.getOutputs()), endsWith("Bye.|↵"));
     }
 
     @Test
