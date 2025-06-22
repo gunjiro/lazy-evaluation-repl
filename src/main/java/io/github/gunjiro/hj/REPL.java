@@ -40,7 +40,6 @@ public class REPL {
 
     private String waitForInput() {
         try {
-            implementor.output("> ");
             return implementor.getInput();
         } catch (IOException e) {
             throw new IOError(e);
