@@ -9,6 +9,7 @@ import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 
 import java.io.Reader;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,6 +49,10 @@ public class GeneralOperatorTest {
         private State getState() {
             return managingStateUnit.getState();
         }
+
+        private List<String> getOutputs() {
+            return Collections.unmodifiableList(outputs);
+        }
     }
 
     @Test
@@ -58,5 +63,15 @@ public class GeneralOperatorTest {
         operator.operate(":q");
 
         assertThat(implementor.getState(), is(State.STOPPING));
+    }
+
+    @Test
+    public void unknownCommandOutputsMessage() {
+        final StubImplementor implementor = new StubImplementor();
+        final GeneralOperator operator = new GeneralOperator(implementor);
+
+        operator.operate(":nothing");
+
+        assertThat(implementor.getOutputs(), contains("unknown command ':nothing'", "↵"));
     }
 }
