@@ -6,27 +6,45 @@ import java.io.IOException;
 
 public class ConsoleHelper {
     public void output(String text) {
-        try {
-            getConsole().writer().print(text);
-        } catch (IOException e) {
-            throw new IOError(e);
-        }
+        getConsole().writer().print(text);
     }
 
     public void newline() {
+        getConsole().writer().println();
+    }
+
+    public String getInput() throws IOException {
+        return readLineOrThrowIOException();
+    }
+
+    public Console getConsole() {
         try {
-            getConsole().writer().println();
+            return getConsoleOrThrowIOException();
         } catch (IOException e) {
             throw new IOError(e);
         }
     }
 
-    public String getInput() throws IOException {
-        return readLine();
+    protected String readLine() {
+        return getConsole().readLine("> ");
     }
 
-    private String readLine() throws IOException {
-        final String line = getConsole().readLine("> ");
+    protected Console getConsoleOrNull() {
+        return System.console();
+    }
+
+    private Console getConsoleOrThrowIOException() throws IOException {
+        final Console console = getConsoleOrNull();
+
+        if (console == null) {
+            throw new IOException("No console device is available.");
+        }
+
+        return console;
+    }
+
+    private String readLineOrThrowIOException() throws IOException {
+        final String line = readLine();
 
         if (line == null) {
             throw new IOException("An end of stream has been reached.");
@@ -35,13 +53,4 @@ public class ConsoleHelper {
         return line;
     }
 
-    private Console getConsole() throws IOException {
-        final Console console = System.console();
-
-        if (console == null) {
-            throw new IOException("No console device is available.");
-        }
-
-        return console;
-    }
 }
