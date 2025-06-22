@@ -1,17 +1,32 @@
 package io.github.gunjiro.hj;
-import java.io.InputStreamReader;
 
-import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 
 public class InputReceiver {
 
     public String receive() throws IOException {
-        return createLineReader().read();
+        return readLine();
     }
 
-    private static LineReader createLineReader() {
-        return new LineReader(() -> new BufferedReader(new InputStreamReader(System.in)));
+    private String readLine() throws IOException {
+        final String line = getConsole().readLine("> ");
+
+        if (line == null) {
+            throw new IOException("An end of stream has been reached.");
+        }
+
+        return line;
+    }
+
+    private Console getConsole() throws IOException {
+        final Console console = System.console();
+
+        if (console == null) {
+            throw new IOException("No console device is available.");
+        }
+
+        return console;
     }
 
 }
