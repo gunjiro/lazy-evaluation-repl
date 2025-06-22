@@ -2,12 +2,12 @@ package io.github.gunjiro.hj;
 
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
-
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 import java.util.Collections;
