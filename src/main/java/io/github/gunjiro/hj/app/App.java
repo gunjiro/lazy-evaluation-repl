@@ -1,6 +1,6 @@
 package io.github.gunjiro.hj.app;
 
-import io.github.gunjiro.hj.REPL;
+import io.github.gunjiro.hj.repl.REPL;
 
 public class App {
     public static void run() {

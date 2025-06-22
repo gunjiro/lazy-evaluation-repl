@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj;
+package io.github.gunjiro.hj.repl;
 
 import org.junit.Test;
 

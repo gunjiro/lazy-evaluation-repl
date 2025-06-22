@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 
 import io.github.gunjiro.hj.ApplicationException;
-import io.github.gunjiro.hj.REPL;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.repl.GeneralOperator;
+import io.github.gunjiro.hj.repl.REPL;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
