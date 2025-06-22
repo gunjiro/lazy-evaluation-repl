@@ -3,6 +3,7 @@ package io.github.gunjiro.hj;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
+import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
@@ -16,6 +17,39 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class REPLTest {
+    private static class StubImplementor implements REPL.Implementor {
+        private final ManagingStateUnit managingStateUnit = new AppManagingStateUnit();
+        private final List<String> outputs = new LinkedList<>();
+        private final Deque<String> inputs = new LinkedList<>();
+
+        @Override
+        public void operate(String input) {
+            if (":q".equals(input)) {
+                managingStateUnit.stopApplication();
+            }
+        }
+
+        @Override
+        public void output(String text) {
+            outputs.add(text);
+        }
+
+        @Override
+        public void newline() {
+            outputs.add("↵");
+        }
+
+        @Override
+        public State getState() {
+            return managingStateUnit.getState();
+        }
+
+        @Override
+        public String getInput() throws IOException {
+            return inputs.removeFirst();
+        }
+
+    }
 
     @Test
     public void verifyLoop() {
