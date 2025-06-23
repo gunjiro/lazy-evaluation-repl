@@ -18,6 +18,34 @@ public class AppRequestOperator {
         this.implementor = implementor;
     }
 
+    private void operate(CommandRequest request) {
+        final CommandRequestOperator operator = new CommandRequestOperator(new CommandRequestOperator.Implementor() {
+
+            @Override
+            public void load(String filename) {
+                implementor.load(filename);
+            }
+
+            @Override
+            public void stopApplication() {
+                implementor.quit();
+            }
+
+            @Override
+            public void output(String text) {
+                implementor.sendText(text);
+            }
+
+            @Override
+            public void newline() {
+                implementor.sendBreak();
+            }
+            
+        });
+
+        operator.operate(request);
+    }
+
     public void operate(Request request) {
         request.accept(new Request.Visitor<Void>() {
 
