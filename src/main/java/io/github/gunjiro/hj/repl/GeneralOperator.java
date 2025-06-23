@@ -7,7 +7,6 @@ import java.io.StringReader;
 import io.github.gunjiro.hj.AppRequestOperator;
 import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.Request;
-import io.github.gunjiro.hj.InputConverter;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.processor.FileLoader;
 
@@ -34,8 +33,7 @@ public class GeneralOperator {
     }
 
     private Request convertToRequest(String input) {
-        final InputConverter converter = new InputConverter();
-        return converter.convertToRequest(input);
+        return implementor.convertToRequest(input);
     }
 
     private void storeFunctions(Reader reader) {
