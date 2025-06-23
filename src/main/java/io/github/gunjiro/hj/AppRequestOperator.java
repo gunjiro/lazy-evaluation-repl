@@ -15,11 +15,7 @@ public class AppRequestOperator {
         public Thunk createThunk(String code) throws ApplicationException;
     }
 
-    public static interface Factory {
-        public Thunk createThunk(String code) throws ApplicationException;
-    }
-
-    public AppRequestOperator(Implementor implementor, Factory factory) {
+    public AppRequestOperator(Implementor implementor) {
         this.implementor = implementor;
     }
 

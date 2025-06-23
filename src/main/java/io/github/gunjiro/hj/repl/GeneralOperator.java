@@ -126,15 +126,8 @@ public class GeneralOperator {
             }
 
         };
-        final AppRequestOperator.Factory factory = new AppRequestOperator.Factory() {
 
-            @Override
-            public Thunk createThunk(String code) throws ApplicationException {
-                return GeneralOperator.this.createThunk(code);
-            }
-
-        };
-        return new AppRequestOperator(appRequestOperatorImplementor, factory);
+        return new AppRequestOperator(appRequestOperatorImplementor);
     }
 
 }

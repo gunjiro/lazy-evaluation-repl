@@ -43,13 +43,6 @@ public class AppRequestOperatorTest {
                 throw new UnsupportedOperationException("Unimplemented method 'createThunk'");
             }
 
-        }, new AppRequestOperator.Factory() {
-
-            @Override
-            public Thunk createThunk(String code) throws ApplicationException {
-                throw new UnsupportedOperationException("Unimplemented method 'createThunk'");
-            }
-            
         });
         operator.operate(request);
 

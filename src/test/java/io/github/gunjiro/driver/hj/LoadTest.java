@@ -77,13 +77,6 @@ public class LoadTest {
                 return environment.createThunk(new StringReader(code));
             }
             
-        }, new AppRequestOperator.Factory() {
-
-            @Override
-            public Thunk createThunk(String code) throws ApplicationException {
-                return environment.createThunk(new StringReader(code));
-            }
-            
         });
         for (String resource : resouces) {
             operator.operate((new RequestFactory()).createRequest(String.format(":l %s", resource)));
