@@ -2,20 +2,20 @@ package io.github.gunjiro.hj;
 
 public class InputConverter {
     public Request convertToRequest(String input) {
-        return createRequestWithTrimmedInput(input.trim());
+        return convertTrimmedInputToRequest(input.trim());
     }
 
-    private Request createRequestWithTrimmedInput(String input) {
-        assert input.trim().equals(input);
+    private Request convertTrimmedInputToRequest(String trimmedInput) {
+        assert trimmedInput.trim().equals(trimmedInput);
 
-        if ("".equals(input)) {
+        if ("".equals(trimmedInput)) {
             return new EmptyRequest();
         }
-        else if (input.charAt(0) == ':') {
-            return new CommandRequest(input);
+        else if (trimmedInput.charAt(0) == ':') {
+            return new CommandRequest(trimmedInput);
         }
         else {
-            return new EvaluationRequest(input);
+            return new EvaluationRequest(trimmedInput);
         }
     }
 }
