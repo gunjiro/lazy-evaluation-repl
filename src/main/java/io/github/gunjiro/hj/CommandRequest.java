@@ -1,6 +1,6 @@
 package io.github.gunjiro.hj;
 
-class CommandRequest implements Request{
+public class CommandRequest implements Request{
     private final String input;
 
     CommandRequest(String in) {
