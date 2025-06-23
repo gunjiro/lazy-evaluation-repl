@@ -3,6 +3,8 @@ package io.github.gunjiro.hj.repl;
 import org.junit.Test;
 
 import io.github.gunjiro.hj.ApplicationException;
+import io.github.gunjiro.hj.InputConverter;
+import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.state.State;
@@ -58,6 +60,12 @@ public class GeneralOperatorTest {
         @Override
         public Reader open(String filename) throws FileNotFoundException {
             throw new UnsupportedOperationException("Unimplemented method 'open'");
+        }
+
+        @Override
+        public Request convertToRequest(String input) {
+            final InputConverter converter = new InputConverter();
+            return converter.convertToRequest(input);
         }
     }
 
