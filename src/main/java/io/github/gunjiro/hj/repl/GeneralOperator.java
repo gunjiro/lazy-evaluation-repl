@@ -28,11 +28,11 @@ public class GeneralOperator {
     }
 
     public void operate(String input) {
-        final Request request = createRequest(input);
+        final Request request = convertToRequest(input);
         createOperator().operate(request);
     }
 
-    private Request createRequest(String input) {
+    private Request convertToRequest(String input) {
         final InputConverter converter = new InputConverter();
         return converter.convertToRequest(input);
     }
