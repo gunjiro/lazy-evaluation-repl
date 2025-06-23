@@ -1,5 +1,6 @@
 package io.github.gunjiro.hj.repl;
 
+import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -8,7 +9,9 @@ import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.RequestFactory;
 import io.github.gunjiro.hj.Thunk;
+import io.github.gunjiro.hj.app.AppFileOpenUnit;
 import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.unit.FileOpenUnit;
 
 public class GeneralOperator {
     private final Implementor implementor;
@@ -66,7 +69,13 @@ public class GeneralOperator {
     }
 
     private FileLoader createFileLoader() {
-        return new FileLoader(new FileLoader.DefaultImplementor() {
+        return new FileLoader(new FileLoader.Implementor() {
+            private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
+
+            @Override
+            public Reader open(String filename) throws FileNotFoundException {
+                return fileOpenUnit.open(filename);
+            }
 
             @Override
             public void storeFunctions(Reader reader) {
