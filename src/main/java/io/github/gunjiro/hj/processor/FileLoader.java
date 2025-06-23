@@ -1,11 +1,13 @@
 package io.github.gunjiro.hj.processor;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.LinkedList;
 import java.util.List;
+
+import io.github.gunjiro.hj.app.AppFileOpenUnit;
+import io.github.gunjiro.hj.unit.FileOpenUnit;
 
 public class FileLoader {
     private final Implementor implementor;
@@ -17,10 +19,11 @@ public class FileLoader {
     }
 
     public static abstract class DefaultImplementor implements Implementor {
+        private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
 
         @Override
         public Reader open(String filename) throws FileNotFoundException {
-            return new FileReader(filename);
+            return fileOpenUnit.open(filename);
         }
 
     }
