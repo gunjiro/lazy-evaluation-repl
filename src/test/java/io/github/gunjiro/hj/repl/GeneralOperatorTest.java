@@ -8,6 +8,7 @@ import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 
+import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -52,6 +53,11 @@ public class GeneralOperatorTest {
 
         private List<String> getOutputs() {
             return Collections.unmodifiableList(outputs);
+        }
+
+        @Override
+        public Reader open(String filename) throws FileNotFoundException {
+            throw new UnsupportedOperationException("Unimplemented method 'open'");
         }
     }
 

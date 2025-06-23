@@ -1,5 +1,6 @@
 package io.github.gunjiro.hj.app;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 
@@ -8,6 +9,7 @@ import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.repl.REPL;
 import io.github.gunjiro.hj.state.State;
+import io.github.gunjiro.hj.unit.FileOpenUnit;
 import io.github.gunjiro.hj.unit.InputUnit;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 import io.github.gunjiro.hj.unit.TextOutputUnit;
@@ -18,6 +20,7 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     private final ManagingStateUnit managingStateUnit = new AppManagingStateUnit();
     private final InputUnit inputUnit = new AppInputUnit();
     private final ThunkTableUnit thunkTableUnit = new AppThunkTableUnit();
+    private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
 
     @Override
     public void operate(String input) {
@@ -70,6 +73,11 @@ public class AppImplementorOfREPL implements REPL.Implementor {
             @Override
             public void stopApplication() {
                 managingStateUnit.stopApplication();
+            }
+
+            @Override
+            public Reader open(String filename) throws FileNotFoundException {
+                return fileOpenUnit.open(filename);
             }
             
         });

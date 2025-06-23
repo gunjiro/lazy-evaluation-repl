@@ -27,6 +27,7 @@ public class GeneralOperator {
         public void output(String text);
         public void newline();
         public void stopApplication();
+        public Reader open(String filename) throws FileNotFoundException;
     }
 
     public void operate(String input) {
