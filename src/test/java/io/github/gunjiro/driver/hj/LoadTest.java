@@ -12,7 +12,7 @@ import io.github.gunjiro.hj.AppRequestOperator;
 import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.DefaultEnvironment;
 import io.github.gunjiro.hj.Environment;
-import io.github.gunjiro.hj.RequestFactory;
+import io.github.gunjiro.hj.InputConverter;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.processor.FileLoader;
 
@@ -79,9 +79,9 @@ public class LoadTest {
             
         });
         for (String resource : resouces) {
-            operator.operate((new RequestFactory()).createRequest(String.format(":l %s", resource)));
+            operator.operate((new InputConverter()).createRequest(String.format(":l %s", resource)));
         }
-        operator.operate((new RequestFactory()).createRequest(expression));
+        operator.operate((new InputConverter()).createRequest(expression));
 
         assertThat(output, hasToString(expected));
     }

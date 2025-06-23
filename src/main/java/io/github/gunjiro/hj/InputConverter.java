@@ -1,6 +1,6 @@
 package io.github.gunjiro.hj;
 
-public class RequestFactory {
+public class InputConverter {
     public Request createRequest(String input) {
         return createRequestWithTrimmedInput(input.trim());
     }
