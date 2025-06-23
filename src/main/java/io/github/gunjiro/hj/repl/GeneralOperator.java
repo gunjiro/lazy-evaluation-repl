@@ -71,6 +71,12 @@ public class GeneralOperator {
         return implementor.open(filename);
     }
 
+    private void load(String name) {
+        final FileLoader loader = createFileLoader();
+        loader.addObserver(this::sendMessage);
+        loader.load(name);
+    }
+
     private FileLoader createFileLoader() {
         return new FileLoader(new FileLoader.Implementor() {
             @Override
@@ -106,9 +112,7 @@ public class GeneralOperator {
 
             @Override
             public void load(String name) {
-                final FileLoader loader = createFileLoader();
-                loader.addObserver(GeneralOperator.this::sendMessage);
-                loader.load(name);
+                GeneralOperator.this.load(name);
             }
 
             @Override
