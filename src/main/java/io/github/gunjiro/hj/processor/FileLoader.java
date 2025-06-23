@@ -31,11 +31,9 @@ public class FileLoader {
         try (Reader reader = implementor.open(filename)) {
             implementor.storeFunctions(reader);
             notifyObserversOfMessage("loaded: " + filename);
-        } catch (FileNotFoundException e) {
-            notifyObserversOfMessage(e.getMessage());
         } catch (IOException e) {
             notifyObserversOfMessage(e.getMessage());
-        }
+        } 
     }
 
     private void notifyObserversOfMessage(String message) {
