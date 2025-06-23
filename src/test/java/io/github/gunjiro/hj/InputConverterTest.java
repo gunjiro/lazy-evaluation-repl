@@ -11,7 +11,7 @@ public class InputConverterTest {
         final String input = "";
         final InputConverter converter = new InputConverter();
 
-        assertThat(converter.createRequest(input), is(instanceOf(EmptyRequest.class)));
+        assertThat(converter.convertToRequest(input), is(instanceOf(EmptyRequest.class)));
     }
 
     // ":q"ならCommandRequest
@@ -20,7 +20,7 @@ public class InputConverterTest {
         final String input = ":q";
         final InputConverter converter = new InputConverter();
 
-        assertThat(converter.createRequest(input), is(instanceOf(CommandRequest.class)));
+        assertThat(converter.convertToRequest(input), is(instanceOf(CommandRequest.class)));
     }
 
     // "1"ならEvaluationRequest
@@ -29,7 +29,7 @@ public class InputConverterTest {
         final String input = "1";
         final InputConverter converter = new InputConverter();
 
-        assertThat(converter.createRequest(input), is(instanceOf(EvaluationRequest.class)));
+        assertThat(converter.convertToRequest(input), is(instanceOf(EvaluationRequest.class)));
     }
 
 }

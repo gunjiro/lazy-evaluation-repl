@@ -34,7 +34,7 @@ public class GeneralOperator {
 
     private Request createRequest(String input) {
         final InputConverter converter = new InputConverter();
-        return converter.createRequest(input);
+        return converter.convertToRequest(input);
     }
 
     private void storeFunctions(Reader reader) {

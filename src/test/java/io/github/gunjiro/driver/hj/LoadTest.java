@@ -79,9 +79,9 @@ public class LoadTest {
             
         });
         for (String resource : resouces) {
-            operator.operate((new InputConverter()).createRequest(String.format(":l %s", resource)));
+            operator.operate((new InputConverter()).convertToRequest(String.format(":l %s", resource)));
         }
-        operator.operate((new InputConverter()).createRequest(expression));
+        operator.operate((new InputConverter()).convertToRequest(expression));
 
         assertThat(output, hasToString(expected));
     }

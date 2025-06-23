@@ -1,7 +1,7 @@
 package io.github.gunjiro.hj;
 
 public class InputConverter {
-    public Request createRequest(String input) {
+    public Request convertToRequest(String input) {
         return createRequestWithTrimmedInput(input.trim());
     }
 
