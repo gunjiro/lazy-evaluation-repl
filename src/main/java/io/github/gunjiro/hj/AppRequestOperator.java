@@ -56,32 +56,7 @@ public class AppRequestOperator {
 
             @Override
             public Void visit(CommandRequest request) {
-                final CommandRequestOperator operator = new CommandRequestOperator(new CommandRequestOperator.Implementor() {
-
-                    @Override
-                    public void load(String filename) {
-                        implementor.load(filename);
-                    }
-
-                    @Override
-                    public void stopApplication() {
-                        implementor.quit();
-                    }
-
-                    @Override
-                    public void output(String text) {
-                        implementor.sendText(text);
-                    }
-
-                    @Override
-                    public void newline() {
-                        implementor.sendBreak();
-                    }
-                    
-                });
-
-                operator.operate(request);
-
+                operate(request);
                 return null;
             }
 
