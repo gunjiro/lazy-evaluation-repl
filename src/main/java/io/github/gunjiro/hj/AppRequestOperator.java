@@ -5,7 +5,6 @@ import io.github.gunjiro.hj.command.executor.CommandExecutor;
 
 public class AppRequestOperator {
     private final Implementor implementor;
-    private final Factory factory;
 
     public static interface Implementor {
         public void load(String name);
@@ -22,7 +21,6 @@ public class AppRequestOperator {
 
     public AppRequestOperator(Implementor implementor, Factory factory) {
         this.implementor = implementor;
-        this.factory = factory;
     }
 
     public void operate(Request request) {
@@ -103,7 +101,7 @@ public class AppRequestOperator {
 
                     @Override
                     public Thunk createThunk(String code) throws ApplicationException {
-                        return factory.createThunk(code);
+                        return implementor.createThunk(code);
                     }
                     
                 });
