@@ -18,16 +18,6 @@ public class FileLoader {
         public void storeFunctions(Reader reader);
     }
 
-    public static abstract class DefaultImplementor implements Implementor {
-        private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
-
-        @Override
-        public Reader open(String filename) throws FileNotFoundException {
-            return fileOpenUnit.open(filename);
-        }
-
-    }
-
     public static interface Observer {
         public void receiveMessage(String message);
     }
