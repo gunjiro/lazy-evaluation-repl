@@ -13,6 +13,7 @@ public class AppRequestOperator {
         public void sendText(String text);
         public void sendBreak();
         public void sendMessage(String message);
+        public Thunk createThunk(String code) throws ApplicationException;
     }
 
     public static interface Factory {

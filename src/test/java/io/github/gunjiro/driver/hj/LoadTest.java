@@ -71,6 +71,11 @@ public class LoadTest {
             @Override
             public void sendMessage(String message) {
             }
+
+            @Override
+            public Thunk createThunk(String code) throws ApplicationException {
+                return environment.createThunk(new StringReader(code));
+            }
             
         }, new AppRequestOperator.Factory() {
 

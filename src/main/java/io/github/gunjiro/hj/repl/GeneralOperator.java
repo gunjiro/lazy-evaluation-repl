@@ -120,6 +120,11 @@ public class GeneralOperator {
                 GeneralOperator.this.sendBreak();
             }
 
+            @Override
+            public Thunk createThunk(String code) throws ApplicationException {
+                return GeneralOperator.this.createThunk(code);
+            }
+
         };
         final AppRequestOperator.Factory factory = new AppRequestOperator.Factory() {
 
