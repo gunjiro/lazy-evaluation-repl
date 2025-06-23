@@ -6,9 +6,6 @@ import java.io.Reader;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.github.gunjiro.hj.app.AppFileOpenUnit;
-import io.github.gunjiro.hj.unit.FileOpenUnit;
-
 public class FileLoader {
     private final Implementor implementor;
     private final List<Observer> observers = new LinkedList<>();
