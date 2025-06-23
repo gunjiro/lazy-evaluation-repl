@@ -9,12 +9,9 @@ import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.RequestFactory;
 import io.github.gunjiro.hj.Thunk;
-import io.github.gunjiro.hj.app.AppFileOpenUnit;
 import io.github.gunjiro.hj.processor.FileLoader;
-import io.github.gunjiro.hj.unit.FileOpenUnit;
 
 public class GeneralOperator {
-    private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
     private final Implementor implementor;
 
     public GeneralOperator(Implementor implementor) {
@@ -71,7 +68,7 @@ public class GeneralOperator {
     }
 
     private Reader open(String filename) throws FileNotFoundException {
-        return fileOpenUnit.open(filename);
+        return implementor.open(filename);
     }
 
     private FileLoader createFileLoader() {
