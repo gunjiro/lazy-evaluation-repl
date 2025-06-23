@@ -1,7 +1,6 @@
 package io.github.gunjiro.hj;
 
-import io.github.gunjiro.hj.command.CommandAnalyzer;
-import io.github.gunjiro.hj.command.executor.CommandExecutor;
+import io.github.gunjiro.hj.request.CommandRequestOperator;
 
 public class AppRequestOperator {
     private final Implementor implementor;
@@ -29,33 +28,31 @@ public class AppRequestOperator {
 
             @Override
             public Void visit(CommandRequest request) {
-                final CommandExecutor executor = new CommandExecutor(new CommandExecutor.Implementor() {
+                final CommandRequestOperator operator = new CommandRequestOperator(new CommandRequestOperator.Implementor() {
 
                     @Override
-                    public void load(String name) {
-                        implementor.load(name);
+                    public void load(String filename) {
+                        implementor.load(filename);
                     }
 
                     @Override
-                    public void quit() {
+                    public void stopApplication() {
                         implementor.quit();
                     }
 
-                });
-
-                executor.addObserver(new CommandExecutor.Observer() {
-
                     @Override
-                    public void receive(CommandExecutor.Notification notification) {
-                        if (notification instanceof CommandExecutor.CommandIsUnknown) {
-                            implementor.sendMessage(String.format("unknown command '%s'", ((CommandExecutor.CommandIsUnknown)notification).getCommand()));
-                        }
+                    public void output(String text) {
+                        implementor.sendText(text);
                     }
 
+                    @Override
+                    public void newline() {
+                        implementor.sendBreak();
+                    }
+                    
                 });
 
-                final CommandAnalyzer analyzer = new CommandAnalyzer();
-                executor.execute(analyzer.analyze(request.getInput()));
+                operator.operate(request);
 
                 return null;
             }
