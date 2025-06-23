@@ -5,6 +5,19 @@ import io.github.gunjiro.hj.command.CommandAnalyzer;
 import io.github.gunjiro.hj.command.executor.CommandExecutor;
 
 public class CommandRequestOperator {
+    private final Implementor implementor;
+
+    public CommandRequestOperator(Implementor implementor) {
+        this.implementor = implementor;
+    }
+
+    public static interface Implementor {
+        public void load(String filename);
+        public void stopApplication();
+        public void output(String text);
+        public void newline();
+    }
+
     public void operate(CommandRequest request) {
         final CommandExecutor executor = new CommandExecutor(new CommandExecutor.Implementor() {
 
@@ -32,19 +45,19 @@ public class CommandRequestOperator {
     }
 
     private void load(String name) {
-        throw new UnsupportedOperationException();
+        implementor.load(name);
     }
 
     private void quit() {
-        throw new UnsupportedOperationException();
+        implementor.stopApplication();
     }
 
     private void output(String text) {
-        throw new UnsupportedOperationException();
+        implementor.output(text);
     }
 
     private void newline() {
-        throw new UnsupportedOperationException();
+        implementor.newline();
     }
 
 }
