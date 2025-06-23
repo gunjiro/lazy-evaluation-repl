@@ -93,7 +93,7 @@ public class GeneralOperator {
     }
 
     private AppRequestOperator createOperator() {
-        final AppRequestOperator.Implementor appRequestOperatorImplementor = new AppRequestOperator.Implementor() {
+        return new AppRequestOperator(new AppRequestOperator.Implementor() {
 
             @Override
             public void quit() {
@@ -125,9 +125,7 @@ public class GeneralOperator {
                 return GeneralOperator.this.createThunk(code);
             }
 
-        };
-
-        return new AppRequestOperator(appRequestOperatorImplementor);
+        });
     }
 
 }
