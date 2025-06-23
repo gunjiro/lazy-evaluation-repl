@@ -3,8 +3,8 @@ package io.github.gunjiro.hj;
 public class CommandRequest implements Request{
     private final String input;
 
-    CommandRequest(String in) {
-        input = in;
+    public CommandRequest(String input) {
+        this.input = input;
     }
 
     public String getInput() {
