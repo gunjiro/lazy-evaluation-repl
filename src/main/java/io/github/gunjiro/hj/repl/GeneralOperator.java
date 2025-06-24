@@ -26,6 +26,10 @@ public class GeneralOperator {
 
     public void operate(String input) {
         final Request request = convertToRequest(input);
+        operate(request);
+    }
+
+    private void operate(Request request) {
         createOperator().operate(request);
     }
 
