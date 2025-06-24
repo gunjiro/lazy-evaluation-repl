@@ -67,6 +67,11 @@ public class GeneralOperatorTest {
             final InputConverter converter = new InputConverter();
             return converter.convertToRequest(input);
         }
+
+        @Override
+        public void load(String name) {
+            throw new UnsupportedOperationException("Unimplemented method 'load'");
+        }
     }
 
     @Test

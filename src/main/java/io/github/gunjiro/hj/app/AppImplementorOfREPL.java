@@ -8,6 +8,7 @@ import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.InputConverter;
 import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
+import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.repl.REPL;
 import io.github.gunjiro.hj.state.State;
@@ -86,6 +87,32 @@ public class AppImplementorOfREPL implements REPL.Implementor {
             public Request convertToRequest(String input) {
                 final InputConverter converter = new InputConverter();
                 return converter.convertToRequest(input);
+            }
+
+            @Override
+            public void load(String name) {
+                final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
+                    @Override
+                    public Reader open(String filename) throws FileNotFoundException {
+                        return fileOpenUnit.open(filename);
+                    }
+
+                    @Override
+                    public void storeFunctions(Reader reader) {
+                        try {
+                            thunkTableUnit.addFunctions(reader);
+                        } catch (ApplicationException e) {
+                            textOutputUnit.output(e.getMessage());
+                            textOutputUnit.newline();
+                        }
+                    }
+
+                });
+                loader.addObserver(message -> {
+                    textOutputUnit.output(name);
+                    textOutputUnit.newline();
+                });
+                loader.load(name);
             }
             
         });
