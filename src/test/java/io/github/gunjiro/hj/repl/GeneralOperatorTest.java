@@ -10,7 +10,6 @@ import io.github.gunjiro.hj.app.AppManagingStateUnit;
 import io.github.gunjiro.hj.state.State;
 import io.github.gunjiro.hj.unit.ManagingStateUnit;
 
-import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,11 +22,6 @@ public class GeneralOperatorTest {
     private static class StubImplementor implements GeneralOperator.Implementor {
         private final List<String> outputs = new LinkedList<>();
         private final ManagingStateUnit managingStateUnit = new AppManagingStateUnit();
-
-        @Override
-        public void addFunctions(Reader reader) throws ApplicationException {
-            throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
-        }
 
         @Override
         public Thunk createThunk(Reader reader) throws ApplicationException {
@@ -55,11 +49,6 @@ public class GeneralOperatorTest {
 
         private List<String> getOutputs() {
             return Collections.unmodifiableList(outputs);
-        }
-
-        @Override
-        public Reader open(String filename) throws FileNotFoundException {
-            throw new UnsupportedOperationException("Unimplemented method 'open'");
         }
 
         @Override

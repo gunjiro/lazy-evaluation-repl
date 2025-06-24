@@ -1,6 +1,5 @@
 package io.github.gunjiro.hj.repl;
 
-import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -17,12 +16,10 @@ public class GeneralOperator {
     }
 
     public static interface Implementor {
-        public void addFunctions(Reader reader) throws ApplicationException;
         public Thunk createThunk(Reader reader) throws ApplicationException;
         public void output(String text);
         public void newline();
         public void stopApplication();
-        public Reader open(String filename) throws FileNotFoundException;
         public Request convertToRequest(String input);
         public void load(String name);
     }

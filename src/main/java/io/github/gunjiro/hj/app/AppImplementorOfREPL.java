@@ -54,11 +54,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
         return new GeneralOperator(new GeneralOperator.Implementor() {
 
             @Override
-            public void addFunctions(Reader reader) throws ApplicationException {
-                thunkTableUnit.addFunctions(reader);
-            }
-
-            @Override
             public Thunk createThunk(Reader reader) throws ApplicationException {
                 return thunkTableUnit.createThunk(reader);
             }
@@ -76,11 +71,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
             @Override
             public void stopApplication() {
                 managingStateUnit.stopApplication();
-            }
-
-            @Override
-            public Reader open(String filename) throws FileNotFoundException {
-                return fileOpenUnit.open(filename);
             }
 
             @Override
