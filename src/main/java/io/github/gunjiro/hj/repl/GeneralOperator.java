@@ -8,7 +8,6 @@ import io.github.gunjiro.hj.AppRequestOperator;
 import io.github.gunjiro.hj.ApplicationException;
 import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
-import io.github.gunjiro.hj.processor.FileLoader;
 
 public class GeneralOperator {
     private final Implementor implementor;
@@ -37,15 +36,6 @@ public class GeneralOperator {
         return implementor.convertToRequest(input);
     }
 
-    private void storeFunctions(Reader reader) {
-        try {
-            implementor.addFunctions(reader);
-        } catch (ApplicationException e) {
-            implementor.output(e.getMessage());
-            implementor.newline();
-        }
-    }
-
     private Thunk createThunk(String code) throws ApplicationException {
         return implementor.createThunk(new StringReader(code));
     }
@@ -67,29 +57,8 @@ public class GeneralOperator {
         implementor.stopApplication();
     }
 
-    private Reader open(String filename) throws FileNotFoundException {
-        return implementor.open(filename);
-    }
-
     private void load(String name) {
-        final FileLoader loader = createFileLoader();
-        loader.addObserver(this::sendMessage);
-        loader.load(name);
-    }
-
-    private FileLoader createFileLoader() {
-        return new FileLoader(new FileLoader.Implementor() {
-            @Override
-            public Reader open(String filename) throws FileNotFoundException {
-                return GeneralOperator.this.open(filename);
-            }
-
-            @Override
-            public void storeFunctions(Reader reader) {
-                GeneralOperator.this.storeFunctions(reader);
-            }
-
-        });
+        implementor.load(name);
     }
 
     private AppRequestOperator createOperator() {
