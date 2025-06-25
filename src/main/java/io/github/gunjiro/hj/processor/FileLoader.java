@@ -17,7 +17,7 @@ public class FileLoader {
 
     public static interface Observer {
         public void loaded(String filename);
-        public void receiveMessage(String message);
+        public void failed(String message);
     }
 
     public FileLoader(Implementor implementor) {
@@ -43,7 +43,7 @@ public class FileLoader {
 
     private void notifyObserversOfMessage(String message) {
         for (Observer observer : observers) {
-            observer.receiveMessage(message);
+            observer.failed(message);
         }
     }
 }

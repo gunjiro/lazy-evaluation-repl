@@ -52,7 +52,7 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
             }
 
             @Override
-            public void receiveMessage(String message) {
+            public void failed(String message) {
                 container.getTextOutputUnit().output(message);
                 container.getTextOutputUnit().newline();
             }

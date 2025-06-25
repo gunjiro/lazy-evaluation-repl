@@ -34,7 +34,7 @@ public class FileLoaderTest {
         loader.addObserver(new FileLoader.Observer() {
 
             @Override
-            public void receiveMessage(String message) {
+            public void failed(String message) {
                 output.append(message);
             }
 
@@ -69,7 +69,7 @@ public class FileLoaderTest {
         loader.addObserver(new FileLoader.Observer() {
 
             @Override
-            public void receiveMessage(String message) {
+            public void failed(String message) {
                 messages.add(message);
             }
 
@@ -116,7 +116,7 @@ public class FileLoaderTest {
         loader.addObserver(new FileLoader.Observer() {
 
             @Override
-            public void receiveMessage(String message) {
+            public void failed(String message) {
                 messages.add(message);
             }
 
