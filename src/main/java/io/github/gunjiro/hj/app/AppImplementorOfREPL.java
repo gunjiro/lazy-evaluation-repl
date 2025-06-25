@@ -50,6 +50,33 @@ public class AppImplementorOfREPL implements REPL.Implementor {
         return inputUnit.getInput();
     }
 
+    private FileLoader createFileLoader() {
+        final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
+            @Override
+            public Reader open(String filename) throws FileNotFoundException {
+                return fileOpenUnit.open(filename);
+            }
+
+            @Override
+            public void storeFunctions(Reader reader) {
+                try {
+                    thunkTableUnit.addFunctions(reader);
+                } catch (ApplicationException e) {
+                    textOutputUnit.output(e.getMessage());
+                    textOutputUnit.newline();
+                }
+            }
+
+        });
+
+        loader.addObserver(message -> {
+            textOutputUnit.output(message);
+            textOutputUnit.newline();
+        });
+
+        return loader;
+    }
+
     private GeneralOperator createGeneralOperator() {
         return new GeneralOperator(new GeneralOperator.Implementor() {
 
