@@ -68,6 +68,7 @@ public class FileLoaderTest {
         loader.addObserver(observer);
         loader.load("..... filename .....");
 
+        assertThat(implementor.getMessages(), is(empty()));
         assertThat(observer.getMessages(), contains("..... file not found ....."));
     }
 
