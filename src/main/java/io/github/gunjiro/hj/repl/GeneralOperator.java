@@ -22,7 +22,6 @@ public class GeneralOperator {
         public void output(String text);
         public void newline();
         public void stopApplication();
-        public Request convertToRequest(String input);
         public void load(String name);
     }
 

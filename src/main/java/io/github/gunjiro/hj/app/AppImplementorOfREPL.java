@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.Reader;
 
 import io.github.gunjiro.hj.ApplicationException;
-import io.github.gunjiro.hj.InputConverter;
-import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
 import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.repl.GeneralOperator;
@@ -100,12 +98,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
             @Override
             public void stopApplication() {
                 managingStateUnit.stopApplication();
-            }
-
-            @Override
-            public Request convertToRequest(String input) {
-                final InputConverter converter = new InputConverter();
-                return converter.convertToRequest(input);
             }
 
             @Override
