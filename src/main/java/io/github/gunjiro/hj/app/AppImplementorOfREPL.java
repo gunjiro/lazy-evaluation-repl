@@ -79,6 +79,7 @@ public class AppImplementorOfREPL implements REPL.Implementor {
 
     private GeneralOperator createGeneralOperator() {
         return new GeneralOperator(new GeneralOperator.Implementor() {
+            private final FileLoader loader = createFileLoader();
 
             @Override
             public Thunk createThunk(Reader reader) throws ApplicationException {
@@ -108,7 +109,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
 
             @Override
             public void load(String name) {
-                final FileLoader loader = createFileLoader();
                 loader.load(name);
             }
             
