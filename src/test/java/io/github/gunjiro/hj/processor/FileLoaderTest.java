@@ -119,37 +119,21 @@ public class FileLoaderTest {
 
     @Test
     public void notifiesFailedIfThrowsApplicationExceptionWhenAddsFunctions() {
-        final List<String> messages = new LinkedList<>();
-
-        final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
-
-            @Override
-            public Reader open(String filename) throws FileNotFoundException {
-                return new StringReader("..... code .....");
-            }
+        final StubImplementor implementor = new StubImplementor() {
 
             @Override
             public void addFunctions(Reader reader) throws ApplicationException {
                 throw new ApplicationException("..... failed to add functions .....");
             }
 
-        });
-        loader.addObserver(new FileLoader.Observer() {
+        };
+        final StubObserver observer = new StubObserver();
+        final FileLoader loader = new FileLoader(implementor);
 
-            @Override
-            public void failed(String message) {
-                messages.add(message);
-            }
-
-            @Override
-            public void loaded(String filename) {
-                messages.add("loaded: " + filename);
-            }
-            
-        });
+        loader.addObserver(observer);
         loader.load("..... filename .....");
 
-        assertThat(messages, hasItem("..... failed to add functions ....."));
-        assertThat(messages, not(hasItem("loaded: ..... filename .....")));
+        assertThat(implementor.getMessages(), is(empty()));
+        assertThat(observer.getMessages(), contains("..... failed to add functions ....."));
     }
 }
