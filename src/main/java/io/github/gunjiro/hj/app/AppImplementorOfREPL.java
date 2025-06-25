@@ -10,18 +10,9 @@ import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.repl.REPL;
 import io.github.gunjiro.hj.state.State;
-import io.github.gunjiro.hj.unit.FileOpenUnit;
-import io.github.gunjiro.hj.unit.InputUnit;
-import io.github.gunjiro.hj.unit.ManagingStateUnit;
-import io.github.gunjiro.hj.unit.TextOutputUnit;
-import io.github.gunjiro.hj.unit.ThunkTableUnit;
 
 public class AppImplementorOfREPL implements REPL.Implementor {
-    private final TextOutputUnit textOutputUnit = new AppTextOutputUnit();
-    private final ManagingStateUnit managingStateUnit = new AppManagingStateUnit();
-    private final InputUnit inputUnit = new AppInputUnit();
-    private final ThunkTableUnit thunkTableUnit = new AppThunkTableUnit();
-    private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
+    private final AppUnitContainer container = new AppUnitContainer();
     private final GeneralOperator operator = createGeneralOperator();
 
     @Override
@@ -31,46 +22,46 @@ public class AppImplementorOfREPL implements REPL.Implementor {
 
     @Override
     public void output(String text) {
-        textOutputUnit.output(text);
+        container.getTextOutputUnit().output(text);
     }
 
     @Override
     public void newline() {
-        textOutputUnit.newline();
+        container.getTextOutputUnit().newline();
     }
 
     @Override
     public State getState() {
-        return managingStateUnit.getState();
+        return container.getManagingStateUnit().getState();
     }
 
     @Override
     public String getInput() throws IOException {
-        return inputUnit.getInput();
+        return container.getInputUnit().getInput();
     }
 
     private FileLoader createFileLoader() {
         final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
             @Override
             public Reader open(String filename) throws FileNotFoundException {
-                return fileOpenUnit.open(filename);
+                return container.getFileOpenUnit().open(filename);
             }
 
             @Override
             public void storeFunctions(Reader reader) {
                 try {
-                    thunkTableUnit.addFunctions(reader);
+                    container.getThunkTableUnit().addFunctions(reader);
                 } catch (ApplicationException e) {
-                    textOutputUnit.output(e.getMessage());
-                    textOutputUnit.newline();
+                    container.getTextOutputUnit().output(e.getMessage());
+                    container.getTextOutputUnit().newline();
                 }
             }
 
         });
 
         loader.addObserver(message -> {
-            textOutputUnit.output(message);
-            textOutputUnit.newline();
+            container.getTextOutputUnit().output(message);
+            container.getTextOutputUnit().newline();
         });
 
         return loader;
@@ -82,22 +73,22 @@ public class AppImplementorOfREPL implements REPL.Implementor {
 
             @Override
             public Thunk createThunk(Reader reader) throws ApplicationException {
-                return thunkTableUnit.createThunk(reader);
+                return container.getThunkTableUnit().createThunk(reader);
             }
 
             @Override
             public void output(String text) {
-                textOutputUnit.output(text);
+                container.getTextOutputUnit().output(text);
             }
 
             @Override
             public void newline() {
-                textOutputUnit.newline();
+                container.getTextOutputUnit().newline();
             }
 
             @Override
             public void stopApplication() {
-                managingStateUnit.stopApplication();
+                container.getManagingStateUnit().stopApplication();
             }
 
             @Override
