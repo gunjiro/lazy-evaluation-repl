@@ -7,10 +7,11 @@ import io.github.gunjiro.hj.state.State;
 
 public class AppImplementorOfREPL implements REPL.Implementor {
     private final AppUnitContainer container;
-    private final GeneralOperator operator = createGeneralOperator();
+    private final GeneralOperator operator;
 
     public AppImplementorOfREPL(AppUnitContainer container) {
         this.container = container;
+        this.operator = createGeneralOperator();
     }
 
     @Override
