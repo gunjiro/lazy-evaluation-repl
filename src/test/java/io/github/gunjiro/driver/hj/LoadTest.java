@@ -37,15 +37,6 @@ public class LoadTest {
                 final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
 
                     @Override
-                    public void storeFunctions(Reader reader) {
-                        try {
-                            environment.addFunctions(reader);
-                        } catch (ApplicationException e) {
-                            sendMessage(e.getMessage());
-                        }
-                    }
-
-                    @Override
                     public Reader open(String filename) throws FileNotFoundException {
                         return new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(filename));
                     }

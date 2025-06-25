@@ -19,16 +19,6 @@ public class AppImplementorOfFileLoader implements FileLoader.Implementor {
     }
 
     @Override
-    public void storeFunctions(Reader reader) {
-        try {
-            container.getThunkTableUnit().addFunctions(reader);
-        } catch (ApplicationException e) {
-            container.getTextOutputUnit().output(e.getMessage());
-            container.getTextOutputUnit().newline();
-        }
-    }
-
-    @Override
     public void addFunctions(Reader reader) throws ApplicationException {
         container.getThunkTableUnit().addFunctions(reader);
     }

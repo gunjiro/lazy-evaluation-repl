@@ -23,11 +23,6 @@ public class FileLoaderTest {
         final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
 
             @Override
-            public void storeFunctions(Reader reader) {
-                throw new UnsupportedOperationException("Unimplemented method 'storeFunctions'");
-            }
-
-            @Override
             public Reader open(String filename) throws FileNotFoundException {
                 throw new FileNotFoundException("..... file not found .....");
             }
@@ -61,11 +56,6 @@ public class FileLoaderTest {
         // Readerから関数を取り込む。
         final List<String> messages = new LinkedList<>();
         final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
-
-            @Override
-            public void storeFunctions(Reader reader) {
-                messages.add("..... stored .....");
-            }
 
             @Override
             public Reader open(String filename) throws FileNotFoundException {
@@ -102,11 +92,6 @@ public class FileLoaderTest {
         final List<String> messages = new LinkedList<>();
 
         final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
-
-            @Override
-            public void storeFunctions(Reader reader) {
-                // storeFunctions
-            }
 
             @Override
             public Reader open(String filename) throws FileNotFoundException {
