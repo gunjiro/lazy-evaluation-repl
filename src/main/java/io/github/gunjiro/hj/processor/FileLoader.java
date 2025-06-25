@@ -32,19 +32,15 @@ public class FileLoader {
 
     public void load(String filename) {
         try (Reader reader = implementor.open(filename)) {
-            storeFunctions(reader);
+            addFunctions(reader);
             notifyObserversOfLoaded(filename);
-        } catch (IOException e) {
+        } catch (ApplicationException | IOException e) {
             notifyObserversOfFailed(e.getMessage());
-        } 
+        }  
     }
 
-    private void storeFunctions(Reader reader) {
-        try {
-            implementor.addFunctions(reader);
-        } catch (ApplicationException e) {
-            notifyObserversOfFailed(e.getMessage());
-        }
+    private void addFunctions(Reader reader) throws ApplicationException {
+        implementor.addFunctions(reader);
     }
 
     private void notifyObserversOfLoaded(String filename) {

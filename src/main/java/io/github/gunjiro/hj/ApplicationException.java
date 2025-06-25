@@ -1,6 +1,6 @@
 package io.github.gunjiro.hj;
 public class ApplicationException extends Exception {
-    ApplicationException(String message) {
+    public ApplicationException(String message) {
         super(message);
     }
     ApplicationException(Throwable cause) {

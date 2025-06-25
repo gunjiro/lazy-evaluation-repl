@@ -132,4 +132,40 @@ public class FileLoaderTest {
 
         assertThat(messages, hasItem("..... throws io exception by close ....."));
     }
+
+    @Test
+    public void notifiesFailedIfThrowsApplicationExceptionWhenAddsFunctions() {
+        final List<String> messages = new LinkedList<>();
+
+        final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
+
+            @Override
+            public Reader open(String filename) throws FileNotFoundException {
+                return new StringReader("..... code .....");
+            }
+
+            @Override
+            public void addFunctions(Reader reader) throws ApplicationException {
+                throw new ApplicationException("..... failed to add functions .....");
+            }
+
+        });
+        loader.addObserver(new FileLoader.Observer() {
+
+            @Override
+            public void failed(String message) {
+                messages.add(message);
+            }
+
+            @Override
+            public void loaded(String filename) {
+                messages.add("loaded: " + filename);
+            }
+            
+        });
+        loader.load("..... filename .....");
+
+        assertThat(messages, hasItem("..... failed to add functions ....."));
+        assertThat(messages, not(hasItem("loaded: ..... filename .....")));
+    }
 }
