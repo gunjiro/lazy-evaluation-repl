@@ -12,8 +12,12 @@ import io.github.gunjiro.hj.repl.REPL;
 import io.github.gunjiro.hj.state.State;
 
 public class AppImplementorOfREPL implements REPL.Implementor {
-    private final AppUnitContainer container = new AppUnitContainer();
     private final GeneralOperator operator = createGeneralOperator();
+    private final AppUnitContainer container;
+
+    public AppImplementorOfREPL(AppUnitContainer container) {
+        this.container = container;
+    }
 
     @Override
     public void operate(String input) {

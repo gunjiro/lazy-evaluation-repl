@@ -12,6 +12,6 @@ public class App {
     }
 
     private REPL createREPL() {
-        return new REPL(new AppImplementorOfREPL());
+        return new REPL(new AppImplementorOfREPL(new AppUnitContainer()));
     }
 }
