@@ -10,6 +10,7 @@ import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
 
 public class GeneralOperator {
+    private final InputConverter converter = new InputConverter();
     private final Implementor implementor;
 
     public GeneralOperator(Implementor implementor) {
@@ -35,7 +36,6 @@ public class GeneralOperator {
     }
 
     private Request convertToRequest(String input) {
-        final InputConverter converter = new InputConverter();
         return converter.convertToRequest(input);
     }
 
