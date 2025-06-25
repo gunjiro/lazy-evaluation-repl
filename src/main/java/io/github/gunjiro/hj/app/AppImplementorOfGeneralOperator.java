@@ -43,9 +43,20 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
     private FileLoader createFileLoader() {
         final FileLoader newLoader = new FileLoader(new AppImplementorOfFileLoader(container));
 
-        newLoader.addObserver(message -> {
-            container.getTextOutputUnit().output(message);
-            container.getTextOutputUnit().newline();
+        newLoader.addObserver(new FileLoader.Observer() {
+
+            @Override
+            public void loaded(String filename) {
+                container.getTextOutputUnit().output("loaded: " + filename);
+                container.getTextOutputUnit().newline();
+            }
+
+            @Override
+            public void receiveMessage(String message) {
+                container.getTextOutputUnit().output(message);
+                container.getTextOutputUnit().newline();
+            }
+            
         });
 
         return newLoader;

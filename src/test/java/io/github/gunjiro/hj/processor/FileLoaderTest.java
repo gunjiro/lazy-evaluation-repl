@@ -37,7 +37,12 @@ public class FileLoaderTest {
             public void receiveMessage(String message) {
                 output.append(message);
             }
-            
+
+            @Override
+            public void loaded(String filename) {
+                throw new UnsupportedOperationException("Unimplemented method 'loaded'");
+            }
+
         });
         loader.load(".....filename.....");
 
@@ -66,6 +71,11 @@ public class FileLoaderTest {
             @Override
             public void receiveMessage(String message) {
                 messages.add(message);
+            }
+
+            @Override
+            public void loaded(String filename) {
+                throw new UnsupportedOperationException("Unimplemented method 'loaded'");
             }
 
         });
@@ -107,6 +117,11 @@ public class FileLoaderTest {
             @Override
             public void receiveMessage(String message) {
                 messages.add(message);
+            }
+
+            @Override
+            public void loaded(String filename) {
+                throw new UnsupportedOperationException("Unimplemented method 'loaded'");
             }
             
         });

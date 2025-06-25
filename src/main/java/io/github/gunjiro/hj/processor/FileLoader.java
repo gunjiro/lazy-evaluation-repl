@@ -16,6 +16,7 @@ public class FileLoader {
     }
 
     public static interface Observer {
+        public void loaded(String filename);
         public void receiveMessage(String message);
     }
 
