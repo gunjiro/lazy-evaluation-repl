@@ -33,7 +33,7 @@ public class FileLoader {
             implementor.storeFunctions(reader);
             notifyObserversOfLoaded(filename);
         } catch (IOException e) {
-            notifyObserversOfMessage(e.getMessage());
+            notifyObserversOfFailed(e.getMessage());
         } 
     }
 
@@ -41,7 +41,7 @@ public class FileLoader {
         observers.forEach(observer -> observer.loaded(filename));
     }
 
-    private void notifyObserversOfMessage(String message) {
+    private void notifyObserversOfFailed(String message) {
         for (Observer observer : observers) {
             observer.failed(message);
         }
