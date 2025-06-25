@@ -85,11 +85,8 @@ public class FileLoaderTest {
     }
 
     @Test
-    public void sendMessageIfThrowsIOExceptionByClose() {
-        // Readerを閉じたときにIOExceptionが発生したら、メッセージを送る。
-        final List<String> messages = new LinkedList<>();
-
-        final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
+    public void notifiesFailedIfThrowsIOExceptionByClose() {
+        final StubImplementor implementor = new StubImplementor() {
 
             @Override
             public Reader open(String filename) throws FileNotFoundException {
@@ -104,31 +101,20 @@ public class FileLoaderTest {
                     public void close() throws IOException {
                         throw new IOException("..... throws io exception by close .....");
                     }
+
                 };
+
             }
 
-            @Override
-            public void addFunctions(Reader reader) throws ApplicationException {
-                // addFunctions
-            }
+        };
+        final StubObserver observer = new StubObserver();
+        final FileLoader loader = new FileLoader(implementor);
 
-        });
-        loader.addObserver(new FileLoader.Observer() {
-
-            @Override
-            public void failed(String message) {
-                messages.add(message);
-            }
-
-            @Override
-            public void loaded(String filename) {
-                // loaded
-            }
-            
-        });
+        loader.addObserver(observer);
         loader.load("..... filename .....");
 
-        assertThat(messages, hasItem("..... throws io exception by close ....."));
+        assertThat(implementor.getMessages(), contains("..... added functions ....."));
+        assertThat(observer.getMessages(), contains("loaded: ..... filename ....." , "..... throws io exception by close ....."));
     }
 
     @Test
