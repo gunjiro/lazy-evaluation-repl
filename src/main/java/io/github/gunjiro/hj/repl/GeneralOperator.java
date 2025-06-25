@@ -5,6 +5,7 @@ import java.io.StringReader;
 
 import io.github.gunjiro.hj.AppRequestOperator;
 import io.github.gunjiro.hj.ApplicationException;
+import io.github.gunjiro.hj.InputConverter;
 import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
 
@@ -34,7 +35,8 @@ public class GeneralOperator {
     }
 
     private Request convertToRequest(String input) {
-        return implementor.convertToRequest(input);
+        final InputConverter converter = new InputConverter();
+        return converter.convertToRequest(input);
     }
 
     private Thunk createThunk(String code) throws ApplicationException {
