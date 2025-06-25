@@ -72,38 +72,16 @@ public class FileLoaderTest {
     }
 
     @Test
-    public void storeFunctionsFromReader() {
-        // Readerから関数を取り込む。
-        final List<String> messages = new LinkedList<>();
-        final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
+    public void notifiesLoaded() {
+        final StubImplementor implementor = new StubImplementor();
+        final StubObserver observer = new StubObserver();
+        final FileLoader loader = new FileLoader(implementor);
 
-            @Override
-            public Reader open(String filename) throws FileNotFoundException {
-                return new StringReader(".....code.....");
-            }
-
-            @Override
-            public void addFunctions(Reader reader) throws ApplicationException {
-                messages.add("..... stored .....");
-            }
-
-        });
-        loader.addObserver(new FileLoader.Observer() {
-
-            @Override
-            public void failed(String message) {
-                messages.add(message);
-            }
-
-            @Override
-            public void loaded(String filename) {
-                messages.add("loaded: " + filename);
-            }
-
-        });
+        loader.addObserver(observer);
         loader.load("..... filename .....");
 
-        assertThat(messages, contains("..... stored .....", "loaded: ..... filename ....."));
+        assertThat(implementor.getMessages(), contains("..... added functions ....."));
+        assertThat(observer.getMessages(), contains("loaded: ..... filename ....."));
     }
 
     @Test
