@@ -52,8 +52,7 @@ public class FileLoader {
     }
 
     private void notifyObserversOfFailed(String message) {
-        for (Observer observer : observers) {
-            observer.failed(message);
-        }
+        observers.forEach(observer -> observer.failed(message));
     }
+
 }
