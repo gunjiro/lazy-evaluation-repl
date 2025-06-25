@@ -1,6 +1,5 @@
 package io.github.gunjiro.hj.app;
 
-import java.io.FileNotFoundException;
 import java.io.Reader;
 
 import io.github.gunjiro.hj.ApplicationException;
@@ -42,23 +41,7 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
     }
 
     private FileLoader createFileLoader() {
-        final FileLoader newLoader = new FileLoader(new FileLoader.Implementor() {
-            @Override
-            public Reader open(String filename) throws FileNotFoundException {
-                return container.getFileOpenUnit().open(filename);
-            }
-
-            @Override
-            public void storeFunctions(Reader reader) {
-                try {
-                    container.getThunkTableUnit().addFunctions(reader);
-                } catch (ApplicationException e) {
-                    container.getTextOutputUnit().output(e.getMessage());
-                    container.getTextOutputUnit().newline();
-                }
-            }
-
-        });
+        final FileLoader newLoader = new FileLoader(new AppImplementorOfFileLoader(container));
 
         newLoader.addObserver(message -> {
             container.getTextOutputUnit().output(message);
