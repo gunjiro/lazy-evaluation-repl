@@ -24,10 +24,11 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     private final InputUnit inputUnit = new AppInputUnit();
     private final ThunkTableUnit thunkTableUnit = new AppThunkTableUnit();
     private final FileOpenUnit fileOpenUnit = new AppFileOpenUnit();
+    private final GeneralOperator operator = createGeneralOperator();
 
     @Override
     public void operate(String input) {
-        createGeneralOperator().operate(input);
+        operator.operate(input);
     }
 
     @Override
