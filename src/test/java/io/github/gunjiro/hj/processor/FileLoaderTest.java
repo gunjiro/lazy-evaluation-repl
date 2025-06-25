@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,44 @@ import org.junit.Test;
 import io.github.gunjiro.hj.ApplicationException;
 
 public class FileLoaderTest {
+    private static class StubImplementor implements FileLoader.Implementor {
+        private final List<String> messages = new LinkedList<>();
+
+        @Override
+        public Reader open(String filename) throws FileNotFoundException {
+            return new StringReader("..... code .....");
+        }
+
+        @Override
+        public void addFunctions(Reader reader) throws ApplicationException {
+            messages.add("..... added functions .....");
+        }
+
+        private List<String> getMessages() {
+            return Collections.unmodifiableList(messages);
+        }
+
+    }
+
+    private static class StubObserver implements FileLoader.Observer {
+        private final List<String> messages = new LinkedList<>();
+
+        @Override
+        public void failed(String message) {
+            messages.add(message);
+        }
+
+        @Override
+        public void loaded(String filename) {
+            messages.add("loaded: " + filename);
+        }
+
+        private List<String> getMessages() {
+            return Collections.unmodifiableList(messages);
+        }
+
+    }
+
     @Test
     public void sendsMessageIfFileNotFound() {
         // ファイルが見つからない場合、メッセージを送る。
