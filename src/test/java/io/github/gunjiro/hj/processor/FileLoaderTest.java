@@ -75,7 +75,7 @@ public class FileLoaderTest {
 
             @Override
             public void loaded(String filename) {
-                throw new UnsupportedOperationException("Unimplemented method 'loaded'");
+                messages.add("loaded: " + filename);
             }
 
         });
@@ -93,6 +93,7 @@ public class FileLoaderTest {
 
             @Override
             public void storeFunctions(Reader reader) {
+                // storeFunctions
             }
 
             @Override
@@ -121,7 +122,7 @@ public class FileLoaderTest {
 
             @Override
             public void loaded(String filename) {
-                throw new UnsupportedOperationException("Unimplemented method 'loaded'");
+                // loaded
             }
             
         });

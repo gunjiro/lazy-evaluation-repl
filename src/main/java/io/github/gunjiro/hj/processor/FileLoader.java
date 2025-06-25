@@ -31,10 +31,14 @@ public class FileLoader {
     public void load(String filename) {
         try (Reader reader = implementor.open(filename)) {
             implementor.storeFunctions(reader);
-            notifyObserversOfMessage("loaded: " + filename);
+            notifyObserversOfLoaded(filename);
         } catch (IOException e) {
             notifyObserversOfMessage(e.getMessage());
         } 
+    }
+
+    private void notifyObserversOfLoaded(String filename) {
+        observers.forEach(observer -> observer.loaded(filename));
     }
 
     private void notifyObserversOfMessage(String message) {
