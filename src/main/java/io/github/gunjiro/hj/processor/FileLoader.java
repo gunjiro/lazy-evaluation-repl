@@ -6,6 +6,8 @@ import java.io.Reader;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.github.gunjiro.hj.ApplicationException;
+
 public class FileLoader {
     private final Implementor implementor;
     private final List<Observer> observers = new LinkedList<>();
@@ -13,6 +15,7 @@ public class FileLoader {
     public static interface Implementor {
         public Reader open(String filename) throws FileNotFoundException;
         public void storeFunctions(Reader reader);
+        public void addFunctions(Reader reader) throws ApplicationException;
     }
 
     public static interface Observer {

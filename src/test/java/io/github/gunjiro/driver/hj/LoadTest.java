@@ -50,6 +50,11 @@ public class LoadTest {
                         return new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(filename));
                     }
 
+                    @Override
+                    public void addFunctions(Reader reader) throws ApplicationException {
+                        throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
+                    }
+
                 });
                 loader.load(name);
             }

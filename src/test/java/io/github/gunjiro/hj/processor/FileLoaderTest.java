@@ -12,6 +12,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import io.github.gunjiro.hj.ApplicationException;
+
 public class FileLoaderTest {
     @Test
     public void sendsMessageIfFileNotFound() {
@@ -28,6 +30,11 @@ public class FileLoaderTest {
             @Override
             public Reader open(String filename) throws FileNotFoundException {
                 throw new FileNotFoundException("..... file not found .....");
+            }
+
+            @Override
+            public void addFunctions(Reader reader) throws ApplicationException {
+                throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
             }
 
         });
@@ -63,6 +70,11 @@ public class FileLoaderTest {
             @Override
             public Reader open(String filename) throws FileNotFoundException {
                 return new StringReader(".....code.....");
+            }
+
+            @Override
+            public void addFunctions(Reader reader) throws ApplicationException {
+                throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
             }
 
         });
@@ -110,6 +122,11 @@ public class FileLoaderTest {
                         throw new IOException("..... throws io exception by close .....");
                     }
                 };
+            }
+
+            @Override
+            public void addFunctions(Reader reader) throws ApplicationException {
+                throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
             }
 
         });

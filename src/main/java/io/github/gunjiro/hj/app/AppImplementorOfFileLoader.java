@@ -28,4 +28,9 @@ public class AppImplementorOfFileLoader implements FileLoader.Implementor {
         }
     }
 
+    @Override
+    public void addFunctions(Reader reader) throws ApplicationException {
+        container.getThunkTableUnit().addFunctions(reader);
+    }
+
 }
