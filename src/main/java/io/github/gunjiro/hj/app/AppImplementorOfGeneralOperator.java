@@ -9,8 +9,8 @@ import io.github.gunjiro.hj.processor.FileLoader;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 
 public class AppImplementorOfGeneralOperator implements GeneralOperator.Implementor {
-    private final FileLoader loader = createFileLoader();
     private final AppUnitContainer container;
+    private final FileLoader loader = createFileLoader();
 
     public AppImplementorOfGeneralOperator(AppUnitContainer container) {
         this.container = container;
