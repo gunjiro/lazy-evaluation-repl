@@ -55,39 +55,20 @@ public class FileLoaderTest {
     }
 
     @Test
-    public void sendsMessageIfFileNotFound() {
-        // ファイルが見つからない場合、メッセージを送る。
-        final StringBuilder output = new StringBuilder();
-
-        final FileLoader loader = new FileLoader(new FileLoader.Implementor() {
-
+    public void notifiesFailedIfFileNotFound() {
+        final StubImplementor implementor = new StubImplementor() {
             @Override
             public Reader open(String filename) throws FileNotFoundException {
                 throw new FileNotFoundException("..... file not found .....");
             }
+        };
+        final StubObserver observer = new StubObserver();
+        final FileLoader loader = new FileLoader(implementor);
 
-            @Override
-            public void addFunctions(Reader reader) throws ApplicationException {
-                throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
-            }
+        loader.addObserver(observer);
+        loader.load("..... filename .....");
 
-        });
-        loader.addObserver(new FileLoader.Observer() {
-
-            @Override
-            public void failed(String message) {
-                output.append(message);
-            }
-
-            @Override
-            public void loaded(String filename) {
-                throw new UnsupportedOperationException("Unimplemented method 'loaded'");
-            }
-
-        });
-        loader.load(".....filename.....");
-
-        assertThat(output, hasToString("..... file not found ....."));
+        assertThat(observer.getMessages(), contains("..... file not found ....."));
     }
 
     @Test
