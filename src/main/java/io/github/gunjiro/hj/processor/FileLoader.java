@@ -33,11 +33,19 @@ public class FileLoader {
 
     public void load(String filename) {
         try (Reader reader = implementor.open(filename)) {
-            implementor.storeFunctions(reader);
+            storeFunctions(reader);
             notifyObserversOfLoaded(filename);
         } catch (IOException e) {
             notifyObserversOfFailed(e.getMessage());
         } 
+    }
+
+    private void storeFunctions(Reader reader) {
+        try {
+            implementor.addFunctions(reader);
+        } catch (ApplicationException e) {
+            notifyObserversOfFailed(e.getMessage());
+        }
     }
 
     private void notifyObserversOfLoaded(String filename) {

@@ -52,7 +52,7 @@ public class LoadTest {
 
                     @Override
                     public void addFunctions(Reader reader) throws ApplicationException {
-                        throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
+                        environment.addFunctions(reader);
                     }
 
                 });
@@ -71,10 +71,12 @@ public class LoadTest {
 
             @Override
             public void sendBreak() {
+                // sendBreak
             }
 
             @Override
             public void sendMessage(String message) {
+                // sendMessage
             }
 
             @Override

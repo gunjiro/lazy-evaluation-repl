@@ -74,7 +74,7 @@ public class FileLoaderTest {
 
             @Override
             public void addFunctions(Reader reader) throws ApplicationException {
-                throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
+                messages.add("..... stored .....");
             }
 
         });
@@ -126,7 +126,7 @@ public class FileLoaderTest {
 
             @Override
             public void addFunctions(Reader reader) throws ApplicationException {
-                throw new UnsupportedOperationException("Unimplemented method 'addFunctions'");
+                // addFunctions
             }
 
         });
