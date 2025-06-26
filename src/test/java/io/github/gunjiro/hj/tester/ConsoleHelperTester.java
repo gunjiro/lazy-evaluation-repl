@@ -40,7 +40,38 @@ public class ConsoleHelperTester {
         }
     }
 
-    private void throwsIOExceptionIfReadLineReturnsNull() {
+    @Test
+    public void throwsIOExceptionIfReadLineReturnsNull() {
+        final Deque<String> messages = new LinkedList<>();
+        final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.ConsoleEmulator() {
+
+            @Override
+            public String readLine() {
+                return null;
+            }
+
+            @Override
+            public void print(String s) {
+                throw new UnsupportedOperationException("Unimplemented method 'print'");
+            }
+
+            @Override
+            public void println() {
+                throw new UnsupportedOperationException("Unimplemented method 'println'");
+            }
+
+        });
+
+        try {
+            nullReadLineHelper.getInput();
+        } catch (IOException e) {
+            messages.add(e.getMessage());
+        }
+
+        assertThat(messages, contains("An end of stream has been reached."));
+    }
+
+    private void throwsIOExceptionIfReadLineReturnsNullOld() {
         final ConsoleHelper helper = ConsoleHelper.create();
         final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.ConsoleEmulator() {
 
@@ -77,7 +108,7 @@ public class ConsoleHelperTester {
         final ConsoleHelperTester tester = new ConsoleHelperTester();
         tester.outputStartMessage();
         tester.throwsIOErrorIfConsoleIsNullOld();
-        tester.throwsIOExceptionIfReadLineReturnsNull();
+        tester.throwsIOExceptionIfReadLineReturnsNullOld();
     }
 
     private void outputStartMessage() {
