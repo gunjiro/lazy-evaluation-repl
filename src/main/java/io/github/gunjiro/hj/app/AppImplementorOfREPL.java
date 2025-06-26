@@ -9,9 +9,18 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     private final AppUnitContainer container;
     private final GeneralOperator operator;
 
+    public AppImplementorOfREPL(AppUnitContainer container, GeneralOperator operator) {
+        this.container = container;
+        this.operator = operator;
+    }
+
     public AppImplementorOfREPL(AppUnitContainer container) {
         this.container = container;
         this.operator = createGeneralOperator();
+    }
+
+    public static AppImplementorOfREPL create(AppUnitContainer container) {
+        return new AppImplementorOfREPL(container, createGeneralOperator(container));
     }
 
     @Override
@@ -40,6 +49,10 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     }
 
     private GeneralOperator createGeneralOperator() {
+        return new GeneralOperator(new AppImplementorOfGeneralOperator(container));
+    }
+
+    private static GeneralOperator createGeneralOperator(AppUnitContainer container) {
         return new GeneralOperator(new AppImplementorOfGeneralOperator(container));
     }
 }
