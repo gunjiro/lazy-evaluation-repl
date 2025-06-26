@@ -61,7 +61,7 @@ public class ConsoleHelper {
         }
     }
 
-    protected String readLine() {
+    private String readLine() {
         return getConsoleEmulator().readLine();
     }
 

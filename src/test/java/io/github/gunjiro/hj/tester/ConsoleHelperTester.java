@@ -32,12 +32,31 @@ public class ConsoleHelperTester {
     }
 
     private void throwsIOExceptionIfReadLineReturnsNull() {
-        final ConsoleHelper nullReadLineHelper = new ConsoleHelper() {
+        final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.Implementor() {
+
             @Override
-            protected String readLine() {
-                return null;
+            public ConsoleEmulator console() {
+                return new ConsoleHelper.ConsoleEmulator() {
+
+                    @Override
+                    public String readLine() {
+                        return null;
+                    }
+
+                    @Override
+                    public void print(String s) {
+                        throw new UnsupportedOperationException("Unimplemented method 'print'");
+                    }
+
+                    @Override
+                    public void println() {
+                        throw new UnsupportedOperationException("Unimplemented method 'println'");
+                    }
+                    
+                };
             }
-        };
+            
+        });
 
         helper.output("throws IOException if readLine returns null : ");
 
