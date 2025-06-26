@@ -43,12 +43,34 @@ public class ConsoleHelper {
         }
     }
 
+    private ConsoleEmulator getConsoleEmulator() {
+        try {
+            return getConsoleEmulatorOrThrowIOException();
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
+
     protected String readLine() {
-        return getConsole().readLine("> ");
+        return getConsoleEmulator().readLine();
     }
 
     protected Console getConsoleOrNull() {
         return System.console();
+    }
+
+    private ConsoleEmulator getConsoleEmulatorOrNull() {
+        return implementor.console();
+    }
+
+    private ConsoleEmulator getConsoleEmulatorOrThrowIOException() throws IOException {
+        final ConsoleEmulator emulator = getConsoleEmulatorOrNull();
+
+        if (emulator == null) {
+            throw new IOException("No console device is available.");
+        }
+
+        return emulator;
     }
 
     private Console getConsoleOrThrowIOException() throws IOException {
