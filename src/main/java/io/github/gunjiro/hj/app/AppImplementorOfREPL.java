@@ -14,11 +14,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
         this.operator = operator;
     }
 
-    public AppImplementorOfREPL(AppUnitContainer container) {
-        this.container = container;
-        this.operator = createGeneralOperator();
-    }
-
     public static AppImplementorOfREPL create(AppUnitContainer container) {
         return new AppImplementorOfREPL(container, createGeneralOperator(container));
     }
@@ -46,10 +41,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     @Override
     public String getInput() throws IOException {
         return container.getInputUnit().getInput();
-    }
-
-    private GeneralOperator createGeneralOperator() {
-        return new GeneralOperator(new AppImplementorOfGeneralOperator(container));
     }
 
     private static GeneralOperator createGeneralOperator(AppUnitContainer container) {
