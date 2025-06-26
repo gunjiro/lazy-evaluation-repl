@@ -11,6 +11,12 @@ public class ConsoleHelper {
         this.emulator = emulator;
     }
 
+    public static interface ConsoleEmulator {
+        public String readLine();
+        public void print(String s);
+        public void println();
+    }
+
     public static ConsoleHelper create(Console console) {
         if (console == null) {
             throw new IOError(new IOException("No console device is available."));
@@ -38,12 +44,6 @@ public class ConsoleHelper {
 
     public static ConsoleHelper create() {
         return create(System.console());
-    }
-
-    public static interface ConsoleEmulator {
-        public String readLine();
-        public void print(String s);
-        public void println();
     }
 
     public void output(String text) {
