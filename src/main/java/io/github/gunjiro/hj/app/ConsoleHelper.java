@@ -58,12 +58,8 @@ public class ConsoleHelper {
         return readLineOrThrowIOException();
     }
 
-    private String readLine() {
-        return emulator.readLine();
-    }
-
     private String readLineOrThrowIOException() throws IOException {
-        final String line = readLine();
+        final String line = emulator.readLine();
 
         if (line == null) {
             throw new IOException("An end of stream has been reached.");
