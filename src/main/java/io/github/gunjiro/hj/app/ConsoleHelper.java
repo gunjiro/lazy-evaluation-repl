@@ -7,27 +7,6 @@ import java.io.IOException;
 public class ConsoleHelper {
     private final ConsoleEmulator emulator;
 
-    public ConsoleHelper(Implementor implementor) {
-        this.emulator = new ConsoleEmulator() {
-
-            @Override
-            public String readLine() {
-                return implementor.console().readLine();
-            }
-
-            @Override
-            public void print(String s) {
-                implementor.console().print(s);
-            }
-
-            @Override
-            public void println() {
-                implementor.console().println();
-            }
-            
-        };
-    }
-
     public ConsoleHelper(ConsoleEmulator emulator) {
         this.emulator = emulator;
     }

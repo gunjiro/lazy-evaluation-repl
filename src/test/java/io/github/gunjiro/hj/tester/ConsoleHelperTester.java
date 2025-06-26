@@ -4,25 +4,15 @@ import java.io.IOError;
 import java.io.IOException;
 
 import io.github.gunjiro.hj.app.ConsoleHelper;
-import io.github.gunjiro.hj.app.ConsoleHelper.ConsoleEmulator;
 
 public class ConsoleHelperTester {
     private final ConsoleHelper helper = ConsoleHelper.create();
 
     private void throwsIOErrorIfConsoleIsNull() {
-        final ConsoleHelper noConsoleHelper = new ConsoleHelper(new ConsoleHelper.Implementor() {
-
-            @Override
-            public ConsoleEmulator console() {
-                return null;
-            }
-            
-        });
-
         helper.output("throws IOError if Console is null : ");
 
         try {
-            noConsoleHelper.output("");
+            ConsoleHelper.create(null);
             helper.output("!!!!! Not Throw IOError !!!!!");
             helper.newline();
         } catch (IOError error) {
@@ -32,30 +22,23 @@ public class ConsoleHelperTester {
     }
 
     private void throwsIOExceptionIfReadLineReturnsNull() {
-        final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.Implementor() {
+        final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.ConsoleEmulator() {
 
             @Override
-            public ConsoleEmulator console() {
-                return new ConsoleHelper.ConsoleEmulator() {
-
-                    @Override
-                    public String readLine() {
-                        return null;
-                    }
-
-                    @Override
-                    public void print(String s) {
-                        throw new UnsupportedOperationException("Unimplemented method 'print'");
-                    }
-
-                    @Override
-                    public void println() {
-                        throw new UnsupportedOperationException("Unimplemented method 'println'");
-                    }
-                    
-                };
+            public String readLine() {
+                return null;
             }
-            
+
+            @Override
+            public void print(String s) {
+                throw new UnsupportedOperationException("Unimplemented method 'print'");
+            }
+
+            @Override
+            public void println() {
+                throw new UnsupportedOperationException("Unimplemented method 'println'");
+            }
+
         });
 
         helper.output("throws IOException if readLine returns null : ");
