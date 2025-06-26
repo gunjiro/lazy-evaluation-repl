@@ -40,10 +40,6 @@ public class ConsoleHelper {
         return create(System.console());
     }
 
-    public static interface Implementor {
-        public ConsoleEmulator console();
-    }
-
     public static interface ConsoleEmulator {
         public String readLine();
         public void print(String s);
