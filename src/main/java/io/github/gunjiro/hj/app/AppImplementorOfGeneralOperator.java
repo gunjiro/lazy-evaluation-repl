@@ -16,11 +16,6 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
         this.loader = loader;
     }
 
-    public AppImplementorOfGeneralOperator(AppUnitContainer container) {
-        this.container = container;
-        this.loader = createFileLoader();
-    }
-
     public static AppImplementorOfGeneralOperator create(AppUnitContainer container) {
         return new AppImplementorOfGeneralOperator(container, createFileLoader(container));
     }
@@ -48,28 +43,6 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
     @Override
     public void load(String name) {
         loader.load(name);
-    }
-
-    private FileLoader createFileLoader() {
-        final FileLoader newLoader = new FileLoader(new AppImplementorOfFileLoader(container));
-
-        newLoader.addObserver(new FileLoader.Observer() {
-
-            @Override
-            public void loaded(String filename) {
-                container.getTextOutputUnit().output("loaded: " + filename);
-                container.getTextOutputUnit().newline();
-            }
-
-            @Override
-            public void failed(String message) {
-                container.getTextOutputUnit().output(message);
-                container.getTextOutputUnit().newline();
-            }
-            
-        });
-
-        return newLoader;
     }
 
     private static FileLoader createFileLoader(AppUnitContainer container) {
