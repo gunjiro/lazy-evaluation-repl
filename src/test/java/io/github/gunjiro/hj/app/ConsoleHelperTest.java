@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj.tester;
+package io.github.gunjiro.hj.app;
 
 import org.junit.Test;
 
@@ -9,7 +9,6 @@ import java.io.IOError;
 import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
-import io.github.gunjiro.hj.app.ConsoleHelper;
 
 public class ConsoleHelperTest {
 
