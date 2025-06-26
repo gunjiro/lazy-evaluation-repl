@@ -4,14 +4,39 @@ import java.io.IOError;
 import java.io.IOException;
 
 public class ConsoleHelper {
-    private final Implementor implementor;
+    private final ConsoleEmulator emulator;
 
     public ConsoleHelper(Implementor implementor) {
-        this.implementor = implementor;
+        this.emulator = new ConsoleEmulator() {
+
+            @Override
+            public String readLine() {
+                return implementor.console().readLine();
+            }
+
+            @Override
+            public void print(String s) {
+                implementor.console().print(s);
+            }
+
+            @Override
+            public void println() {
+                implementor.console().println();
+            }
+            
+        };
+    }
+
+    public ConsoleHelper(ConsoleEmulator emulator) {
+        this.emulator = emulator;
     }
 
     public static ConsoleHelper create() {
-        return new ConsoleHelper(() -> (System.console() == null) ? null : new ConsoleEmulator() {
+        if (System.console() == null) {
+            throw new IOError(new IOException("No console device is available."));
+        }
+
+        return new ConsoleHelper(new ConsoleEmulator() {
 
             @Override
             public String readLine() {
@@ -42,41 +67,19 @@ public class ConsoleHelper {
     }
 
     public void output(String text) {
-        getConsoleEmulator().print(text);
+        emulator.print(text);
     }
 
     public void newline() {
-        getConsoleEmulator().println();
+        emulator.println();
     }
 
     public String getInput() throws IOException {
         return readLineOrThrowIOException();
     }
 
-    private ConsoleEmulator getConsoleEmulator() {
-        try {
-            return getConsoleEmulatorOrThrowIOException();
-        } catch (IOException e) {
-            throw new IOError(e);
-        }
-    }
-
     private String readLine() {
-        return getConsoleEmulator().readLine();
-    }
-
-    private ConsoleEmulator getConsoleEmulatorOrNull() {
-        return implementor.console();
-    }
-
-    private ConsoleEmulator getConsoleEmulatorOrThrowIOException() throws IOException {
-        final ConsoleEmulator emulator = getConsoleEmulatorOrNull();
-
-        if (emulator == null) {
-            throw new IOException("No console device is available.");
-        }
-
-        return emulator;
+        return emulator.readLine();
     }
 
     private String readLineOrThrowIOException() throws IOException {
