@@ -5,6 +5,14 @@ import java.io.IOError;
 import java.io.IOException;
 
 public class ConsoleHelper {
+    public static interface Implementor {
+        public ConsoleEmulator console();
+    }
+
+    public static interface ConsoleEmulator {
+        public String readLine();
+    }
+
     public void output(String text) {
         getConsole().writer().print(text);
     }
