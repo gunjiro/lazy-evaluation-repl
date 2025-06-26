@@ -1,6 +1,5 @@
 package io.github.gunjiro.hj.app;
 
-import java.io.Console;
 import java.io.IOError;
 import java.io.IOException;
 
@@ -64,10 +63,6 @@ public class ConsoleHelper {
 
     protected String readLine() {
         return getConsoleEmulator().readLine();
-    }
-
-    protected Console getConsoleOrNull() {
-        return System.console();
     }
 
     private ConsoleEmulator getConsoleEmulatorOrNull() {
