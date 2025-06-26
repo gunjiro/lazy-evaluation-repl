@@ -17,6 +17,38 @@ public class ConsoleHelper {
         public void println();
     }
 
+    private static class SystemConsoleEmulator implements ConsoleEmulator {
+        private final Console consoleOrNull;
+
+        public SystemConsoleEmulator(Console consoleOrNull) {
+            this.consoleOrNull = consoleOrNull;
+        }
+
+        @Override
+        public String readLine() {
+            return getConsole().readLine("> ");
+        }
+
+        @Override
+        public void print(String s) {
+            getConsole().writer().print(s);
+        }
+
+        @Override
+        public void println() {
+            getConsole().writer().println();
+        }
+
+        private Console getConsole() {
+            if (consoleOrNull == null) {
+                throw new IOError(new IOException("No console device is available."));
+            }
+
+            return consoleOrNull;
+        }
+
+    }
+
     public static ConsoleHelper create(Console console) {
         if (console == null) {
             throw new IOError(new IOException("No console device is available."));
