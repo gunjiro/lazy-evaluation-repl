@@ -12,7 +12,24 @@ public class ConsoleHelper {
     }
 
     public ConsoleHelper() {
-        this(() -> (System.console() == null) ? null : () -> System.console().readLine("> "));
+        this(() -> (System.console() == null) ? null : new ConsoleEmulator() {
+
+            @Override
+            public String readLine() {
+                return System.console().readLine("> ");
+            }
+
+            @Override
+            public void print(String s) {
+                System.console().writer().print(s);
+            }
+
+            @Override
+            public void println() {
+                System.console().writer().println();
+            }
+            
+        });
     }
 
     public static interface Implementor {
@@ -21,14 +38,16 @@ public class ConsoleHelper {
 
     public static interface ConsoleEmulator {
         public String readLine();
+        public void print(String s);
+        public void println();
     }
 
     public void output(String text) {
-        getConsole().writer().print(text);
+        getConsoleEmulator().print(text);
     }
 
     public void newline() {
-        getConsole().writer().println();
+        getConsoleEmulator().println();
     }
 
     public String getInput() throws IOException {
