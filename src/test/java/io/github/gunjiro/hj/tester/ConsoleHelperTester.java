@@ -7,13 +7,27 @@ import static org.hamcrest.Matchers.*;
 
 import java.io.IOError;
 import java.io.IOException;
-
+import java.util.Deque;
+import java.util.LinkedList;
 import io.github.gunjiro.hj.app.ConsoleHelper;
 
 public class ConsoleHelperTester {
-    private final ConsoleHelper helper = ConsoleHelper.create();
 
-    private void throwsIOErrorIfConsoleIsNull() {
+    @Test
+    public void throwsIOErrorIfConsoleIsNull() {
+        final Deque<String> messages = new LinkedList<>();
+
+        try {
+            ConsoleHelper.create(null);
+        } catch (IOError error) {
+            messages.add(error.getMessage());
+        }
+
+        assertThat(messages, contains("java.io.IOException: No console device is available."));
+    }
+
+    private void throwsIOErrorIfConsoleIsNullOld() {
+        final ConsoleHelper helper = ConsoleHelper.create();
         helper.output("throws IOError if Console is null : ");
 
         try {
@@ -27,6 +41,7 @@ public class ConsoleHelperTester {
     }
 
     private void throwsIOExceptionIfReadLineReturnsNull() {
+        final ConsoleHelper helper = ConsoleHelper.create();
         final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.ConsoleEmulator() {
 
             @Override
@@ -61,11 +76,12 @@ public class ConsoleHelperTester {
     private static void test() {
         final ConsoleHelperTester tester = new ConsoleHelperTester();
         tester.outputStartMessage();
-        tester.throwsIOErrorIfConsoleIsNull();
+        tester.throwsIOErrorIfConsoleIsNullOld();
         tester.throwsIOExceptionIfReadLineReturnsNull();
     }
 
     private void outputStartMessage() {
+        final ConsoleHelper helper = ConsoleHelper.create();
         helper.output("----- Test of ConsoleHelper -----");
         helper.newline();
     }
