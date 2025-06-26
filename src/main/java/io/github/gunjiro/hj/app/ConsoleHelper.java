@@ -5,6 +5,16 @@ import java.io.IOError;
 import java.io.IOException;
 
 public class ConsoleHelper {
+    private final Implementor implementor;
+
+    public ConsoleHelper(Implementor implementor) {
+        this.implementor = implementor;
+    }
+
+    public ConsoleHelper() {
+        this(() -> (System.console() == null) ? null : () -> System.console().readLine("> "));
+    }
+
     public static interface Implementor {
         public ConsoleEmulator console();
     }
