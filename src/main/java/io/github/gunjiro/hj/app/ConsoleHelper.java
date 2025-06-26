@@ -54,14 +54,6 @@ public class ConsoleHelper {
         return readLineOrThrowIOException();
     }
 
-    public Console getConsole() {
-        try {
-            return getConsoleOrThrowIOException();
-        } catch (IOException e) {
-            throw new IOError(e);
-        }
-    }
-
     private ConsoleEmulator getConsoleEmulator() {
         try {
             return getConsoleEmulatorOrThrowIOException();
@@ -90,16 +82,6 @@ public class ConsoleHelper {
         }
 
         return emulator;
-    }
-
-    private Console getConsoleOrThrowIOException() throws IOException {
-        final Console console = getConsoleOrNull();
-
-        if (console == null) {
-            throw new IOException("No console device is available.");
-        }
-
-        return console;
     }
 
     private String readLineOrThrowIOException() throws IOException {

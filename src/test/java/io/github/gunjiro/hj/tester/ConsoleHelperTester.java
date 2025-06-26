@@ -1,26 +1,28 @@
 package io.github.gunjiro.hj.tester;
 
-import java.io.Console;
 import java.io.IOError;
 import java.io.IOException;
 
 import io.github.gunjiro.hj.app.ConsoleHelper;
+import io.github.gunjiro.hj.app.ConsoleHelper.ConsoleEmulator;
 
 public class ConsoleHelperTester {
     private final ConsoleHelper helper = new ConsoleHelper();
 
     private void throwsIOErrorIfConsoleIsNull() {
-        final ConsoleHelper noConsoleHelper = new ConsoleHelper() {
+        final ConsoleHelper noConsoleHelper = new ConsoleHelper(new ConsoleHelper.Implementor() {
+
             @Override
-            protected Console getConsoleOrNull() {
+            public ConsoleEmulator console() {
                 return null;
             }
-        };
+            
+        });
 
         helper.output("throws IOError if Console is null : ");
 
         try {
-            noConsoleHelper.getConsole();
+            noConsoleHelper.output("");
             helper.output("!!!!! Not Throw IOError !!!!!");
             helper.newline();
         } catch (IOError error) {
