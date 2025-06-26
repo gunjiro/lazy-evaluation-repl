@@ -10,8 +10,8 @@ public class ConsoleHelper {
         this.implementor = implementor;
     }
 
-    public ConsoleHelper() {
-        this(() -> (System.console() == null) ? null : new ConsoleEmulator() {
+    public static ConsoleHelper create() {
+        return new ConsoleHelper(() -> (System.console() == null) ? null : new ConsoleEmulator() {
 
             @Override
             public String readLine() {

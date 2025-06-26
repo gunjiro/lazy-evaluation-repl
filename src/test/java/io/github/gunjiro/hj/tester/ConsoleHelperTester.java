@@ -7,7 +7,7 @@ import io.github.gunjiro.hj.app.ConsoleHelper;
 import io.github.gunjiro.hj.app.ConsoleHelper.ConsoleEmulator;
 
 public class ConsoleHelperTester {
-    private final ConsoleHelper helper = new ConsoleHelper();
+    private final ConsoleHelper helper = ConsoleHelper.create();
 
     private void throwsIOErrorIfConsoleIsNull() {
         final ConsoleHelper noConsoleHelper = new ConsoleHelper(new ConsoleHelper.Implementor() {
