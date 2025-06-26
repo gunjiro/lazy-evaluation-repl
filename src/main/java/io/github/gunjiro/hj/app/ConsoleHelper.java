@@ -1,5 +1,6 @@
 package io.github.gunjiro.hj.app;
 
+import java.io.Console;
 import java.io.IOError;
 import java.io.IOException;
 
@@ -31,8 +32,8 @@ public class ConsoleHelper {
         this.emulator = emulator;
     }
 
-    public static ConsoleHelper create() {
-        if (System.console() == null) {
+    public static ConsoleHelper create(Console console) {
+        if (console == null) {
             throw new IOError(new IOException("No console device is available."));
         }
 
@@ -40,20 +41,24 @@ public class ConsoleHelper {
 
             @Override
             public String readLine() {
-                return System.console().readLine("> ");
+                return console.readLine("> ");
             }
 
             @Override
             public void print(String s) {
-                System.console().writer().print(s);
+                console.writer().print(s);
             }
 
             @Override
             public void println() {
-                System.console().writer().println();
+                console.writer().println();
             }
             
         });
+    }
+
+    public static ConsoleHelper create() {
+        return create(System.console());
     }
 
     public static interface Implementor {
