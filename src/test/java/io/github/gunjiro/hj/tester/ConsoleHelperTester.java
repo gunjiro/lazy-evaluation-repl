@@ -1,5 +1,10 @@
 package io.github.gunjiro.hj.tester;
 
+import org.junit.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import java.io.IOError;
 import java.io.IOException;
 
