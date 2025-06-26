@@ -11,7 +11,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import io.github.gunjiro.hj.app.ConsoleHelper;
 
-public class ConsoleHelperTester {
+public class ConsoleHelperTest {
 
     @Test
     public void throwsIOErrorIfConsoleIsNull() {
