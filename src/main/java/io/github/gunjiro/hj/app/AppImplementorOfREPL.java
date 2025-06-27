@@ -9,7 +9,7 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     private final AppUnitContainer container;
     private final GeneralOperator operator;
 
-    public AppImplementorOfREPL(AppUnitContainer container, GeneralOperator operator) {
+    private AppImplementorOfREPL(AppUnitContainer container, GeneralOperator operator) {
         this.container = container;
         this.operator = operator;
     }
