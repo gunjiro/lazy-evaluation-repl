@@ -31,7 +31,7 @@ public class ConsoleHelperTest {
         final ConsoleHelper nullReadLineHelper = new ConsoleHelper(new ConsoleHelper.ConsoleEmulator() {
 
             @Override
-            public String readLine() {
+            public String readLineOrNull() {
                 return null;
             }
 

@@ -12,7 +12,7 @@ public class ConsoleHelper {
     }
 
     public static interface ConsoleEmulator {
-        public String readLine();
+        public String readLineOrNull();
         public void print(String s);
         public void println();
     }
@@ -25,7 +25,7 @@ public class ConsoleHelper {
         }
 
         @Override
-        public String readLine() {
+        public String readLineOrNull() {
             return getConsole().readLine("> ");
         }
 
@@ -70,13 +70,13 @@ public class ConsoleHelper {
     }
 
     private String readLineOrThrowIOException() throws IOException {
-        final String line = emulator.readLine();
+        final String lineOrNull = emulator.readLineOrNull();
 
-        if (line == null) {
+        if (lineOrNull == null) {
             throw new IOException("An end of stream has been reached.");
         }
 
-        return line;
+        return lineOrNull;
     }
 
 }
