@@ -17,7 +17,7 @@ public class ConsoleHelperTest {
         final Deque<String> messages = new LinkedList<>();
 
         try {
-            ConsoleHelper.create(null);
+            ConsoleHelper.create(null).output("");
         } catch (IOError error) {
             messages.add(error.getMessage());
         }
