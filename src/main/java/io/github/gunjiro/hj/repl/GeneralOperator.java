@@ -10,11 +10,16 @@ import io.github.gunjiro.hj.Request;
 import io.github.gunjiro.hj.Thunk;
 
 public class GeneralOperator {
-    private final InputConverter converter = new InputConverter();
     private final Implementor implementor;
+    private final InputConverter converter;
+
+    private GeneralOperator(Implementor implementor, InputConverter converter) {
+        this.implementor = implementor;
+        this.converter = converter;
+    }
 
     public GeneralOperator(Implementor implementor) {
-        this.implementor = implementor;
+        this(implementor, new InputConverter());
     }
 
     public static interface Implementor {
