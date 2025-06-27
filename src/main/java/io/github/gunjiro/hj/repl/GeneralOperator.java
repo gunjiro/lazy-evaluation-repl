@@ -22,6 +22,10 @@ public class GeneralOperator {
         this(implementor, new InputConverter());
     }
 
+    public static GeneralOperator create(Implementor implementor) {
+        return new GeneralOperator(implementor, new InputConverter());
+    }
+
     public static interface Implementor {
         public Thunk createThunk(Reader reader) throws ApplicationException;
         public void output(String text);
