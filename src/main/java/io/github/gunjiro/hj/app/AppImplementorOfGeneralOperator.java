@@ -11,7 +11,7 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
     private final AppUnitContainer container;
     private final FileLoader loader;
 
-    public AppImplementorOfGeneralOperator(AppUnitContainer container, FileLoader loader) {
+    private AppImplementorOfGeneralOperator(AppUnitContainer container, FileLoader loader) {
         this.container = container;
         this.loader = loader;
     }
