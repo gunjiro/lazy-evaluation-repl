@@ -1,6 +1,6 @@
 package io.github.gunjiro.hj.app;
 
-import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.file.FileLoader;
 
 public class AppObserverOfFileLoader implements FileLoader.Observer {
     private final AppUnitContainer container;

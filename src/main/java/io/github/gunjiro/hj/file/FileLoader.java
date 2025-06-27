@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj.processor;
+package io.github.gunjiro.hj.file;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

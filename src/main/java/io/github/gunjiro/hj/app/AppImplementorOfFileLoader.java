@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.Reader;
 
 import io.github.gunjiro.hj.ApplicationException;
-import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.file.FileLoader;
 
 public class AppImplementorOfFileLoader implements FileLoader.Implementor {
     private final AppUnitContainer container;

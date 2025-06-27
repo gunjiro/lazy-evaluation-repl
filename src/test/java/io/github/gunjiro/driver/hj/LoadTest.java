@@ -14,7 +14,7 @@ import io.github.gunjiro.hj.DefaultEnvironment;
 import io.github.gunjiro.hj.Environment;
 import io.github.gunjiro.hj.InputConverter;
 import io.github.gunjiro.hj.Thunk;
-import io.github.gunjiro.hj.processor.FileLoader;
+import io.github.gunjiro.hj.file.FileLoader;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

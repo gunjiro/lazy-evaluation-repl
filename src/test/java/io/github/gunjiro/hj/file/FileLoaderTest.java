@@ -1,4 +1,4 @@
-package io.github.gunjiro.hj.processor;
+package io.github.gunjiro.hj.file;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
