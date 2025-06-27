@@ -18,10 +18,6 @@ public class GeneralOperator {
         this.converter = converter;
     }
 
-    public GeneralOperator(Implementor implementor) {
-        this(implementor, new InputConverter());
-    }
-
     public static GeneralOperator create(Implementor implementor) {
         return new GeneralOperator(implementor, new InputConverter());
     }

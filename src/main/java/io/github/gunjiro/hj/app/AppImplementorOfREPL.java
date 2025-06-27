@@ -44,6 +44,6 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     }
 
     private static GeneralOperator createGeneralOperator(AppUnitContainer container) {
-        return new GeneralOperator(AppImplementorOfGeneralOperator.create(container));
+        return GeneralOperator.create(AppImplementorOfGeneralOperator.create(container));
     }
 }

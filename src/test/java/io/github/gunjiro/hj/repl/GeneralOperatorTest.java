@@ -58,7 +58,7 @@ public class GeneralOperatorTest {
     @Test
     public void quitCommandStopsApplication() {
         final StubImplementor implementor = new StubImplementor();
-        final GeneralOperator operator = new GeneralOperator(implementor);
+        final GeneralOperator operator = GeneralOperator.create(implementor);
 
         operator.operate(":q");
 
@@ -68,7 +68,7 @@ public class GeneralOperatorTest {
     @Test
     public void unknownCommandOutputsMessage() {
         final StubImplementor implementor = new StubImplementor();
-        final GeneralOperator operator = new GeneralOperator(implementor);
+        final GeneralOperator operator = GeneralOperator.create(implementor);
 
         operator.operate(":nothing");
 
