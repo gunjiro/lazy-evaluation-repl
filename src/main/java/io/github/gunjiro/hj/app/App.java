@@ -15,10 +15,10 @@ public class App {
 
     private REPL createREPL() {
         final AppUnitContainer container = new AppUnitContainer();
-        final FileLoader newLoader = new FileLoader(new AppImplementorOfFileLoader(container));
-        final GeneralOperator operator = GeneralOperator.create(new AppImplementorOfGeneralOperator(container, newLoader));
+        final FileLoader loader = new FileLoader(new AppImplementorOfFileLoader(container));
+        final GeneralOperator operator = GeneralOperator.create(new AppImplementorOfGeneralOperator(container, loader));
 
-        newLoader.addObserver(new AppObserverOfFileLoader(container));
+        loader.addObserver(new AppObserverOfFileLoader(container));
 
         return new REPL(new AppImplementorOfREPL(container, operator));
     }
