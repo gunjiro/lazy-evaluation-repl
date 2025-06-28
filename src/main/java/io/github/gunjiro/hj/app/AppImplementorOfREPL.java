@@ -1,6 +1,8 @@
 package io.github.gunjiro.hj.app;
 
 import java.io.IOException;
+
+import io.github.gunjiro.hj.file.FileLoader;
 import io.github.gunjiro.hj.repl.GeneralOperator;
 import io.github.gunjiro.hj.repl.REPL;
 import io.github.gunjiro.hj.state.State;
@@ -44,6 +46,10 @@ public class AppImplementorOfREPL implements REPL.Implementor {
     }
 
     private static GeneralOperator createGeneralOperator(AppUnitContainer container) {
-        return GeneralOperator.create(AppImplementorOfGeneralOperator.create(container));
+        final FileLoader newLoader = new FileLoader(new AppImplementorOfFileLoader(container));
+
+        newLoader.addObserver(new AppObserverOfFileLoader(container));
+
+        return GeneralOperator.create(new AppImplementorOfGeneralOperator(container, newLoader));
     }
 }

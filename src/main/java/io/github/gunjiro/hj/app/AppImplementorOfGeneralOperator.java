@@ -16,10 +16,6 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
         this.loader = loader;
     }
 
-    public static AppImplementorOfGeneralOperator create(AppUnitContainer container) {
-        return new AppImplementorOfGeneralOperator(container, createFileLoader(container));
-    }
-
     @Override
     public Thunk createThunk(Reader reader) throws ApplicationException {
         return container.getThunkTableUnit().createThunk(reader);
@@ -43,13 +39,5 @@ public class AppImplementorOfGeneralOperator implements GeneralOperator.Implemen
     @Override
     public void load(String name) {
         loader.load(name);
-    }
-
-    private static FileLoader createFileLoader(AppUnitContainer container) {
-        final FileLoader newLoader = new FileLoader(new AppImplementorOfFileLoader(container));
-
-        newLoader.addObserver(new AppObserverOfFileLoader(container));
-
-        return newLoader;
     }
 }
